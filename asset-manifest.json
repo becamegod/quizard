@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/becamegod/quizard/static/css/main.21449fe5.css",
+    "main.js": "/becamegod/quizard/static/js/main.2679fe8d.js",
+    "static/js/787.61f9d54f.chunk.js": "/becamegod/quizard/static/js/787.61f9d54f.chunk.js",
+    "index.html": "/becamegod/quizard/index.html",
+    "main.21449fe5.css.map": "/becamegod/quizard/static/css/main.21449fe5.css.map",
+    "main.2679fe8d.js.map": "/becamegod/quizard/static/js/main.2679fe8d.js.map",
+    "787.61f9d54f.chunk.js.map": "/becamegod/quizard/static/js/787.61f9d54f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.21449fe5.css",
+    "static/js/main.2679fe8d.js"
+  ]
+}
