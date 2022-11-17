@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.24.2",
     "axios": "^1.1.3",
-    "prop-types": "^15.8.1",
+    "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.39.4",
@@ -24,7 +24,9 @@
     "_lint": "eslint --config ./.eslintrc.json --ext js --ext jsx --ext tsx --ext ts",
     "lint": "npm run _lint -- ./src/",
     "lint:fix": "npm run _lint -- --fix ./src/",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,scss,md,json}' --config ./.prettierrc"
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,scss,md,json}' --config ./.prettierrc",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -59,5 +61,6 @@
     "src/**/*.{js,ts,jsx,tsx}": [
       "eslint --config ./.eslintrc.json --ext js --ext ts --ext jsx --ext tsx --fix"
     ]
-  }
+  },
+  "homepage": "https://becamegod.github.io/quizard/"
 }
