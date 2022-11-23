@@ -1,0 +1,14 @@
+.round {
+  border-radius: 5px;
+}
+
+.register-btn {
+  width: 50%;
+}
+
+.register-container {
+  justify-content: center;
+  display: flex;
+}
+
+

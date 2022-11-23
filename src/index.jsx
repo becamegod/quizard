@@ -5,11 +5,16 @@ import reportWebVitals from "./reportWebVitals";
 import "antd/dist/antd.min.css";
 import "./index.css";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LoginPage />
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />
   }
 ]);
 
