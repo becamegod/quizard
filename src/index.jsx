@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
+import "antd/dist/antd.min.css";
+import "./index.css";
 import LoginPage from "./pages/LoginPage";
-import "antd/dist/antd.css";
 
 const router = createBrowserRouter([
   {

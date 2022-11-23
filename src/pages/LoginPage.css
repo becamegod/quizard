@@ -1,0 +1,38 @@
+.round {
+    border-radius: 5px;
+}
+
+.login-btn {
+    width: 50%;
+}
+
+.login-container {
+    justify-content: center;
+    display: flex;
+}
+
+.register-container {
+    justify-content: right;
+    display: flex;
+}
+
+:root {
+    --dark-color: #7B8C7D;
+    --light-color: #daffde;
+}
+
+.social-item {
+    width: 64px;
+    height: 64px;
+    background-color: var(--light-color);
+    border-radius: 50%;
+    justify-content: center;
+    display: flex;
+}
+
+.social-icon {
+    width: 80%;
+    position: relative;
+    top: 10%;
+    left: 10%;
+}
