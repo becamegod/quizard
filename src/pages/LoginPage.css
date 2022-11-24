@@ -11,7 +11,7 @@
     display: flex;
 }
 
-.register-container {
+.register-link-container {
     justify-content: right;
     display: flex;
 }
@@ -35,4 +35,8 @@
     position: relative;
     top: 10%;
     left: 10%;
+}
+
+.login-alert {
+    margin-bottom: 10px;
 }
