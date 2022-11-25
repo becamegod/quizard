@@ -1,0 +1,201 @@
+.group-card {
+  width: 100%;
+  height: 200px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25);
+}
+
+.group-card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+.group-title {
+  font-weight: 600;
+  font-size: 22px;
+  color: #fff;
+  margin: 0;
+  padding: 10px;
+  padding-bottom: 5px;
+  height: 80px;
+}
+
+.group-description {
+  font-weight: 400;
+  font-size: 16px;
+  margin: 0;
+  padding: 15px;
+  width: 100%;
+  height: 120px;
+  background-color: #fff;
+  border-radius: 0 0 20px 20px;
+}
+
+.group-button {
+  background: #FFFFFF;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 16px;
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+}
+
+/* Group card
+
+position: absolute;
+width: 350px;
+height: 250px;
+left: 0px;
+top: 0px;
+
+background: #FFFFFF;
+border-radius: 20px;
+
+
+/* Rectangle 5
+
+position: absolute;
+width: 500px;
+height: 100px;
+left: 0px;
+top: 0px;
+
+background: #00B30F;
+
+
+/* Group Name 
+
+position: absolute;
+width: 147px;
+height: 30px;
+left: 20px;
+top: 60px;
+
+font-family: 'Quicksand';
+font-style: normal;
+font-weight: 700;
+font-size: 24px;
+line-height: 30px;
+/* identical to box height 
+
+color: #FFFFFF;
+
+
+
+/* Description 
+
+position: absolute;
+width: 87px;
+height: 20px;
+left: 20px;
+top: 110px;
+
+font-family: 'Quicksand';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height 
+
+color: #000000;
+
+
+
+/* Join button 
+
+position: absolute;
+width: 80px;
+height: 25px;
+left: 250px;
+top: 60px;
+
+background: #FFFFFF;
+border-radius: 20px;
+
+
+/* Join Group 
+
+position: absolute;
+width: 67px;
+height: 16px;
+left: 5px;
+top: 4px;
+
+font-family: 'Quicksand';
+font-style: normal;
+font-weight: 500;
+font-size: 13px;
+line-height: 16px;
+
+color: #000000;
+
+
+
+/* More group details here ..... 
+
+position: absolute;
+width: 171px;
+height: 18px;
+left: 20px;
+top: 140px;
+
+font-family: 'Quicksand';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 18px;
+/* identical to box height 
+
+color: #000000;
+
+
+
+/* Member count 
+
+position: absolute;
+width: 35px;
+height: 10px;
+left: 295px;
+top: 110px;
+
+
+
+/* user-solid 1 
+
+position: absolute;
+width: 10px;
+height: 10px;
+left: 0px;
+top: 0px;
+
+
+
+/* Vector 
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #000000;
+
+
+/* 4/15 
+
+position: absolute;
+width: 20px;
+height: 13px;
+left: 15px;
+top: -1px;
+
+font-family: 'Quicksand';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+/* identical to box height 
+
+color: #000000; 
+
+*/

@@ -1,6 +1,5 @@
 import React from "react";
-import { Image, Dropdown } from "antd";
-import "./UserButton.css";
+import { Avatar, Dropdown } from "antd";
 import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -20,25 +19,8 @@ const items = [
 export default function UserButton() {
   return (
     // more gap between the button and the dropdown menu using antd
-    <Dropdown
-      menu={{ items }}
-      placement="bottom"
-      arrow
-      overlayClassName="overplay"
-    >
-      {/*
-        eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-      */}
-      <a onClick={(e) => e.preventDefault()}>
-        <Image
-          width={30}
-          height={30}
-          src="error"
-          fallback="/img/user.png"
-          preview={false}
-          className="user-avatar"
-        />
-      </a>
+    <Dropdown menu={{ items }} placement="bottom" arrow>
+      <Avatar icon={<UserOutlined />} src="" />
     </Dropdown>
   );
 }
