@@ -1,9 +1,10 @@
 import React from "react";
-import { Row, Col, Button } from "antd";
+import { Row, Col, Button, Typography } from "antd";
 import "./GroupCard.css";
 import { UserOutlined } from "@ant-design/icons";
+import PropTypes from "prop-types";
 
-export default function RegisterPage() {
+export default function GroupCard({ group }) {
   return (
     <div
       className="group-card"
@@ -14,7 +15,9 @@ export default function RegisterPage() {
     >
       <Row className="group-title" align="bottom">
         <Col align="left" span={12}>
-          Group Name
+          <Typography.Title level={4} style={{ color: "white" }}>
+            {group.name}
+          </Typography.Title>
         </Col>
         <Col align="right" span={12}>
           <Button className="group-button" type="info">
@@ -23,16 +26,30 @@ export default function RegisterPage() {
         </Col>
       </Row>
       <Row className="group-description">
-        <Col span={12} align="left">
-          <p style={{ fontWeight: "500", fontSize: "18px" }}> Descriptions </p>
+        <Col span={12} align="left" style={{ height: "35px" }}>
+          <p style={{ fontWeight: "500", fontSize: "16px" }}> Descriptions </p>
         </Col>
-        <Col span={12} align="right">
+        <Col span={12} align="right" style={{ height: "35px" }}>
           <p>
-            <UserOutlined /> 4/15
+            <UserOutlined /> {group.members}/{group.maxMembers}
           </p>
         </Col>
-        <p> More group details.... </p>
+        <Typography.Paragraph
+          ellipsis={{ rows: 2, expandable: false, symbol: "more" }}
+        >
+          {group.description}
+        </Typography.Paragraph>
       </Row>
     </div>
   );
 }
+
+GroupCard.propTypes = {
+  group: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    members: PropTypes.number.isRequired,
+    maxMembers: PropTypes.number.isRequired
+  }).isRequired
+};
