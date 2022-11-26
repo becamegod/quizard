@@ -1,0 +1,8 @@
+.group-category-tabs {
+  color: #fff;
+}
+
+.content-holder > .ant-tabs-content-holder{
+  border-left: none;
+  margin-left: 24px;
+}
