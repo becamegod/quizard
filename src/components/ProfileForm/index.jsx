@@ -1,7 +1,40 @@
+// import React from "react";
+// import { Card, Row, Col, Form, DatePicker, Button } from "antd";
+// import InputField from "../InputField/index";
 import { Button, Card, Form, Input, DatePicker, Select } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import Title from "antd/lib/typography/Title";
 import React from "react";
+
+// export default function ProfileForm() {
+// const [userInfor, setUserInfor] = useState();
+
+// return (
+//   <Card className="profile-card-container">
+//     <Row className="row-container">
+//       <Col className="avatar" span={8}></Col>
+//       <Col className="information" span={16}>
+//         <Row className="information-container">
+//           <Form className="information-form">
+//             <Form.Item label="Email">
+//               <InputField />
+//             </Form.Item>
+//             <Form.Item label="Fullname">
+//               <InputField />
+//             </Form.Item>
+//             <Form.Item label="Gender">
+//               <InputField />
+//             </Form.Item>
+//             <Form.Item label="Date of birth">
+//               <DatePicker format="DD/MM/YYYY"></DatePicker>
+//             </Form.Item>
+//             <Button className="edit-profile-button" type="primary" block>
+//               Edit information
+//             </Button>
+//           </Form>
+//         </Row>
+//       </Col>
+//     </Row>
 
 export default function ProfileForm() {
   const onFinish = (values) => {
