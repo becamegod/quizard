@@ -1,4 +1,13 @@
-import { Card, Form, Input, Button, Select, DatePicker, Alert } from "antd";
+import {
+  Card,
+  Form,
+  Input,
+  Button,
+  Select,
+  DatePicker,
+  notification
+} from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Content } from "antd/lib/layout/layout";
 import Title from "antd/lib/typography/Title";
 import React from "react";
@@ -6,7 +15,6 @@ import authService from "../../services/auth";
 
 export default function RegisterForm() {
   const [finish, setFinish] = React.useState(false);
-  const [error, setError] = React.useState("");
   const [user, setUser] = React.useState({
     name: "",
     email: "",
@@ -14,17 +22,6 @@ export default function RegisterForm() {
     dob: "",
     gender: ""
   });
-
-  const alert =
-    error !== "" ? (
-      <Alert
-        message="Error"
-        description={error}
-        type="error"
-        showIcon
-        className="round alert"
-      />
-    ) : null;
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -39,8 +36,16 @@ export default function RegisterForm() {
           window.location.href = "/dashboard";
         })
         .catch((err) => {
-          setError(err.message);
           console.log("err ", err);
+          notification.error({
+            message: "Error",
+            description: err.message,
+            icon: <ExclamationCircleOutlined style={{ color: "#FF4D4F" }} />,
+            style: {
+              backgroundColor: "#FFF1F0",
+              borderRadius: "10px"
+            }
+          });
           setFinish(false);
         });
       return;
@@ -53,7 +58,6 @@ export default function RegisterForm() {
   if (finish) {
     return (
       <Card className="round">
-        {alert}
         <Title>REGISTER</Title>
         <Form
           layout="vertical"
@@ -142,7 +146,6 @@ export default function RegisterForm() {
   }
   return (
     <Card className="round">
-      {alert}
       <Title>REGISTER</Title>
       <Form
         layout="vertical"
