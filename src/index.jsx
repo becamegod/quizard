@@ -6,6 +6,7 @@ import "antd/dist/antd.min.css";
 import "./index.css";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage />
   }
 ]);
 
