@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout } from "antd";
+import { Layout, Row, Col } from "antd";
 import NavBar from "../NavBar";
 // eslint-disable-next-line no-unused-vars
 const { Header, Footer, Sider, Content } = Layout;
@@ -13,7 +13,11 @@ export default function DashboardLayout({ children }) {
         <Header style={{ background: "none", padding: "0px" }}>
           <NavBar />
         </Header>
-        <Content style={{ marginTop: "64px" }}> {children} </Content>
+        <Content style={{ marginTop: "64px" }}>
+          <Row justify="center">
+            <Col span={18}> {children} </Col>
+          </Row>
+        </Content>
         {/* <Footer>Footer</Footer> */}
       </Layout>
     </>
