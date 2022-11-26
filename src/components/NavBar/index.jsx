@@ -1,8 +1,9 @@
 import React from "react";
-import { Image, Row, Col, Input } from "antd";
+import { Image, Row, Col, Input, Space } from "antd";
 import "./NavBar.css";
 import { SearchOutlined } from "@ant-design/icons";
 import UserButton from "../UserButton";
+import NotificationButton from "../NotificationButton";
 
 function search(e) {
   console.log(e.target.value);
@@ -12,7 +13,7 @@ export default function NavBar() {
   return (
     <nav className="navbar">
       <Row align="middle" justify="space-around">
-        <Col span={3}>
+        <Col>
           <Image preview={false} height={50} src="/logo/quizardLogo.png" />
         </Col>
         <Col span={5} align="left">
@@ -24,8 +25,11 @@ export default function NavBar() {
             onPressEnter={search}
           />
         </Col>
-        <Col span={8} align="right">
-          <UserButton />
+        <Col align="right">
+          <Space direction="horizontal" size={32}>
+            <NotificationButton />
+            <UserButton />
+          </Space>
         </Col>
       </Row>
     </nav>
