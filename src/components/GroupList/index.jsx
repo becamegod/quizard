@@ -1,92 +1,45 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import { Row, Col, Pagination, Space } from "antd";
+import PropTypes from "prop-types";
 import GroupCard from "../GroupCard";
+import groupService from "../../services/groups";
 
-export default function GroupList() {
-  // Group list from database (for now, just a dummy list of 5 groups)
-  const groupList = [
-    {
-      id: "1",
-      name: "Group 1",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctoraouigfigasfuighis sdjkfbgjhsdgfjbgds fdgbfdighizdhgfighuidfhgiuhdfiughfiduhgiuhsdfiughidfhg",
-      members: 4,
-      maxMembers: 15
-    },
-    {
-      id: "2",
-      name: "Group 2",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctoraouigfigasfuighis sdjkfbgjhsdgfjbgds fdgbfdighizdhgfighuidfhgiuhdfiughfiduhgiuhsdfiughidfhg",
-      members: 0,
-      maxMembers: 15
-    },
-    {
-      id: "3",
-      name: "Group 3",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctoraouigfigasfuighis sdjkfbgjhsdgfjbgds fdgbfdighizdhgfighuidfhgiuhdfiughfiduhgiuhsdfiughidfhg",
-      members: 4,
-      maxMembers: 15
-    },
-    {
-      id: "4",
-      name: "Group 4",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctoraouigfigasfuighis sdjkfbgjhsdgfjbgds fdgbfdighizdhgfighuidfhgiuhdfiughfiduhgiuhsdfiughidfhg",
-      members: 4,
-      maxMembers: 16
-    },
-    {
-      id: "5",
-      name: "Group 5",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctoraouigfigasfuighis sdjkfbgjhsdgfjbgds fdgbfdighizdhgfighuidfhgiuhdfiughfiduhgiuhsdfiughidfhg",
-      members: 4,
-      maxMembers: 15
-    },
-    {
-      id: "6",
-      name: "Group 1",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctoraouigfigasfuighis sdjkfbgjhsdgfjbgds fdgbfdighizdhgfighuidfhgiuhdfiughfiduhgiuhsdfiughidfhg",
-      members: 4,
-      maxMembers: 15
-    },
-    {
-      id: "7",
-      name: "Group 2",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctoraouigfigasfuighis sdjkfbgjhsdgfjbgds fdgbfdighizdhgfighuidfhgiuhdfiughfiduhgiuhsdfiughidfhg",
-      members: 0,
-      maxMembers: 15
-    },
-    {
-      id: "8",
-      name: "Group 3",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctoraouigfigasfuighis sdjkfbgjhsdgfjbgds fdgbfdighizdhgfighuidfhgiuhdfiughfiduhgiuhsdfiughidfhg",
-      members: 4,
-      maxMembers: 15
-    },
-    {
-      id: "9",
-      name: "Group 4",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctoraouigfigasfuighis sdjkfbgjhsdgfjbgds fdgbfdighizdhgfighuidfhgiuhdfiughfiduhgiuhsdfiughidfhg",
-      members: 4,
-      maxMembers: 16
-    }
-  ];
+export default function GroupList({ category }) {
+  const [groups, setGroups] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [filter, setFilter] = useState({
+    category,
+    page: 1,
+    pageSize: 9
+  });
 
-  const changePage = (page, pageSize) => {
-    console.log(page, pageSize);
+  const changePage = (page) => {
+    console.log(page);
+    setFilter({ ...filter, page });
   };
+
+  useEffect(() => {
+    groupService.list(filter).then((res) => {
+      console.log(res);
+      setGroups(res.data);
+      setTotalPages(groups.length / filter.pageSize);
+    });
+  }, [filter]);
+
+  if (groups.length === 0) {
+    return (
+      <Row justify="center">
+        <Col>
+          <h1>No groups found</h1>
+        </Col>
+      </Row>
+    );
+  }
 
   return (
     <Space direction="vertical" size={48}>
       <Row justify="start" align="middle" gutter={[32, 32]}>
-        {groupList.map((group) => (
+        {groups.map((group) => (
           <Col key={group.id} span={8}>
             <GroupCard group={group} />
           </Col>
@@ -95,8 +48,8 @@ export default function GroupList() {
       <Row justify="center">
         <Pagination
           simple
-          defaultCurrent={2}
-          total={50}
+          defaultCurrent={filter.page}
+          total={totalPages}
           onChange={changePage}
           style={{
             backgroundColor: "#ffffff",
@@ -107,3 +60,11 @@ export default function GroupList() {
     </Space>
   );
 }
+
+GroupList.propTypes = {
+  category: PropTypes.string
+};
+
+GroupList.defaultProps = {
+  category: "all"
+};
