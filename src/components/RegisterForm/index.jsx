@@ -116,7 +116,9 @@ export default function RegisterForm() {
                   validator(rule, value) {
                     if (value && value.isAfter(new Date())) {
                       // eslint-disable-next-line prefer-promise-reject-errors
-                      return Promise.reject("Date of birth must be in the past!");
+                      return Promise.reject(
+                        "Date of birth must be in the past!"
+                      );
                     }
                     return Promise.resolve();
                   }
@@ -226,4 +228,5 @@ export default function RegisterForm() {
           </Form>
         </Card>
       );
+  }
 }
