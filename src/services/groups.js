@@ -4,8 +4,8 @@ const instance = axios.create({
   baseURL: "https://quizardbackend-production.up.railway.app"
 });
 
-const register = (user) => {
-  return instance.post("/auth/register", user);
+const list = (filter) => {
+  return instance.get("/groups", { params: filter });
 };
 
-export default { register };
+export default { list };

@@ -1,11 +1,12 @@
 import React from "react";
-import { Space, Tabs, Row, Col, Button } from "antd";
+import { Tabs, Row, Col, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import DashboardLayout from "../components/DashboardLayout";
 import GroupList from "../components/GroupList";
 import "./DashboardPage.css";
 
 export default function RegisterPage() {
+  // eslint-disable-next-line no-unused-vars
   const { TabPane } = Tabs;
   const createGroup = () => {
     console.log("Create group");
@@ -13,21 +14,21 @@ export default function RegisterPage() {
 
   return (
     <DashboardLayout>
-      <Space direction="vertical" size={24}>
-        <Row justify="end">
-          <Col>
-            <Button
-              type="info"
-              shape="round"
-              icon={<PlusOutlined />}
-              size="large"
-              onClick={createGroup}
-            >
-              Create Group
-            </Button>
-          </Col>
-        </Row>
-        <Row>
+      <Row justify="end">
+        <Col>
+          <Button
+            type="info"
+            shape="round"
+            icon={<PlusOutlined />}
+            size="large"
+            onClick={createGroup}
+          >
+            Create Group
+          </Button>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
           <Tabs
             className="content-holder"
             tabBarStyle={{
@@ -42,17 +43,17 @@ export default function RegisterPage() {
             defaultActiveKey="1"
           >
             <TabPane tab="All Groups" key="1">
-              <GroupList />
+              <GroupList category="all" />
             </TabPane>
             <TabPane tab="Owned" key="2">
-              <GroupList />
+              <GroupList category="owned" />
             </TabPane>
             <TabPane tab="Joined" key="3">
-              <GroupList />
+              <GroupList category="joined" />
             </TabPane>
           </Tabs>
-        </Row>
-      </Space>
+        </Col>
+      </Row>
     </DashboardLayout>
   );
 }
