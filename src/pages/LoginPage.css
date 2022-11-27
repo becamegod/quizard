@@ -1,5 +1,26 @@
+.login-base {
+    height: 90%;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+
+.logo {
+    justify-content: center;
+    display: flex;
+}
+
+.login-card {
+    width: max-content;
+    height: max-content;
+}
+
 .login-btn {
-    width: 50%;
+    width: 100%;
+}
+
+.login-form-item {
+    margin-bottom: 10px;
 }
 
 .login-container {
@@ -10,11 +31,6 @@
 .register-link-container {
     justify-content: right;
     display: flex;
-}
-
-:root {
-    --dark-color: #7B8C7D;
-    --light-color: #daffde;
 }
 
 .social-item {

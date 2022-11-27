@@ -5,13 +5,15 @@ import "./LoginPage.css";
 
 export default function LoginPage() {
   return (
-    <Row justify="center" align="middle" style={{ height: "90%" }}>
-      <Col span={10}>
-        <Image preview={false} src="/logo/quizardLogo.png" />
-      </Col>
-      <Col span={6}>
-        <LoginForm />
-      </Col>
-    </Row>
+    <div className="login-base">
+      <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
+        <Col span={4} className="logo">
+          <Image preview={false} src="/logo/quizardLogo.png" />
+        </Col>
+        <Col span={4}>
+          <LoginForm />
+        </Col>
+      </Row>
+    </div>
   );
 }
