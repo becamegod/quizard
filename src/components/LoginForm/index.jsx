@@ -34,6 +34,8 @@ export default function LoginForm() {
     try {
       const res = await auth.login(values);
       console.log("Success: ", res);
+      const { accessToken } = res.data;
+      localStorage.setItem("accessToken", accessToken);
       notification.success({
         message: "Login succeed"
       });
@@ -100,7 +102,6 @@ export default function LoginForm() {
                 Login
               </Button>
             </Content>
-            {/* <InputButton label="Login" className="login-btn" /> */}
           </Form.Item>
           <Divider plain style={{ marginTop: "80px" }}>
             or you can login using social accounts
