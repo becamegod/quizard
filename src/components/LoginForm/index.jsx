@@ -14,22 +14,9 @@ import Link from "antd/lib/typography/Link";
 import Title from "antd/lib/typography/Title";
 import React from "react";
 import auth from "../../services/auth";
-// import InputButton from "../Button";
 import SocialIcon from "../SocialIcon";
 
 export default function LoginForm() {
-  // const [openModal, setOpenModal] = useState(false);
-
-  // const alert = openModal ? (
-  //   <Alert
-  //     className="round login-alert"
-  //     message="Login failed"
-  //     description="Email or password incorrect."
-  //     type="error"
-  //     showIcon
-  //   />
-  // ) : null;
-
   const onFinish = async (values) => {
     try {
       const res = await auth.login(values);
