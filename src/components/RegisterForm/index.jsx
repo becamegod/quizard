@@ -5,14 +5,16 @@ import {
   Button,
   Select,
   DatePicker,
-  notification
+  notification,
+  Row,
+  Typography
+  // Col
 } from "antd";
-// import { ExclamationCircleOutlined } from "@ant-design/icons";x
+import { CheckCircleOutlined } from "@ant-design/icons";
 import { Content } from "antd/lib/layout/layout";
 import Title from "antd/lib/typography/Title";
 import { React, useState, useEffect } from "react";
 import authService from "../../services/auth";
-import VerifyForm from "../VerifyForm";
 
 export default function RegisterForm() {
   const [stage, setStage] = useState(0);
@@ -24,6 +26,9 @@ export default function RegisterForm() {
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+  };
+  const resendMail = () => {
+    console.log("resendMail");
   };
 
   useEffect(() => {
@@ -38,7 +43,6 @@ export default function RegisterForm() {
               message: "Register Success",
               description: "Please check your email to verify your account"
             });
-            window.location.href = "/login";
           }
         })
         .catch((err) => {
@@ -142,8 +146,35 @@ export default function RegisterForm() {
           </Form>
         </Card>
       );
-    case 2:
-      return <VerifyForm />;
+    case 0:
+      return (
+        <Card className="round">
+          <Row justify="center">
+            <CheckCircleOutlined
+              style={{
+                fontSize: "64px",
+                color: "#7ED957"
+              }}
+            />
+          </Row>
+          <Row justify="center">
+            <Typography.Title level={3}>Register Successfully</Typography.Title>
+          </Row>
+          <Row justify="center">
+            <Typography.Title level={5}>
+              Please check your email to verify your account
+            </Typography.Title>
+          </Row>
+          <Row justify="center">
+            <Typography.Text>
+              Did not receive mail?
+              <Button type="link" onClick={resendMail}>
+                Resend it
+              </Button>
+            </Typography.Text>
+          </Row>
+        </Card>
+      );
     default:
       return (
         <Card className="round">
