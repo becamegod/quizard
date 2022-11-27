@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { Row, Col, Pagination, Space } from "antd";
+import { Row, Col, Pagination } from "antd";
 import PropTypes from "prop-types";
 import GroupCard from "../GroupCard";
 import groupService from "../../services/groups";
@@ -37,10 +37,18 @@ export default function GroupList({ category }) {
   }
 
   return (
-    <Space direction="vertical" size={48}>
-      <Row justify="start" align="middle" gutter={[32, 32]}>
+    <div>
+      <Row
+        justify="start"
+        align="middle"
+        gutter={[32, 32]}
+        style={{
+          marginBottom: "48px"
+        }}
+      >
         {groups.map((group) => (
-          <Col key={group.id} span={8}>
+          // eslint-disable-next-line no-underscore-dangle
+          <Col key={group._id} span={8}>
             <GroupCard group={group} />
           </Col>
         ))}
@@ -57,7 +65,7 @@ export default function GroupList({ category }) {
           }}
         />
       </Row>
-    </Space>
+    </div>
   );
 }
 

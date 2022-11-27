@@ -5,11 +5,9 @@ import DashboardLayout from "../components/DashboardLayout";
 import GroupList from "../components/GroupList";
 import "./DashboardPage.css";
 
-export default function RegisterPage() {
+export default function DashboardPage() {
   const [visible, setVisible] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
-  const { TabPane } = Tabs;
   const createGroup = () => {
     setVisible(true);
   };
@@ -61,17 +59,24 @@ export default function RegisterPage() {
               }}
               tabPosition="left"
               defaultActiveKey="1"
-            >
-              <TabPane tab="All Groups" key="1">
-                <GroupList category="all" />
-              </TabPane>
-              <TabPane tab="Owned" key="2">
-                <GroupList category="owned" />
-              </TabPane>
-              <TabPane tab="Joined" key="3">
-                <GroupList category="joined" />
-              </TabPane>
-            </Tabs>
+              items={[
+                {
+                  key: "1",
+                  label: "All Groups",
+                  children: <GroupList category="all" />
+                },
+                {
+                  key: "2",
+                  label: "My Groups",
+                  children: <GroupList category="owned" />
+                },
+                {
+                  key: "3",
+                  label: "Joined Groups",
+                  children: <GroupList category="joined" />
+                }
+              ]}
+            />
           </Col>
         </Row>
       </DashboardLayout>
