@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Card, Row, Col, Form, DatePicker, Button, Input } from "antd";
-import axios from "axios";
 
 export default function UserInformation() {
-  const [userInfor, setUserInfor] = useState({});
+  const [userInfor] = useState({});
 
-  useEffect(()=>{
+  useEffect(() => {
     // const res = await axios.get('')
-  },userInfor)
+  }, userInfor);
   return (
     <Card className="profile-card-container">
       <Row className="row-container">
-        <Col className="avatar" span={8}></Col>
+        <Col className="avatar" span={8} />
         <Col className="information" span={16}>
           <Row className="information-container">
             <Form className="information-form" labelCol={{ span: 4 }}>
@@ -25,7 +24,7 @@ export default function UserInformation() {
                 <Input className="round" />
               </Form.Item>
               <Form.Item label="Date of birth">
-                <DatePicker format="DD/MM/YYYY"></DatePicker>
+                <DatePicker format="DD/MM/YYYY" />
               </Form.Item>
               <Button className="edit-profile-button" type="primary">
                 Edit information
