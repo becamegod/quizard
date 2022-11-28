@@ -6,10 +6,10 @@ import GroupList from "../components/GroupList";
 import "./DashboardPage.css";
 
 export default function DashboardPage() {
-  const [visible, setVisible] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   const createGroup = () => {
-    setVisible(true);
+    setShowCreateModal(true);
   };
 
   return (
@@ -17,9 +17,9 @@ export default function DashboardPage() {
       <Modal
         centered
         title="Create a new group"
-        open={visible}
-        onOk={() => setVisible(false)}
-        onCancel={() => setVisible(false)}
+        open={showCreateModal}
+        onOk={() => setShowCreateModal(false)}
+        onCancel={() => setShowCreateModal(false)}
         okText="Create"
       >
         <Form layout="vertical">
