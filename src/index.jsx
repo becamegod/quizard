@@ -6,8 +6,10 @@ import "antd/dist/antd.min.css";
 import "./index.css";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import ProfilePage from "./pages/ProfilePage";
+import UserInformationPage from "./pages/UserInformationPage";
 import DashboardPage from "./pages/DashboardPage";
+import VerifyPage from "./pages/VerifyPage";
+import GroupDetailPage from "./pages/GroupDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -19,8 +21,16 @@ const router = createBrowserRouter([
     element: <RegisterPage />
   },
   {
+    path: "/verify",
+    element: <VerifyPage />
+  },
+  {
     path: "/profile",
-    element: <ProfilePage />
+    element: <UserInformationPage />
+  },
+  {
+    path: "/groups/:groupId",
+    element: <GroupDetailPage />
   },
   {
     path: "/dashboard",

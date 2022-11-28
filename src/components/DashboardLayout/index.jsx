@@ -11,8 +11,8 @@ export default function DashboardLayout({ children }) {
     <>
       <Layout
         style={{
-          background:
-            "linear-gradient(135deg, rgba(0, 131, 204, 1) 0%, rgba(0, 255, 209, 1) 100%)"
+          background: "none"
+          // "linear-gradient(135deg, rgba(0, 131, 204, 1) 0%, rgba(0, 255, 209, 1) 100%)"
         }}
       >
         <Header style={{ background: "none", padding: "0px" }}>

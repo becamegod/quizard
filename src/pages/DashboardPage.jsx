@@ -32,7 +32,7 @@ export default function DashboardPage() {
         </Form>
       </Modal>
       <DashboardLayout>
-        <Row justify="end">
+        <Row justify="end" style={{ marginBottom: "32px" }}>
           <Col>
             <Button
               type="info"

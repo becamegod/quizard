@@ -1,8 +1,8 @@
 import axios from "axios";
+import api from "../api/index";
 
 const instance = axios.create({
-  baseURL: "https://quizardbackend-production.up.railway.app",
-  // baseURL: "https://localhost:3001",
+  baseURL: api,
   headers: { "Access-Control-Allow-Origin": "*" }
 });
 
@@ -14,4 +14,8 @@ const register = (user) => {
   return instance.post("/auth/register", user);
 };
 
-export default { login, register };
+const verify = (token) => {
+  return instance.get(`/auth/confirm/${token}`);
+};
+
+export default { login, register, verify };
