@@ -38,12 +38,14 @@ export default function RegisterForm() {
       authService
         .register(user)
         .then((res) => {
-          if (res.status === 201) {
-            notification.success({
-              message: "Register Success",
-              description: "Please check your email to verify your account"
-            });
-          }
+          // if (res.status === 201) {
+          //   notification.success({
+          //     message: "Register Success",
+          //     description: "Please check your email to verify your account"
+          //   });
+          // }
+          setStage(stage + 1);
+          console.log("res", res);
         })
         .catch((err) => {
           notification.error({
@@ -146,7 +148,7 @@ export default function RegisterForm() {
           </Form>
         </Card>
       );
-    case 0:
+    case 3:
       return (
         <Card className="round">
           <Row justify="center">
