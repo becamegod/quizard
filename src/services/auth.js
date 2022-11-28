@@ -1,8 +1,8 @@
 import axios from "axios";
+import api from "../api/index";
 
 const instance = axios.create({
-  baseURL: "https://quizardbackend-production.up.railway.app",
-  // baseURL: "https://localhost:3001",
+  baseURL: api,
   headers: { "Access-Control-Allow-Origin": "*" }
 });
 
