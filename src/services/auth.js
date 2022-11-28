@@ -14,4 +14,8 @@ const register = (user) => {
   return instance.post("/auth/register", user);
 };
 
-export default { login, register };
+const verify = (token) => {
+  return instance.get(`/auth/confirm/${token}`);
+};
+
+export default { login, register, verify };
