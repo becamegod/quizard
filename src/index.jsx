@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage";
 import UserInformationPage from "./pages/UserInformationPage";
 import DashboardPage from "./pages/DashboardPage";
 import VerifyPage from "./pages/VerifyPage";
+import GroupDetailPage from "./pages/GroupDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <UserInformationPage />
+  },
+  {
+    path: "/groups/:groupId",
+    element: <GroupDetailPage />
   },
   {
     path: "/dashboard",

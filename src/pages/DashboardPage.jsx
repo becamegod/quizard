@@ -12,7 +12,7 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <Row justify="end">
+      <Row justify="end" style={{ marginBottom: "32px" }}>
         <Col>
           <Button
             type="info"

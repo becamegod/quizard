@@ -4,6 +4,73 @@ import PropTypes from "prop-types";
 import GroupCard from "../GroupCard";
 import groupService from "../../services/groups";
 
+// group list with 9 groups
+const groupList = [
+  {
+    id: 1,
+    name: "Group 1",
+    description: "This is group 1",
+    members: 10,
+    maxMembers: 5
+  },
+  {
+    id: 2,
+    name: "Group 2",
+    description: "This is group 2",
+    members: 10,
+    maxMembers: 5
+  },
+  {
+    id: 3,
+    name: "Group 3",
+    description: "This is group 3",
+    members: 10,
+    maxMembers: 5
+  },
+  {
+    id: 4,
+    name: "Group 4",
+    description: "This is group 4",
+    members: 10,
+    maxMembers: 5
+  },
+  {
+    id: 5,
+    name: "Group 5",
+    description: "This is group 5",
+    members: 10,
+    maxMembers: 5
+  },
+  {
+    id: 6,
+    name: "Group 6",
+    description: "This is group 6",
+    members: 10,
+    maxMembers: 5
+  },
+  {
+    id: 7,
+    name: "Group 7",
+    description: "This is group 7",
+    members: 10,
+    maxMembers: 5
+  },
+  {
+    id: 8,
+    name: "Group 8",
+    description: "This is group 8",
+    members: 10,
+    maxMembers: 5
+  },
+  {
+    id: 9,
+    name: "Group 9",
+    description: "This is group 9",
+    members: 10,
+    maxMembers: 5
+  }
+];
+
 export default function GroupList({ category }) {
   const [groups, setGroups] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -23,6 +90,7 @@ export default function GroupList({ category }) {
       console.log(res);
       setGroups(res.data);
       setTotalPages(groups.length / filter.pageSize);
+      setGroups(groupList);
     });
   }, [filter]);
 
