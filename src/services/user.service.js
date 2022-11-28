@@ -6,8 +6,8 @@ const instance = axios.create({
   headers: { "Access-Control-Allow-Origin": "*" }
 });
 
-const register = (user) => {
-  return instance.post("/auth/register", user);
+const getProfile = (user) => {
+  return instance.get("/users/profile");
 };
 
-export default { register };
+export default { getProfile };
