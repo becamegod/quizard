@@ -13,7 +13,7 @@ import GroupDetailPage from "./pages/GroupDetailPage";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/login",
     element: <LoginPage />
   },
   {
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     element: <GroupDetailPage />
   },
   {
-    path: "/dashboard",
+    path: "/",
     element: <DashboardPage />
   }
 ]);
