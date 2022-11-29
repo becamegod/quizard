@@ -13,6 +13,7 @@ import { Content } from "antd/lib/layout/layout";
 import Link from "antd/lib/typography/Link";
 import Title from "antd/lib/typography/Title";
 import React from "react";
+import constants from "../../constants";
 import auth from "../../services/auth";
 import SocialIcon from "../SocialIcon";
 
@@ -22,7 +23,7 @@ export default function LoginForm() {
       const res = await auth.login(values);
       console.log("Success: ", res);
       const { accessToken } = res.data;
-      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem(constants.accessToken, accessToken);
       notification.success({
         message: "Login succeed"
       });

@@ -1,22 +1,32 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Col, Image, notification, Row } from "antd";
-import React from "react";
+import PropTypes from "prop-types";
+import React, { useEffect } from "react";
 import LoginForm from "../components/LoginForm";
+import constants from "../constants";
 import "./LoginPage.css";
 
-export default function LoginPage() {
-  if (localStorage.getItem("unauthorized")) {
-    localStorage.removeItem("unauthorized");
-    notification.error({
-      message: "Unauthorized",
-      description: "You have to log in to view this content",
-      icon: <ExclamationCircleOutlined style={{ color: "#FF4D4F" }} />,
-      style: {
-        backgroundColor: "#FFF1F0",
-        borderRadius: "10px"
-      }
-    });
-  }
+export default function LoginPage({ logout }) {
+  useEffect(() => {
+    if (logout && localStorage.getItem(constants.accessToken)) {
+      localStorage.removeItem(constants.accessToken);
+      notification.info({ message: "You have logged out." });
+    }
+    if (localStorage.getItem(constants.unauthorized)) {
+      localStorage.removeItem(constants.unauthorized);
+      notification.error({
+        message: "Unauthorized",
+        description: "You have to log in to view this content",
+        icon: <ExclamationCircleOutlined style={{ color: "#FF4D4F" }} />,
+        style: {
+          backgroundColor: "#FFF1F0",
+          borderRadius: "10px"
+        }
+      });
+    }
+    return () => {};
+  }, []);
+
   return (
     <div className="login-base">
       <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
@@ -30,3 +40,11 @@ export default function LoginPage() {
     </div>
   );
 }
+
+LoginPage.propTypes = {
+  logout: PropTypes.bool
+};
+
+LoginPage.defaultProps = {
+  logout: false
+};
