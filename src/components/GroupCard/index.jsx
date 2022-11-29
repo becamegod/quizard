@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Row, Col, Button, Typography } from "antd";
 import "./GroupCard.css";
 import { UserOutlined } from "@ant-design/icons";
@@ -21,29 +22,31 @@ export default function GroupCard({ group }) {
         backgroundImage: "url(/img/group_img.png)"
       }}
     >
-      <Row className="group-title" align="bottom">
-        <Col align="left" span={12}>
-          <Typography.Title level={4} style={{ color: "white" }}>
-            {group.name}
-          </Typography.Title>
-        </Col>
-        <Col align="right" span={12}>
-          <Button className="group-button" type="info">
-            Join
-          </Button>
-        </Col>
-      </Row>
-      <Row className="group-description">
-        <Col span={12} align="left" style={{ height: "35px" }}>
-          <p style={{ fontWeight: "500", fontSize: "16px" }}> Description </p>
-        </Col>
-        {memberCount}
-        <Typography.Paragraph
-          ellipsis={{ rows: 2, expandable: false, symbol: "more" }}
-        >
-          {group.description}
-        </Typography.Paragraph>
-      </Row>
+      <Link to={`/groups/${group.groupId}`}>
+        <Row className="group-title" align="bottom">
+          <Col align="left" span={12}>
+            <Typography.Title level={4} style={{ color: "white" }}>
+              {group.name}
+            </Typography.Title>
+          </Col>
+          <Col align="right" span={12}>
+            <Button className="group-button" type="info">
+              Join
+            </Button>
+          </Col>
+        </Row>
+        <Row className="group-description">
+          <Col span={12} align="left" style={{ height: "35px" }}>
+            <p style={{ fontWeight: "500", fontSize: "16px" }}> Description </p>
+          </Col>
+          {memberCount}
+          <Typography.Paragraph
+            ellipsis={{ rows: 2, expandable: false, symbol: "more" }}
+          >
+            {group.description}
+          </Typography.Paragraph>
+        </Row>
+      </Link>
     </div>
   );
 }
