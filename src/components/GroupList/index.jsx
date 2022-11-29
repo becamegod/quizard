@@ -115,8 +115,7 @@ export default function GroupList({ category }) {
         }}
       >
         {groups.map((group) => (
-          // eslint-disable-next-line no-underscore-dangle
-          <Col key={group._id} span={8}>
+          <Col key={group.groupId} span={8}>
             <GroupCard group={group} />
           </Col>
         ))}

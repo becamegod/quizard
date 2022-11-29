@@ -14,7 +14,7 @@ const getProfile = () => {
 };
 
 const updateProfile = (user) => {
-  return instance.post("/users/profile", user);
+  return instance.put("/users/profile", user);
 };
 
 export { getProfile, updateProfile };
