@@ -12,7 +12,7 @@ export default function GroupDetailPage() {
   return (
     <DashboardLayout>
       <Row justify="center">
-        <Col span={24}>
+        <Col span={18}>
           <GroupInfoCard />
         </Col>
       </Row>
