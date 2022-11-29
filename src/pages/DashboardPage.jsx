@@ -3,13 +3,30 @@ import { Button, Col, Form, Input, Modal, Row, Tabs } from "antd";
 import React, { useState } from "react";
 import DashboardLayout from "../components/DashboardLayout";
 import GroupList from "../components/GroupList";
+import groups from "../services/groups";
 import "./DashboardPage.css";
 
 export default function DashboardPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [form] = Form.useForm();
 
   const createGroup = () => {
     setShowCreateModal(true);
+  };
+
+  const submitForm = () => {
+    form.submit();
+    setShowCreateModal(false);
+  };
+
+  const onFinish = async (values) => {
+    try {
+      console.log("Values: ", values);
+      const res = await groups.create(values);
+      console.log("Response: ", res);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
   };
 
   return (
@@ -18,11 +35,11 @@ export default function DashboardPage() {
         centered
         title="Create a new group"
         open={showCreateModal}
-        onOk={() => setShowCreateModal(false)}
+        onOk={submitForm}
         onCancel={() => setShowCreateModal(false)}
         okText="Create"
       >
-        <Form layout="vertical">
+        <Form form={form} onFinish={onFinish} layout="vertical">
           <Form.Item label="Name" name="name">
             <Input />
           </Form.Item>
