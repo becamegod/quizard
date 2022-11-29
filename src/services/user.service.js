@@ -3,11 +3,18 @@ import api from "../api/index";
 
 const instance = axios.create({
   baseURL: api,
-  headers: { "Access-Control-Allow-Origin": "*" }
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+  }
 });
 
-const getProfile = (user) => {
-  return instance.get("/users/profile");
+const getProfile = () => {
+  return instance.get(`/users/profile`);
 };
 
-export default { getProfile };
+const updateProfile = (user) => {
+  return instance.post("/users/profile", user);
+};
+
+export { getProfile, updateProfile };
