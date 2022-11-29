@@ -19,23 +19,26 @@ export default function GroupList({ category }) {
     setFilter({ ...filter, page });
   };
 
-  useEffect(async () => {
-    try {
-      const { data } = await groupService.list(filter);
-      console.log(data);
-      setGroups(data);
-      setTotalPages(Math.ceil(data.length / filter.pageSize));
-      if (data.length === 0) {
-        setStage(1);
-      } else {
-        setStage(2);
-      }
-    } catch (error) {
-      if (error.response && error.response.status !== 401) {
-        console.log("ERR", error);
-        throw error;
+  useEffect(() => {
+    async function fetchGroups() {
+      try {
+        const { data } = await groupService.list(filter);
+        console.log(data);
+        setGroups(data);
+        setTotalPages(Math.ceil(data.length / filter.pageSize));
+        if (data.length === 0) {
+          setStage(1);
+        } else {
+          setStage(2);
+        }
+      } catch (error) {
+        if (error.response && error.response.status !== 401) {
+          console.log("ERR", error);
+          throw error;
+        }
       }
     }
+    fetchGroups();
   }, [filter]);
 
   switch (stage) {
