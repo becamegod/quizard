@@ -17,6 +17,31 @@ instance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+instance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const config = error?.config;
+
+    if (error?.response?.status === 401 && !config?.sent) {
+      localStorage.setItem("unauthorized", true);
+      window.location.href = "/login";
+      // config.sent = true;
+
+      // const result = await memoizedRefreshToken();
+
+      // if (result?.accessToken) {
+      //   config.headers = {
+      //     ...config.headers,
+      //     authorization: `Bearer ${result?.accessToken}`
+      //   };
+      // }
+
+      // return axios(config);
+    }
+    return Promise.reject(error);
+  }
+);
+
 const list = (filter) => {
   return instance.get("/groups", { params: filter });
 };

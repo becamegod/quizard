@@ -26,6 +26,7 @@ export default function LoginForm() {
       notification.success({
         message: "Login succeed"
       });
+      window.location.href = "/";
     } catch (err) {
       console.log("Error: ", err);
       const { status } = err.request;
@@ -60,62 +61,59 @@ export default function LoginForm() {
   };
 
   return (
-    <>
-      {/* {alert} */}
-      <Card className="round login-card">
-        <Title>LOGIN</Title>
-        <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
-          <Form.Item
-            className="login-form-item"
-            name="email"
-            validateTrigger="onBlur"
-            rules={[
-              {
-                type: "email",
-                message: "The input is not valid E-mail!"
-              },
-              {
-                required: true,
-                message: `Please input your email!`
-              }
-            ]}
-          >
-            <Input className="round" placeholder="Email" />
-          </Form.Item>
-          <Form.Item className="login-form-item" name="password">
-            <Input.Password className="round" placeholder="Password" />
-          </Form.Item>
-          <Form.Item>
-            <Content className="register-link-container">
-              <Space>
-                <Typography.Text>Have no account yet?</Typography.Text>
-                <Link href="/register">Register</Link>
-              </Space>
-            </Content>
-          </Form.Item>
-          <Form.Item>
-            <Content className="login-container">
-              <Button
-                type="primary"
-                size="large"
-                className="round login-btn"
-                htmlType="submit"
-              >
-                Login
-              </Button>
-            </Content>
-          </Form.Item>
-          <Divider plain style={{ marginTop: "80px" }}>
-            or you can login using social accounts
-          </Divider>
-          <Form.Item>
-            <Space className="login-container">
-              <SocialIcon src="/logo/googleLogo.png" />
-              <SocialIcon src="/logo/facebookLogo.png" />
+    <Card className="round login-card">
+      <Title>LOGIN</Title>
+      <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
+        <Form.Item
+          className="login-form-item"
+          name="email"
+          validateTrigger="onBlur"
+          rules={[
+            {
+              type: "email",
+              message: "The input is not valid E-mail!"
+            },
+            {
+              required: true,
+              message: `Please input your email!`
+            }
+          ]}
+        >
+          <Input className="round" placeholder="Email" />
+        </Form.Item>
+        <Form.Item className="login-form-item" name="password">
+          <Input.Password className="round" placeholder="Password" />
+        </Form.Item>
+        <Form.Item>
+          <Content className="register-link-container">
+            <Space>
+              <Typography.Text>Have no account yet?</Typography.Text>
+              <Link href="/register">Register</Link>
             </Space>
-          </Form.Item>
-        </Form>
-      </Card>
-    </>
+          </Content>
+        </Form.Item>
+        <Form.Item>
+          <Content className="login-container">
+            <Button
+              type="primary"
+              size="large"
+              className="round login-btn"
+              htmlType="submit"
+            >
+              Login
+            </Button>
+          </Content>
+        </Form.Item>
+        <Divider plain style={{ marginTop: "80px" }}>
+          or you can login using social accounts
+        </Divider>
+        <Form.Item>
+          <Space className="login-container">
+            <SocialIcon src="/logo/googleLogo.png" />
+            <SocialIcon src="/logo/facebookLogo.png" />
+          </Space>
+        </Form.Item>
+      </Form>
+    </Card>
   );
 }
