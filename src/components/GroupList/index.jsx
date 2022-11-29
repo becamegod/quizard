@@ -25,6 +25,11 @@ export default function GroupList({ category }) {
       console.log(data);
       setGroups(data);
       setTotalPages(Math.ceil(data.length / filter.pageSize));
+      if (data.length === 0) {
+        setStage(1);
+      } else {
+        setStage(2);
+      }
     } catch (error) {
       if (error.response && error.response.status !== 401) {
         console.log("ERR", error);
