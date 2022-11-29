@@ -28,9 +28,24 @@ export default function LoginForm() {
       });
     } catch (err) {
       console.log("Error: ", err);
+      const { status } = err.request;
+      let description;
+      switch (status) {
+        case 400:
+          description = "Email or password incorrect.";
+          break;
+
+        case 403:
+          description = "You have to verify your email before continue.";
+          break;
+
+        default:
+          description = "Something's wrong. Please try again later.";
+          break;
+      }
       notification.error({
         message: "Login failed",
-        description: "Email or password incorrect.",
+        description,
         icon: <ExclamationCircleOutlined style={{ color: "#FF4D4F" }} />,
         style: {
           backgroundColor: "#FFF1F0",
