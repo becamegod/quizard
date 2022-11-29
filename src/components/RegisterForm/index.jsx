@@ -14,14 +14,16 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 import { Content } from "antd/lib/layout/layout";
 import Title from "antd/lib/typography/Title";
 import { React, useState, useEffect } from "react";
+import moment from "moment";
 import authService from "../../services/auth";
 
 export default function RegisterForm() {
   const [stage, setStage] = useState(0);
   const [user, setUser] = useState({});
   const onFinish = (values) => {
+    const dob = moment(values.dob).format("DD-MM-YYYY");
     console.log("Success:", values);
-    setUser({ ...user, ...values });
+    setUser({ ...user, ...values, dob });
     setStage(stage + 1);
   };
   const onFinishFailed = (errorInfo) => {
