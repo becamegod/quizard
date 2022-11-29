@@ -9,7 +9,6 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   async (config) => {
-    console.log("interception");
     const accessToken = localStorage.getItem("accessToken");
     const c = config;
     if (accessToken) c.headers.authorization = `Bearer ${accessToken}`;

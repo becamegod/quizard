@@ -5,6 +5,14 @@ import { UserOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 
 export default function GroupCard({ group }) {
+  const memberCount =
+    group.members && group.maxMembers ? (
+      <Col span={12} align="right" style={{ height: "35px" }}>
+        <p>
+          <UserOutlined /> {group.members}/{group.maxMembers}
+        </p>
+      </Col>
+    ) : null;
   return (
     <div
       className="group-card"
@@ -27,13 +35,9 @@ export default function GroupCard({ group }) {
       </Row>
       <Row className="group-description">
         <Col span={12} align="left" style={{ height: "35px" }}>
-          <p style={{ fontWeight: "500", fontSize: "16px" }}> Descriptions </p>
+          <p style={{ fontWeight: "500", fontSize: "16px" }}> Description </p>
         </Col>
-        <Col span={12} align="right" style={{ height: "35px" }}>
-          <p>
-            <UserOutlined /> {group.members}/{group.maxMembers}
-          </p>
-        </Col>
+        {memberCount}
         <Typography.Paragraph
           ellipsis={{ rows: 2, expandable: false, symbol: "more" }}
         >
@@ -49,7 +53,7 @@ GroupCard.propTypes = {
     groupId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    members: PropTypes.number.isRequired,
-    maxMembers: PropTypes.number.isRequired
+    members: PropTypes.number,
+    maxMembers: PropTypes.number
   }).isRequired
 };

@@ -1,5 +1,5 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, Modal, Row, Tabs } from "antd";
+import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { Button, Col, Form, Input, Modal, notification, Row, Tabs } from "antd";
 import React, { useState } from "react";
 import DashboardLayout from "../components/DashboardLayout";
 import GroupList from "../components/GroupList";
@@ -21,11 +21,20 @@ export default function DashboardPage() {
 
   const onFinish = async (values) => {
     try {
-      console.log("Values: ", values);
       const res = await groups.create(values);
-      console.log("Response: ", res);
+      if (res.status === 201)
+        notification.success({ message: "Group created successfully" });
     } catch (error) {
       console.log("Error: ", error);
+      notification.error({
+        message: "Group created failed",
+        description: "Server error. Please try again later.",
+        icon: <ExclamationCircleOutlined style={{ color: "#FF4D4F" }} />,
+        style: {
+          backgroundColor: "#FFF1F0",
+          borderRadius: "10px"
+        }
+      });
     }
   };
 
