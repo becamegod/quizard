@@ -46,7 +46,7 @@ export default function GroupCard({ group }) {
 
 GroupCard.propTypes = {
   group: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    groupId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     members: PropTypes.number.isRequired,
