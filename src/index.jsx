@@ -21,6 +21,10 @@ const router = createBrowserRouter([
     element: <RegisterPage />
   },
   {
+    path: "/logout",
+    element: <LoginPage logout />
+  },
+  {
     path: "/verify",
     element: <VerifyPage />
   },
