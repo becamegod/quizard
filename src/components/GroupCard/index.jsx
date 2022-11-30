@@ -36,15 +36,23 @@ export default function GroupCard({ group }) {
           </Col>
         </Row>
         <Row className="group-description">
-          <Col span={12} align="left" style={{ height: "35px" }}>
-            <p style={{ fontWeight: "500", fontSize: "16px" }}> Description </p>
+          <Col align="left" span={24}>
+            <Row>
+              <Col span={12} style={{ height: "35px" }}>
+                <p style={{ fontWeight: "500", fontSize: "16px" }}>
+                  Description
+                </p>
+              </Col>
+              <Col span={12}>
+                <Row justify="end">{memberCount}</Row>
+              </Col>
+            </Row>
+            <Typography.Paragraph
+              ellipsis={{ rows: 2, expandable: false, symbol: "more" }}
+            >
+              {group.description}
+            </Typography.Paragraph>
           </Col>
-          {memberCount}
-          <Typography.Paragraph
-            ellipsis={{ rows: 2, expandable: false, symbol: "more" }}
-          >
-            {group.description}
-          </Typography.Paragraph>
         </Row>
       </Link>
     </div>

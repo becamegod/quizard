@@ -10,7 +10,11 @@ import {
   Typography,
   Card
 } from "antd";
-import { UserOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  DeleteOutlined,
+  UserAddOutlined
+} from "@ant-design/icons";
 
 export default function GroupMemberCard() {
   const removeUser = (record) => {
@@ -207,7 +211,7 @@ export default function GroupMemberCard() {
               <Button
                 type="primary"
                 shape="round"
-                icon={<UserOutlined />}
+                icon={<UserAddOutlined />}
                 onClick={() => invite()}
               >
                 Invite
