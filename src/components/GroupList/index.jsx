@@ -38,8 +38,10 @@ export default function GroupList({ category }) {
         }
       }
     }
-    fetchGroups();
-  }, [filter]);
+    if (stage === 0) {
+      fetchGroups();
+    }
+  }, [filter, stage]);
 
   switch (stage) {
     case 1:
