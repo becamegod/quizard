@@ -47,7 +47,8 @@
 }
 
 .information-form .round{
-  width: fit-content;
+  margin-left: 40%;
+  width: 40%;
 }
 
 .information-container {
@@ -62,4 +63,10 @@
   border-radius: 12px;
   width: 60%;
   margin-left: 16%;
+}
+
+.information-form .ant-form-item-label>label{
+  margin-left: 30%;
+  width: 120px;
+  font-weight: 600;
 }
