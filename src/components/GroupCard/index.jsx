@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Button, Typography } from "antd";
+import { Row, Col, Typography } from "antd";
 import "./GroupCard.css";
 import { UserOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -29,11 +29,11 @@ export default function GroupCard({ group }) {
               {group.name}
             </Typography.Title>
           </Col>
-          <Col align="right" span={12}>
+          {/* <Col align="right" span={12}>
             <Button className="group-button" type="info">
               Join
             </Button>
-          </Col>
+          </Col> */}
         </Row>
         <Row className="group-description">
           <Col align="left" span={24}>
