@@ -1,11 +1,47 @@
-import { React, useEffect } from "react";
-// eslint-disable-next-line no-unused-vars
-import { Row, Card, Col, Input, Button, Form, Typography, Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { React, useEffect, useState } from "react";
+import {
+  EditOutlined,
+  UserOutlined,
+  SaveOutlined,
+  LoadingOutlined
+} from "@ant-design/icons";
+import {
+  Avatar,
+  Button,
+  Card,
+  Col,
+  Form,
+  Input,
+  Row,
+  Typography,
+  notification
+} from "antd";
 
 export default function GroupInfoCard() {
+  const [editMode, setEditMode] = useState(false);
+  const [busy, setBusy] = useState(false);
   const onInvite = () => {
     console.log("invite");
+  };
+  const enableEdit = () => {
+    console.log("edit");
+    setEditMode(!editMode);
+  };
+  const onFinish = (values) => {
+    setBusy(true);
+    console.log("Success:", values);
+    setTimeout(() => {
+      setBusy(false);
+      setEditMode(false);
+      notification.success({
+        message: "Update Success",
+        description: "Group info updated successfully",
+        duration: 2
+      });
+    }, 2000); // 2s
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   useEffect(() => {
@@ -23,7 +59,7 @@ export default function GroupInfoCard() {
         <Col span={12}>
           <Row justify="end" align="middle" gutter={[20, 0]}>
             <Col>
-              <Typography.Title level={5}> Owner: </Typography.Title>
+              <Typography.Text strong> Owner: </Typography.Text>
             </Col>
             <Col>
               <Avatar size={32} src="" icon={<UserOutlined />} />
@@ -33,13 +69,14 @@ export default function GroupInfoCard() {
         </Col>
       </Row>
       <Row>
-        <Col span={18}>
+        <Col span={20}>
           <Form
             name="group-info"
             layout="vertical"
-            // onFinish={onFinish}
-            // onFinishFailed={onFinishFailed}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
             autoComplete="off"
+            disabled={!editMode}
           >
             <Form.Item
               label="Group Name"
@@ -57,18 +94,44 @@ export default function GroupInfoCard() {
             <Form.Item label="Group Description" name="description">
               <Input.TextArea className="round" />
             </Form.Item>
+            <Row justify="center" gutter={[12, 0]}>
+              <Col hidden={!editMode}>
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    shape="round"
+                    icon={<SaveOutlined />}
+                    htmlType="submit"
+                  >
+                    Save <LoadingOutlined hidden={!busy} />
+                  </Button>
+                </Form.Item>
+              </Col>
+              <Col hidden={!editMode}>
+                <Button type="danger" shape="round" onClick={enableEdit}>
+                  Cancel
+                </Button>
+              </Col>
+            </Row>
           </Form>
         </Col>
-        <Col span={6}>
-          <Row justify="end">
-            <Button
-              type="primary"
-              shape="round"
-              size="large"
-              onClick={onInvite}
-            >
-              Invite
-            </Button>
+        <Col span={4} hidden={editMode}>
+          <Row justify="end" gutter={[8, 0]}>
+            <Col>
+              <Button type="primary" shape="round" onClick={enableEdit}>
+                <EditOutlined />
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                type="primary"
+                shape="round"
+                onClick={onInvite}
+                icon={<UserOutlined />}
+              >
+                Invite
+              </Button>
+            </Col>
           </Row>
         </Col>
       </Row>
