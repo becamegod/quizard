@@ -1,15 +1,18 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import groups from "../../services/groups";
 
 export default function JoinGroup() {
+  const [groupId, setGroupId] = useState("");
   const { url } = useParams();
-  let groupId = "";
-
   useEffect(() => {
-    const res = groups.join(url);
-    groupId = res.data.groupId;
+    const api = async () => {
+      const res = await groups.join(url);
+      setGroupId(res.data.groupId);
+    };
+    api();
+    return () => {};
   }, []);
-
+  if (groupId === "") return <div>Joining group...</div>;
   return <Navigate to={`/groups/${groupId}`} />;
 }

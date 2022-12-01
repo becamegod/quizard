@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import inviteLink from "../../services/inviteLink";
 import InviteEmailForm from "./InviteEmailForm";
-import api from "../../api";
 
 export default function InviteButton({ group }) {
   const [showModal, setShowModal] = useState(false);
@@ -14,7 +13,7 @@ export default function InviteButton({ group }) {
   const onClick = async () => {
     setShowModal(true);
     const res = await inviteLink.get(group);
-    setUrl(`${api}/join/${res.data.url}`);
+    setUrl(`localhost:3000/join/${res.data.url}`);
   };
   const onCancel = () => setShowModal(false);
 

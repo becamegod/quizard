@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     element: <DashboardPage />
   },
   {
-    path: "/join",
+    path: "/join/:url",
     element: <JoinGroup />
   }
 ]);
