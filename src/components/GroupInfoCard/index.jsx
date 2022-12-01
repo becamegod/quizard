@@ -16,10 +16,20 @@ import {
   Typography,
   notification
 } from "antd";
+import { useParams } from "react-router-dom";
+import GroupService from "../../services/groups";
+import "./GroupInfoCard.css";
 
 export default function GroupInfoCard() {
   const [editMode, setEditMode] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [owner, setOwner] = useState({
+    name: "",
+    avatar: ""
+  });
+  const { groupId } = useParams();
+  const [form] = Form.useForm();
+
   const enableEdit = () => {
     console.log("edit");
     setEditMode(!editMode);
@@ -42,8 +52,16 @@ export default function GroupInfoCard() {
   };
 
   useEffect(() => {
-    console.log("GroupInfoCard");
-  }, []);
+    async function fetchData() {
+      const { data } = await GroupService.detail(groupId);
+      setOwner(data.joinedUser.find((user) => user.role === "Owner"));
+      form.setFieldsValue({
+        name: data.name,
+        description: data.description
+      });
+    }
+    fetchData();
+  }, [groupId]);
 
   return (
     <Card className="round">
@@ -59,8 +77,8 @@ export default function GroupInfoCard() {
               <Typography.Text strong> Owner: </Typography.Text>
             </Col>
             <Col>
-              <Avatar size={32} src="" icon={<UserOutlined />} />
-              <Typography.Text> Owner Name </Typography.Text>
+              <Avatar size={32} src={owner.avatar} icon={<UserOutlined />} />
+              <Typography.Text> {owner.name} </Typography.Text>
             </Col>
           </Row>
         </Col>
@@ -74,6 +92,7 @@ export default function GroupInfoCard() {
             onFinishFailed={onFinishFailed}
             autoComplete="off"
             disabled={!editMode}
+            form={form}
           >
             <Form.Item
               label="Group Name"

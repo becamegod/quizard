@@ -1,15 +1,10 @@
-import { React, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { React } from "react";
 import { Row, Col, Space } from "antd";
 import GroupInfoCard from "../components/GroupInfoCard";
 import DashboardLayout from "../components/DashboardLayout";
 import GroupMemberCard from "../components/GroupMemberCard";
 
 export default function GroupDetailPage() {
-  const { groupId } = useParams();
-  useEffect(() => {
-    console.log(groupId);
-  }, [groupId]);
   return (
     <DashboardLayout>
       <Row justify="center">
