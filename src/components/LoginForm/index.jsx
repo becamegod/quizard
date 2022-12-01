@@ -1,4 +1,5 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -18,18 +19,17 @@ import auth from "../../services/auth";
 import SocialIcon from "../SocialIcon";
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
       const res = await auth.login(values);
-      console.log("Success: ", res);
       const { accessToken } = res.data;
       localStorage.setItem(constants.accessToken, accessToken);
       notification.success({
         message: "Login succeed"
       });
-      window.location.href = "/";
+      navigate("/dashboard");
     } catch (err) {
-      console.log("Error: ", err);
       const { status } = err.request;
       let description;
       switch (status) {
@@ -58,12 +58,12 @@ export default function LoginForm() {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    throw new Error(errorInfo);
   };
 
   return (
     <Card className="round login-card">
-      <Title>LOGIN</Title>
+      <Title className="login-title">LOGIN</Title>
       <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
         <Form.Item
           className="login-form-item"
@@ -89,7 +89,7 @@ export default function LoginForm() {
           <Content className="register-link-container">
             <Space>
               <Typography.Text>Have no account yet?</Typography.Text>
-              <Link href="/register">Register</Link>
+              <Link to="/register">Register</Link>
             </Space>
           </Content>
         </Form.Item>

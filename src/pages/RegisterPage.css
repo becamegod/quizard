@@ -7,8 +7,27 @@
   background: #f1f1f1; */
 }
 
+.register-card {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 .register-btn {
   width: 50%;
+  border: 1px solid #00CC11;
+  background: #00CC11;
+}
+
+.register-btn:focus{
+  border: 1px solid #00CC11;
+  background: #00CC11;
+}
+
+.register-btn:hover,
+.register-btn:active {
+background-color: initial;
+background-position: 0 0;
+color: #00CC11;
+border: 1px solid;
 }
 
 .register-container {

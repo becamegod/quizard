@@ -27,7 +27,6 @@ export default function DashboardPage() {
         notification.success({ message: "Group created successfully" });
       setReload(reload + 1);
     } catch (error) {
-      console.log("Error: ", error);
       notification.error({
         message: "Group created failed",
         description: "Server error. Please try again later.",

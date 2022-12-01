@@ -22,24 +22,18 @@ export default function RegisterForm() {
   const [user, setUser] = useState({});
   const onFinish = (values) => {
     const dob = moment(values.dob).format("DD-MM-YYYY");
-    console.log("Success:", values);
     setUser({ ...user, ...values, dob });
     setStage(stage + 1);
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-  const resendMail = () => {
-    console.log("resendMail");
+    throw new Error(errorInfo);
   };
 
   useEffect(() => {
-    console.log("user", user);
-    console.log("stage", stage);
     if (stage === 2) {
       authService
         .register(user)
-        .then((res) => {
+        .then(() => {
           // if (res.status === 201) {
           //   notification.success({
           //     message: "Register Success",
@@ -47,7 +41,6 @@ export default function RegisterForm() {
           //   });
           // }
           setStage(stage + 1);
-          console.log("res", res);
         })
         .catch((err) => {
           notification.error({
@@ -62,7 +55,7 @@ export default function RegisterForm() {
   switch (stage) {
     case 1:
       return (
-        <Card className="round">
+        <Card className="round register-card">
           <Title>REGISTER</Title>
           <Form
             layout="vertical"
@@ -152,7 +145,7 @@ export default function RegisterForm() {
       );
     case 3:
       return (
-        <Card className="round">
+        <Card className="round register-card">
           <Row justify="center">
             <CheckCircleOutlined
               style={{
@@ -172,16 +165,14 @@ export default function RegisterForm() {
           <Row justify="center">
             <Typography.Text>
               Did not receive mail?
-              <Button type="link" onClick={resendMail}>
-                Resend it
-              </Button>
+              <Button type="link">Resend it</Button>
             </Typography.Text>
           </Row>
         </Card>
       );
     default:
       return (
-        <Card className="round">
+        <Card className="round register-card">
           <Title>REGISTER</Title>
           <Form
             layout="vertical"

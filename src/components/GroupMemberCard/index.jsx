@@ -1,9 +1,4 @@
 import {
-  DeleteOutlined,
-  SettingOutlined,
-  UserOutlined
-} from "@ant-design/icons";
-import {
   Avatar,
   Button,
   Card,
@@ -19,6 +14,12 @@ import {
   Tag,
   Typography
 } from "antd";
+import {
+  UserOutlined,
+  DeleteOutlined,
+  SettingOutlined,
+  LoadingOutlined
+} from "@ant-design/icons";
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GroupService from "../../services/groups";
@@ -33,10 +34,8 @@ export default function GroupMemberCard() {
   const [form] = Form.useForm();
   const [stage, setStage] = useState(0);
   const removeUser = async () => {
-    console.log("remove user", selectedMember);
     try {
       const { data } = await GroupService.removeUser(groupId, selectedMember);
-      console.log(data);
       setMembers(data.joinedUser);
       notification.success({
         message: "Remove User Success",
@@ -44,7 +43,6 @@ export default function GroupMemberCard() {
         duration: 2
       });
     } catch (error) {
-      console.log(error);
       notification.error({
         message: "Remove User Failed",
         description: "User remove failed",
@@ -67,7 +65,6 @@ export default function GroupMemberCard() {
         duration: 2
       });
     } catch (error) {
-      console.log(error);
       notification.error({
         message: "Change Role Failed",
         description: "Role change failed",
@@ -174,10 +171,14 @@ export default function GroupMemberCard() {
     }
   }, [groupId]);
 
+  const antIcon = (
+    <LoadingOutlined style={{ fontSize: 48, color: "red" }} spin />
+  );
+
   switch (stage) {
     case 1:
       return (
-        <Card className="round">
+        <Card className="round group-member-card">
           <Row style={{ marginBottom: "24px" }}>
             <Col span={12}>
               <Row justify="start">
@@ -191,7 +192,6 @@ export default function GroupMemberCard() {
                     type="primary"
                     shape="round"
                     icon={<UserAddOutlined />}
-                    onClick={() => invite()}
                   >
                     Invite
                   </Button> */}
@@ -242,7 +242,7 @@ export default function GroupMemberCard() {
       );
     default:
       return (
-        <Card className="round">
+        <Card className="round group-member-card">
           <Row style={{ marginBottom: "24px" }}>
             <Col span={12}>
               <Row justify="start">
@@ -252,7 +252,7 @@ export default function GroupMemberCard() {
           </Row>
           <Row justify="center" style={{ marginBottom: "32px" }}>
             <Col>
-              <Spin size="large" />
+              <Spin size="large" indicator={antIcon} />
             </Col>
           </Row>
         </Card>
