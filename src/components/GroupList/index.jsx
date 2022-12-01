@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { Row, Col, Pagination, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import GroupCard from "../GroupCard";
 import groupService from "../../services/groups";
@@ -15,7 +16,6 @@ export default function GroupList({ category }) {
   });
 
   const changePage = (page) => {
-    console.log(page);
     setFilter({ ...filter, page });
   };
 
@@ -23,7 +23,6 @@ export default function GroupList({ category }) {
     async function fetchGroups() {
       try {
         const { data } = await groupService.list(filter);
-        console.log(data);
         setGroups(data);
         setTotalPages(Math.ceil(data.length / filter.pageSize));
         if (data.length === 0) {
@@ -33,7 +32,6 @@ export default function GroupList({ category }) {
         }
       } catch (error) {
         if (error.response && error.response.status !== 401) {
-          console.log("ERR", error);
           throw error;
         }
       }
@@ -42,6 +40,10 @@ export default function GroupList({ category }) {
       fetchGroups();
     }
   }, [filter, stage]);
+
+  const antIcon = (
+    <LoadingOutlined style={{ fontSize: 48, color: "red" }} spin />
+  );
 
   switch (stage) {
     case 1:
@@ -87,7 +89,7 @@ export default function GroupList({ category }) {
       return (
         <Row justify="center">
           <Col>
-            <Spin size="large" />
+            <Spin size="large" indicator={antIcon} />
           </Col>
         </Row>
       );

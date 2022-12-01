@@ -14,7 +14,6 @@ import {
 import { LoadingOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { updateProfile, getProfile } from "../../services/user.service";
-import NavBar from "../NavBar";
 
 // eslint-disable-next-line react/prop-types
 export default function UserInformationForm() {
@@ -65,73 +64,61 @@ export default function UserInformationForm() {
   };
   if (userData) {
     return (
-      <>
-        <NavBar />
-        <Card className="profile-card-container">
-          <Row className="row-container">
-            <Col className="avatar" span={8} />
-            <Col className="information" span={16}>
-              <Row className="information-container">
-                <Form
-                  className="information-form"
-                  onFinish={onFinish}
-                  initialValues={{
-                    email: `${userData.email}`,
-                    name: `${userData.name}`,
-                    gender: `${userData.gender}`,
-                    dob: moment(userData.dob, "DD/MM/YYYY")
-                  }}
-                >
-                  <Form.Item label="Email" name="email">
-                    <Input className="round" disabled />
-                  </Form.Item>
-                  <Form.Item label="Fullname" name="name">
-                    <Input className="round" required />
-                  </Form.Item>
-                  <Form.Item label="Gender" name="gender">
-                    <Select
-                      className="round"
-                      options={[
-                        {
-                          value: "Male",
-                          label: "Male"
-                        },
-                        {
-                          value: "Female",
-                          label: "Female"
-                        }
-                      ]}
-                      required
-                    />
-                  </Form.Item>
-                  <Form.Item label="Date of birth" name="dob">
-                    <DatePicker
-                      className="round"
-                      format="DD/MM/YYYY"
-                      required
-                    />
-                  </Form.Item>
-                  <Form.Item>
-                    <Button
-                      className="edit-profile-button"
-                      type="primary"
-                      htmlType="submit"
-                    >
-                      Edit information
-                    </Button>
-                  </Form.Item>
-                </Form>
-              </Row>
-            </Col>
-          </Row>
-        </Card>
-      </>
+      <Card className="profile-card-container">
+        <Row className="row-container">
+          <Col className="avatar" span={8} />
+          <Col className="information" span={16}>
+            <Row className="information-container">
+              <Form
+                className="information-form"
+                onFinish={onFinish}
+                initialValues={{
+                  email: `${userData.email}`,
+                  name: `${userData.name}`,
+                  gender: `${userData.gender}`,
+                  dob: moment(userData.dob, "DD/MM/YYYY")
+                }}
+              >
+                <Form.Item label="Email" name="email">
+                  <Input className="round" disabled />
+                </Form.Item>
+                <Form.Item label="Fullname" name="name">
+                  <Input className="round" required />
+                </Form.Item>
+                <Form.Item label="Gender" name="gender">
+                  <Select
+                    className="round"
+                    options={[
+                      {
+                        value: "Male",
+                        label: "Male"
+                      },
+                      {
+                        value: "Female",
+                        label: "Female"
+                      }
+                    ]}
+                    required
+                  />
+                </Form.Item>
+                <Form.Item label="Date of birth" name="dob">
+                  <DatePicker className="round" format="DD/MM/YYYY" required />
+                </Form.Item>
+                <Form.Item>
+                  <Button
+                    className="edit-profile-button"
+                    type="primary"
+                    htmlType="submit"
+                  >
+                    Edit information
+                  </Button>
+                </Form.Item>
+              </Form>
+            </Row>
+          </Col>
+        </Row>
+      </Card>
     );
   }
-  return (
-    <>
-      <NavBar />
-      <Spin indicator={antIcon} />
-    </>
-  );
+  return <Spin indicator={antIcon} />;
 }

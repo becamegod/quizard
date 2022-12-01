@@ -6,16 +6,12 @@ import { SearchOutlined } from "@ant-design/icons";
 import UserButton from "../UserButton";
 import NotificationButton from "../NotificationButton";
 
-function search(e) {
-  console.log(e.target.value);
-}
-
 export default function NavBar() {
   return (
     <nav className="navbar">
       <Row align="middle" justify="space-around">
         <Col>
-          <Link to="/">
+          <Link to="/dashboard">
             <Image preview={false} height={50} src="/logo/quizardLogo.png" />
           </Link>
         </Col>
@@ -25,7 +21,6 @@ export default function NavBar() {
             placeholder="Search"
             allowClear
             prefix={<SearchOutlined className="search-icon" />}
-            onPressEnter={search}
           />
         </Col>
         <Col align="right">

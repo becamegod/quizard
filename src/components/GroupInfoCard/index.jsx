@@ -33,12 +33,10 @@ export default function GroupInfoCard() {
   const [form] = Form.useForm();
 
   const enableEdit = () => {
-    console.log("edit");
     setEditMode(!editMode);
   };
-  const onFinish = (values) => {
+  const onFinish = () => {
     setBusy(true);
-    console.log("Success:", values);
     setTimeout(() => {
       setBusy(false);
       setEditMode(false);
@@ -50,7 +48,7 @@ export default function GroupInfoCard() {
     }, 2000); // 2s
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    throw new Error(errorInfo);
   };
 
   useEffect(() => {
@@ -67,6 +65,10 @@ export default function GroupInfoCard() {
       fetchData();
     }
   }, [groupId]);
+
+  const antIcon = (
+    <LoadingOutlined style={{ fontSize: 48, color: "red" }} spin />
+  );
 
   switch (stage) {
     case 1:
@@ -175,7 +177,7 @@ export default function GroupInfoCard() {
           </Row>
           <Row justify="center" style={{ marginBottom: "32px" }}>
             <Col>
-              <Spin size="large" />
+              <Spin size="large" indicator={antIcon} />
             </Col>
           </Row>
         </Card>

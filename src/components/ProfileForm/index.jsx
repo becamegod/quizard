@@ -4,12 +4,8 @@ import Title from "antd/lib/typography/Title";
 import React from "react";
 
 export default function ProfileForm() {
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  const onFinish = (values) => {};
+  const onFinishFailed = (errorInfo) => {};
 
   return (
     <Card className="round">
