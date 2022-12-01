@@ -35,7 +35,10 @@ export default function GroupMemberCard() {
   const [stage, setStage] = useState(0);
   const removeUser = async () => {
     try {
-      const { data } = await GroupService.removeUser(groupId, selectedMember);
+      const { data } = await GroupService.removeUser({
+        groupId,
+        email: selectedMember.email
+      });
       setMembers(data.joinedUser);
       notification.success({
         message: "Remove User Success",
@@ -56,7 +59,7 @@ export default function GroupMemberCard() {
       const data = await GroupService.changeRole({
         groupId,
         roleWantToChange: form.getFieldValue("role"),
-        selectedMember
+        email: selectedMember.email
       });
       setMembers(data.joinedUser);
       notification.success({
