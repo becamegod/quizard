@@ -27,7 +27,7 @@ import InviteButton from "../InviteButton";
 
 export default function GroupMemberCard() {
   const { groupId } = useParams();
-  // const user = JSON.parse(localStorage.getItem("user") !== undefined || "{}");
+  const user = JSON.parse(localStorage.getItem("user"));
   const [userRole, setUserRole] = useState("Member");
   const [members, setMembers] = useState([]);
   const [removeModalVisible, setRemoveModalVisible] = useState(false);
@@ -83,7 +83,7 @@ export default function GroupMemberCard() {
       return true;
     }
     if (role === "Co-Owner") {
-      return userRole === "Member";
+      return userRole === "Member" || userRole === "Co-Owner";
     }
     return userRole !== "Owner";
   };
@@ -180,8 +180,7 @@ export default function GroupMemberCard() {
       const { data } = await GroupService.detail(groupId);
       setMembers(data.joinedUser);
       setUserRole(
-        // data.joinedUser.find((member) => member.email === user.email).role
-        "Member"
+        data.joinedUser.find((member) => member.email === user.email).role
       );
       setStage(1);
     }

@@ -22,6 +22,8 @@ import GroupService from "../../services/groups";
 import "./GroupInfoCard.css";
 
 export default function GroupInfoCard() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [userRole, setUserRole] = useState("Member");
   const [editMode, setEditMode] = useState(false);
   const [stage, setStage] = useState(0);
   const [busy, setBusy] = useState(false);
@@ -54,7 +56,11 @@ export default function GroupInfoCard() {
   useEffect(() => {
     async function fetchData() {
       const { data } = await GroupService.detail(groupId);
-      setOwner(data.joinedUser.find((user) => user.role === "Owner"));
+      setOwner(data.joinedUser.find((member) => member.role === "Owner"));
+      setUserRole(
+        // eslint-disable-next-line no-underscore-dangle
+        data.joinedUser.find((member) => member._id === user._id).role
+      );
       form.setFieldsValue({
         name: data.name,
         description: data.description
@@ -148,7 +154,7 @@ export default function GroupInfoCard() {
                 </Row>
               </Form>
             </Col>
-            <Col span={4} hidden={editMode}>
+            <Col span={4} hidden={editMode || userRole !== "Owner"}>
               <Row justify="end">
                 <Col>
                   <Button
