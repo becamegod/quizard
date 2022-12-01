@@ -1,7 +1,6 @@
 import authClient from "../api/authClient";
 
 const get = (groupId) => {
-  console.log("Group: ", groupId);
   return authClient.post(`/invite`, { groupId });
 };
 

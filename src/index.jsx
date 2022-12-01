@@ -1,15 +1,16 @@
+import "antd/dist/antd.min.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import reportWebVitals from "./reportWebVitals";
-import "antd/dist/antd.min.css";
+import JoinGroup from "./components/JoinGroup";
 import "./index.css";
+import DashboardPage from "./pages/DashboardPage";
+import GroupDetailPage from "./pages/GroupDetailPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserInformationPage from "./pages/UserInformationPage";
-import DashboardPage from "./pages/DashboardPage";
 import VerifyPage from "./pages/VerifyPage";
-import GroupDetailPage from "./pages/GroupDetailPage";
+import reportWebVitals from "./reportWebVitals";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <DashboardPage />
+  },
+  {
+    path: "/join",
+    element: <JoinGroup />
   }
 ]);
 

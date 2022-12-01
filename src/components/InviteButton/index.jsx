@@ -14,7 +14,6 @@ export default function InviteButton({ group }) {
   const onClick = async () => {
     setShowModal(true);
     const res = await inviteLink.get(group);
-    console.log(res);
     setUrl(`${api}/join/${res.data.url}`);
   };
   const onCancel = () => setShowModal(false);

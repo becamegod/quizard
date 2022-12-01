@@ -21,4 +21,8 @@ const kick = (data) => {
   return authClient.post("/groups/kickUser/", data);
 };
 
-export default { list, create, detail, changeRole, kick };
+const join = (url) => {
+  return authClient.post("/groups/join", { url });
+};
+
+export default { list, create, detail, changeRole, kick, join };
