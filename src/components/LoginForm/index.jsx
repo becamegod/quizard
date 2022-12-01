@@ -23,8 +23,9 @@ export default function LoginForm() {
   const onFinish = async (values) => {
     try {
       const res = await auth.login(values);
-      const { accessToken } = res.data;
+      const { accessToken, user } = res.data;
       localStorage.setItem(constants.accessToken, accessToken);
+      localStorage.setItem("user", user);
       notification.success({
         message: "Login succeed"
       });
