@@ -26,7 +26,7 @@ export default function InviteButton({ group }) {
     {
       label: "Invite by email",
       key: "2",
-      children: <InviteEmailForm />
+      children: <InviteEmailForm link={url} />
     }
   ];
 
