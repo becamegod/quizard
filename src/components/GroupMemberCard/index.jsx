@@ -35,8 +35,11 @@ export default function GroupMemberCard() {
   const [stage, setStage] = useState(0);
   const removeUser = async () => {
     try {
-      const { data } = await GroupService.removeUser(groupId, selectedMember);
-      setMembers(data.joinedUser);
+      await GroupService.kick({
+        groupId,
+        email: selectedMember.email
+      });
+      setStage(0);
       notification.success({
         message: "Remove User Success",
         description: "User removed successfully",
@@ -53,12 +56,12 @@ export default function GroupMemberCard() {
   };
   const changeRole = async () => {
     try {
-      const data = await GroupService.changeRole({
+      await GroupService.changeRole({
         groupId,
         roleWantToChange: form.getFieldValue("role"),
-        selectedMember
+        email: selectedMember.email
       });
-      setMembers(data.joinedUser);
+      setStage(0);
       notification.success({
         message: "Change Role Success",
         description: "Role changed successfully",
@@ -113,6 +116,7 @@ export default function GroupMemberCard() {
         );
       },
       sorter: (a, b) => priority[a.role] - priority[b.role],
+      defaultSortOrder: "ascend",
       filters: [
         {
           text: "Owner",
@@ -141,7 +145,7 @@ export default function GroupMemberCard() {
               setSelectedMember(record);
               setRemoveModalVisible(true);
             }}
-            hidden={record.role === "Owner"}
+            hidden={record.role === "Owner" || record.role === "Co-Owner"}
           >
             <DeleteOutlined />
           </Button>
@@ -169,7 +173,7 @@ export default function GroupMemberCard() {
     if (stage === 0) {
       fetchData();
     }
-  }, [groupId]);
+  }, [groupId, stage]);
 
   const antIcon = (
     <LoadingOutlined style={{ fontSize: 48, color: "red" }} spin />

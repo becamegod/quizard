@@ -18,7 +18,7 @@ const changeRole = (data) => {
 };
 
 const kick = (data) => {
-  return authClient.post("/groups/kickUser/", data);
+  return authClient.delete("/groups/kickUser/", data);
 };
 
 const join = (url) => {
