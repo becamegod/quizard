@@ -12,7 +12,8 @@ import {
   Modal,
   notification,
   Form,
-  Select
+  Select,
+  Spin
 } from "antd";
 import {
   UserOutlined,
@@ -30,6 +31,7 @@ export default function GroupMemberCard() {
   const [changeRoleModalVisible, setChangeRoleModalVisible] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
   const [form] = Form.useForm();
+  const [stage, setStage] = useState(0);
   const removeUser = async () => {
     console.log("remove user", selectedMember);
     try {
@@ -168,71 +170,94 @@ export default function GroupMemberCard() {
     async function fetchData() {
       const { data } = await GroupService.detail(groupId);
       setMembers(data.joinedUser);
+      setStage(1);
     }
-    fetchData();
+    if (stage === 0) {
+      fetchData();
+    }
   }, [groupId]);
 
-  return (
-    <Card className="round">
-      <Row style={{ marginBottom: "24px" }}>
-        <Col span={12}>
-          <Row justify="start">
-            <h1>Group Members</h1>
-          </Row>
-        </Col>
-        <Col span={12}>
-          <Row justify="end" align="middle" gutter={[20, 0]}>
-            <Col>
-              <Button
-                type="primary"
-                shape="round"
-                icon={<UserAddOutlined />}
-                onClick={() => invite()}
-              >
-                Invite
-              </Button>
+  switch (stage) {
+    case 1:
+      return (
+        <Card className="round">
+          <Row style={{ marginBottom: "24px" }}>
+            <Col span={12}>
+              <Row justify="start">
+                <h1>Group Members</h1>
+              </Row>
+            </Col>
+            <Col span={12}>
+              <Row justify="end" align="middle" gutter={[20, 0]}>
+                <Col>
+                  <Button
+                    type="primary"
+                    shape="round"
+                    icon={<UserAddOutlined />}
+                    onClick={() => invite()}
+                  >
+                    Invite
+                  </Button>
+                </Col>
+              </Row>
             </Col>
           </Row>
-        </Col>
-      </Row>
-      <Row justify="center">
-        <Col span={24}>
-          <Table
-            dataSource={members}
-            columns={columns}
-            pagination={{ pageSize: 10 }}
-            rowKey="_id"
-          />
-        </Col>
-      </Row>
-      <Modal
-        title="Remove user"
-        open={removeModalVisible}
-        onOk={() => removeUser()}
-        onCancel={() => {
-          setRemoveModalVisible(false);
-        }}
-      >
-        <p>Are you sure to remove this user?</p>
-      </Modal>
-      <Modal
-        title="Change role"
-        open={changeRoleModalVisible}
-        onOk={() => changeRole()}
-        onCancel={() => {
-          setChangeRoleModalVisible(false);
-        }}
-      >
-        <p>Change role to:</p>
-        <Form form={form}>
-          <Form.Item name="role" initialValue="Member">
-            <Select style={{ width: "100%" }}>
-              <Select.Option value="Member">Member</Select.Option>
-              <Select.Option value="Co-Owner">Co-Owner</Select.Option>
-            </Select>
-          </Form.Item>
-        </Form>
-      </Modal>
-    </Card>
-  );
+          <Row justify="center">
+            <Col span={24}>
+              <Table
+                dataSource={members}
+                columns={columns}
+                pagination={{ pageSize: 10 }}
+                rowKey="_id"
+              />
+            </Col>
+          </Row>
+          <Modal
+            title="Remove user"
+            open={removeModalVisible}
+            onOk={() => removeUser()}
+            onCancel={() => {
+              setRemoveModalVisible(false);
+            }}
+          >
+            <p>Are you sure to remove this user?</p>
+          </Modal>
+          <Modal
+            title="Change role"
+            open={changeRoleModalVisible}
+            onOk={() => changeRole()}
+            onCancel={() => {
+              setChangeRoleModalVisible(false);
+            }}
+          >
+            <p>Change role to:</p>
+            <Form form={form}>
+              <Form.Item name="role" initialValue="Member">
+                <Select style={{ width: "100%" }}>
+                  <Select.Option value="Member">Member</Select.Option>
+                  <Select.Option value="Co-Owner">Co-Owner</Select.Option>
+                </Select>
+              </Form.Item>
+            </Form>
+          </Modal>
+        </Card>
+      );
+    default:
+      return (
+        <Card className="round">
+          <Row style={{ marginBottom: "24px" }}>
+            <Col span={12}>
+              <Row justify="start">
+                <h1>Group Members</h1>
+              </Row>
+            </Col>
+          </Row>
+          <Row justify="center" style={{ marginBottom: "32px" }}>
+            <Col>
+              <Spin size="large" />
+            </Col>
+          </Row>
+        </Card>
+      );
+  }
 }

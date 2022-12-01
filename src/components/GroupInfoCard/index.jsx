@@ -14,7 +14,8 @@ import {
   Input,
   Row,
   Typography,
-  notification
+  notification,
+  Spin
 } from "antd";
 import { useParams } from "react-router-dom";
 import GroupService from "../../services/groups";
@@ -22,6 +23,7 @@ import "./GroupInfoCard.css";
 
 export default function GroupInfoCard() {
   const [editMode, setEditMode] = useState(false);
+  const [stage, setStage] = useState(0);
   const [busy, setBusy] = useState(false);
   const [owner, setOwner] = useState({
     name: "",
@@ -59,97 +61,124 @@ export default function GroupInfoCard() {
         name: data.name,
         description: data.description
       });
+      setStage(1);
     }
-    fetchData();
+    if (stage === 0) {
+      fetchData();
+    }
   }, [groupId]);
 
-  return (
-    <Card className="round">
-      <Row style={{ marginBottom: "24px" }}>
-        <Col span={12}>
-          <Row justify="start">
-            <h1>Group Information</h1>
-          </Row>
-        </Col>
-        <Col span={12}>
-          <Row justify="end" align="middle" gutter={[20, 0]}>
-            <Col>
-              <Typography.Text strong> Owner: </Typography.Text>
+  switch (stage) {
+    case 1:
+      return (
+        <Card className="round">
+          <Row style={{ marginBottom: "24px" }}>
+            <Col span={12}>
+              <Row justify="start">
+                <h1>Group Information</h1>
+              </Row>
             </Col>
-            <Col>
-              <Avatar size={32} src={owner.avatar} icon={<UserOutlined />} />
-              <Typography.Text> {owner.name} </Typography.Text>
+            <Col span={12}>
+              <Row justify="end" align="middle" gutter={[20, 0]}>
+                <Col>
+                  <Typography.Text strong> Owner: </Typography.Text>
+                </Col>
+                <Col>
+                  <Avatar
+                    size={32}
+                    src={owner.avatar}
+                    icon={<UserOutlined />}
+                  />
+                  <Typography.Text> {owner.name} </Typography.Text>
+                </Col>
+              </Row>
             </Col>
           </Row>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={20}>
-          <Form
-            name="group-info"
-            layout="vertical"
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-            disabled={!editMode}
-            form={form}
-          >
-            <Form.Item
-              label="Group Name"
-              name="name"
-              validateTrigger="onBlur"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your group name!"
-                }
-              ]}
-            >
-              <Input className="round" />
-            </Form.Item>
-            <Form.Item label="Group Description" name="description">
-              <Input.TextArea className="round" />
-            </Form.Item>
-            <Row justify="center" gutter={[12, 0]}>
-              <Col hidden={!editMode}>
-                <Form.Item>
+          <Row>
+            <Col span={20}>
+              <Form
+                name="group-info"
+                layout="vertical"
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+                disabled={!editMode}
+                form={form}
+              >
+                <Form.Item
+                  label="Group Name"
+                  name="name"
+                  validateTrigger="onBlur"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your group name!"
+                    }
+                  ]}
+                >
+                  <Input className="round" />
+                </Form.Item>
+                <Form.Item label="Group Description" name="description">
+                  <Input.TextArea className="round" />
+                </Form.Item>
+                <Row justify="center" gutter={[12, 0]}>
+                  <Col hidden={!editMode}>
+                    <Form.Item>
+                      <Button
+                        type="primary"
+                        shape="round"
+                        icon={<SaveOutlined />}
+                        htmlType="submit"
+                      >
+                        Save <LoadingOutlined hidden={!busy} />
+                      </Button>
+                    </Form.Item>
+                  </Col>
+                  <Col hidden={!editMode}>
+                    <Button
+                      type="danger"
+                      shape="round"
+                      onClick={() => enableEdit()}
+                    >
+                      Cancel
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
+            </Col>
+            <Col span={4} hidden={editMode}>
+              <Row justify="end">
+                <Col>
                   <Button
                     type="primary"
                     shape="round"
-                    icon={<SaveOutlined />}
-                    htmlType="submit"
+                    onClick={() => enableEdit()}
+                    icon={<EditOutlined />}
                   >
-                    Save <LoadingOutlined hidden={!busy} />
+                    Edit
                   </Button>
-                </Form.Item>
-              </Col>
-              <Col hidden={!editMode}>
-                <Button
-                  type="danger"
-                  shape="round"
-                  onClick={() => enableEdit()}
-                >
-                  Cancel
-                </Button>
-              </Col>
-            </Row>
-          </Form>
-        </Col>
-        <Col span={4} hidden={editMode}>
-          <Row justify="end">
-            <Col>
-              <Button
-                type="primary"
-                shape="round"
-                onClick={() => enableEdit()}
-                icon={<EditOutlined />}
-              >
-                Edit
-              </Button>
+                </Col>
+              </Row>
             </Col>
           </Row>
-        </Col>
-      </Row>
-    </Card>
-  );
+        </Card>
+      );
+    default:
+      return (
+        <Card className="round">
+          <Row style={{ marginBottom: "24px" }}>
+            <Col span={12}>
+              <Row justify="start">
+                <h1>Group Information</h1>
+              </Row>
+            </Col>
+          </Row>
+          <Row justify="center" style={{ marginBottom: "32px" }}>
+            <Col>
+              <Spin size="large" />
+            </Col>
+          </Row>
+        </Card>
+      );
+  }
 }

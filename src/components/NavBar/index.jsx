@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, Row, Col, Input, Space } from "antd";
+import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { SearchOutlined } from "@ant-design/icons";
 import UserButton from "../UserButton";
@@ -14,7 +15,9 @@ export default function NavBar() {
     <nav className="navbar">
       <Row align="middle" justify="space-around">
         <Col>
-          <Image preview={false} height={50} src="/logo/quizardLogo.png" />
+          <Link to="/">
+            <Image preview={false} height={50} src="/logo/quizardLogo.png" />
+          </Link>
         </Col>
         <Col span={5} align="left">
           <Input
