@@ -1,34 +1,94 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import {
   Row,
-  // Space,
+  Space,
   Table,
   Tag,
   Avatar,
   Button,
   Col,
   Typography,
-  Card
+  Card,
+  Modal,
+  notification,
+  Form,
+  Select,
+  Spin
 } from "antd";
 import {
   UserOutlined,
   DeleteOutlined,
-  UserAddOutlined
+  UserAddOutlined,
+  SettingOutlined
 } from "@ant-design/icons";
+import { useParams } from "react-router-dom";
+import GroupService from "../../services/groups";
 
 export default function GroupMemberCard() {
-  const removeUser = (record) => {
-    console.log("remove user", record);
+  const { groupId } = useParams();
+  const [members, setMembers] = useState([]);
+  const [removeModalVisible, setRemoveModalVisible] = useState(false);
+  const [changeRoleModalVisible, setChangeRoleModalVisible] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
+  const [form] = Form.useForm();
+  const [stage, setStage] = useState(0);
+  const removeUser = async () => {
+    console.log("remove user", selectedMember);
+    try {
+      const { data } = await GroupService.removeUser(groupId, selectedMember);
+      console.log(data);
+      setMembers(data.joinedUser);
+      notification.success({
+        message: "Remove User Success",
+        description: "User removed successfully",
+        duration: 2
+      });
+    } catch (error) {
+      console.log(error);
+      notification.error({
+        message: "Remove User Failed",
+        description: "User remove failed",
+        duration: 2
+      });
+    }
+    setRemoveModalVisible(false);
+  };
+  const changeRole = async () => {
+    try {
+      const data = await GroupService.changeRole({
+        groupId,
+        roleWantToChange: form.getFieldValue("role"),
+        selectedMember
+      });
+      setMembers(data.joinedUser);
+      notification.success({
+        message: "Change Role Success",
+        description: "Role changed successfully",
+        duration: 2
+      });
+    } catch (error) {
+      console.log(error);
+      notification.error({
+        message: "Change Role Failed",
+        description: "Role change failed",
+        duration: 2
+      });
+    }
+    setChangeRoleModalVisible(false);
   };
   const invite = () => {
     console.log("invite");
   };
   const priority = {
-    owner: 1,
-    "co-owner": 2,
-    member: 3
+    Owner: 1,
+    "Co-Owner": 2,
+    Member: 3
   };
-
+  const color = {
+    Owner: "gold",
+    "Co-Owner": "purple",
+    Member: "lime"
+  };
   const columns = [
     {
       title: "Name",
@@ -52,12 +112,9 @@ export default function GroupMemberCard() {
       key: "role",
       dataIndex: "role",
       render: (_, { role }) => {
-        let color = "gold";
-        if (role === "co-owner") color = "purple";
-        if (role === "member") color = "lime";
         return (
-          <Tag color={color} key={role}>
-            {role.charAt(0).toUpperCase() + role.slice(1)}
+          <Tag color={color[role]} key={role}>
+            {role}
           </Tag>
         );
       },
@@ -82,153 +139,125 @@ export default function GroupMemberCard() {
       title: "Action",
       key: "action",
       render: (_, record) => (
-        <Button danger shape="round" onClick={() => removeUser(record)}>
-          <DeleteOutlined />
-        </Button>
+        <Space size="middle" direction="horizontal">
+          <Button
+            danger
+            shape="round"
+            onClick={() => {
+              setSelectedMember(record);
+              setRemoveModalVisible(true);
+            }}
+            hidden={record.role === "Owner"}
+          >
+            <DeleteOutlined />
+          </Button>
+          <Button
+            shape="round"
+            onClick={() => {
+              setSelectedMember(record);
+              setChangeRoleModalVisible(true);
+            }}
+            hidden={record.role === "Owner"}
+          >
+            <SettingOutlined />
+          </Button>
+        </Space>
       )
     }
   ];
 
-  const data = [
-    {
-      key: "2",
-      name: "Jim Green",
-      role: "co-owner"
-    },
-    {
-      key: "1",
-      name: "John Brown",
-      role: "owner"
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "4",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "5",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "6",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "7",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "8",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "9",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "10",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "11",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "12",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "13",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "14",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "16",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "17",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "18",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "19",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "20",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "21",
-      name: "Joe Black",
-      role: "member"
-    },
-    {
-      key: "22",
-      name: "Joe Black",
-      role: "member"
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await GroupService.detail(groupId);
+      setMembers(data.joinedUser);
+      setStage(1);
     }
-  ];
+    if (stage === 0) {
+      fetchData();
+    }
+  }, [groupId]);
 
-  return (
-    <Card className="round">
-      <Row style={{ marginBottom: "24px" }}>
-        <Col span={12}>
-          <Row justify="start">
-            <h1>Group Members</h1>
-          </Row>
-        </Col>
-        <Col span={12}>
-          <Row justify="end" align="middle" gutter={[20, 0]}>
-            <Col>
-              <Button
-                type="primary"
-                shape="round"
-                icon={<UserAddOutlined />}
-                onClick={() => invite()}
-              >
-                Invite
-              </Button>
+  switch (stage) {
+    case 1:
+      return (
+        <Card className="round">
+          <Row style={{ marginBottom: "24px" }}>
+            <Col span={12}>
+              <Row justify="start">
+                <h1>Group Members</h1>
+              </Row>
+            </Col>
+            <Col span={12}>
+              <Row justify="end" align="middle" gutter={[20, 0]}>
+                <Col>
+                  <Button
+                    type="primary"
+                    shape="round"
+                    icon={<UserAddOutlined />}
+                    onClick={() => invite()}
+                  >
+                    Invite
+                  </Button>
+                </Col>
+              </Row>
             </Col>
           </Row>
-        </Col>
-      </Row>
-      <Row justify="center">
-        <Col span={24}>
-          <Table
-            dataSource={data}
-            columns={columns}
-            pagination={{ pageSize: 10 }}
-          />
-        </Col>
-      </Row>
-    </Card>
-  );
+          <Row justify="center">
+            <Col span={24}>
+              <Table
+                dataSource={members}
+                columns={columns}
+                pagination={{ pageSize: 10 }}
+                rowKey="_id"
+              />
+            </Col>
+          </Row>
+          <Modal
+            title="Remove user"
+            open={removeModalVisible}
+            onOk={() => removeUser()}
+            onCancel={() => {
+              setRemoveModalVisible(false);
+            }}
+          >
+            <p>Are you sure to remove this user?</p>
+          </Modal>
+          <Modal
+            title="Change role"
+            open={changeRoleModalVisible}
+            onOk={() => changeRole()}
+            onCancel={() => {
+              setChangeRoleModalVisible(false);
+            }}
+          >
+            <p>Change role to:</p>
+            <Form form={form}>
+              <Form.Item name="role" initialValue="Member">
+                <Select style={{ width: "100%" }}>
+                  <Select.Option value="Member">Member</Select.Option>
+                  <Select.Option value="Co-Owner">Co-Owner</Select.Option>
+                </Select>
+              </Form.Item>
+            </Form>
+          </Modal>
+        </Card>
+      );
+    default:
+      return (
+        <Card className="round">
+          <Row style={{ marginBottom: "24px" }}>
+            <Col span={12}>
+              <Row justify="start">
+                <h1>Group Members</h1>
+              </Row>
+            </Col>
+          </Row>
+          <Row justify="center" style={{ marginBottom: "32px" }}>
+            <Col>
+              <Spin size="large" />
+            </Col>
+          </Row>
+        </Card>
+      );
+  }
 }
