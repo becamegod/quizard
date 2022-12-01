@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -11,7 +11,6 @@ import {
   Typography
 } from "antd";
 import { Content } from "antd/lib/layout/layout";
-import Link from "antd/lib/typography/Link";
 import Title from "antd/lib/typography/Title";
 import React from "react";
 import constants from "../../constants";
