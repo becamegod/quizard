@@ -27,6 +27,8 @@ import InviteButton from "../InviteButton";
 
 export default function GroupMemberCard() {
   const { groupId } = useParams();
+  // const user = JSON.parse(localStorage.getItem("user") !== undefined || "{}");
+  const [userRole, setUserRole] = useState("Member");
   const [members, setMembers] = useState([]);
   const [removeModalVisible, setRemoveModalVisible] = useState(false);
   const [changeRoleModalVisible, setChangeRoleModalVisible] = useState(false);
@@ -75,6 +77,15 @@ export default function GroupMemberCard() {
       });
     }
     setChangeRoleModalVisible(false);
+  };
+  const permission = (role) => {
+    if (role === "Owner") {
+      return true;
+    }
+    if (role === "Co-Owner") {
+      return userRole === "Member";
+    }
+    return userRole !== "Owner";
   };
   const priority = {
     Owner: 1,
@@ -145,7 +156,7 @@ export default function GroupMemberCard() {
               setSelectedMember(record);
               setRemoveModalVisible(true);
             }}
-            hidden={record.role === "Owner" || record.role === "Co-Owner"}
+            hidden={permission(record.role)}
           >
             <DeleteOutlined />
           </Button>
@@ -155,7 +166,7 @@ export default function GroupMemberCard() {
               setSelectedMember(record);
               setChangeRoleModalVisible(true);
             }}
-            hidden={record.role === "Owner"}
+            hidden={permission(record.role)}
           >
             <SettingOutlined />
           </Button>
@@ -168,6 +179,10 @@ export default function GroupMemberCard() {
     async function fetchData() {
       const { data } = await GroupService.detail(groupId);
       setMembers(data.joinedUser);
+      setUserRole(
+        // data.joinedUser.find((member) => member.email === user.email).role
+        "Member"
+      );
       setStage(1);
     }
     if (stage === 0) {
