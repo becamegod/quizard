@@ -20,9 +20,6 @@ import {
 export default function GroupInfoCard() {
   const [editMode, setEditMode] = useState(false);
   const [busy, setBusy] = useState(false);
-  const onInvite = () => {
-    console.log("invite");
-  };
   const enableEdit = () => {
     console.log("edit");
     setEditMode(!editMode);
@@ -108,7 +105,11 @@ export default function GroupInfoCard() {
                 </Form.Item>
               </Col>
               <Col hidden={!editMode}>
-                <Button type="danger" shape="round" onClick={enableEdit}>
+                <Button
+                  type="danger"
+                  shape="round"
+                  onClick={() => enableEdit()}
+                >
                   Cancel
                 </Button>
               </Col>
@@ -116,20 +117,15 @@ export default function GroupInfoCard() {
           </Form>
         </Col>
         <Col span={4} hidden={editMode}>
-          <Row justify="end" gutter={[8, 0]}>
-            <Col>
-              <Button type="primary" shape="round" onClick={enableEdit}>
-                <EditOutlined />
-              </Button>
-            </Col>
+          <Row justify="end">
             <Col>
               <Button
                 type="primary"
                 shape="round"
-                onClick={onInvite}
-                icon={<UserOutlined />}
+                onClick={() => enableEdit()}
+                icon={<EditOutlined />}
               >
-                Invite
+                Edit
               </Button>
             </Col>
           </Row>
