@@ -9,6 +9,7 @@ import "./DashboardPage.css";
 export default function DashboardPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [form] = Form.useForm();
+  const [reload, setReload] = useState(0);
 
   const createGroup = () => {
     setShowCreateModal(true);
@@ -24,6 +25,7 @@ export default function DashboardPage() {
       const res = await groups.create(values);
       if (res.status === 201)
         notification.success({ message: "Group created successfully" });
+      setReload(reload + 1);
     } catch (error) {
       console.log("Error: ", error);
       notification.error({
@@ -85,21 +87,22 @@ export default function DashboardPage() {
               }}
               tabPosition="left"
               defaultActiveKey="1"
+              // key={reload}
               items={[
                 {
                   key: "1",
                   label: "All Groups",
-                  children: <GroupList category="all" />
+                  children: <GroupList category="all" key={reload} />
                 },
                 {
                   key: "2",
                   label: "My Groups",
-                  children: <GroupList category="owned" />
+                  children: <GroupList category="owned" key={reload} />
                 },
                 {
                   key: "3",
                   label: "Joined Groups",
-                  children: <GroupList category="joined" />
+                  children: <GroupList category="joined" key={reload} />
                 }
               ]}
             />
