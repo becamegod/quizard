@@ -1,29 +1,29 @@
-import { React, useState, useEffect } from "react";
 import {
-  Row,
-  Space,
-  Table,
-  Tag,
   Avatar,
   Button,
-  Col,
-  Typography,
   Card,
+  Col,
+  Form,
   Modal,
   notification,
-  Form,
+  Row,
   Select,
-  Spin
+  Space,
+  Spin,
+  Table,
+  Tag,
+  Typography
 } from "antd";
 import {
   UserOutlined,
   DeleteOutlined,
-  UserAddOutlined,
   SettingOutlined,
   LoadingOutlined
 } from "@ant-design/icons";
+import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GroupService from "../../services/groups";
+import InviteButton from "../InviteButton";
 
 export default function GroupMemberCard() {
   const { groupId } = useParams();
@@ -188,13 +188,14 @@ export default function GroupMemberCard() {
             <Col span={12}>
               <Row justify="end" align="middle" gutter={[20, 0]}>
                 <Col>
-                  <Button
+                  {/* <Button
                     type="primary"
                     shape="round"
                     icon={<UserAddOutlined />}
                   >
                     Invite
-                  </Button>
+                  </Button> */}
+                  <InviteButton group={groupId} />
                 </Col>
               </Row>
             </Col>
