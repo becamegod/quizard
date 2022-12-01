@@ -13,7 +13,7 @@ export default function InviteButton({ group }) {
   const onClick = async () => {
     setShowModal(true);
     const res = await inviteLink.get(group);
-    setUrl(`localhost:3000/join/${res.data.url}`);
+    setUrl(`quizard.vercel.app/join/${res.data.url}`);
   };
   const onCancel = () => setShowModal(false);
 
@@ -38,6 +38,7 @@ export default function InviteButton({ group }) {
         open={showModal}
         onCancel={onCancel}
         footer={null}
+        width={800}
       >
         <Tabs defaultActiveKey="1" centered items={tabItems} />
       </Modal>

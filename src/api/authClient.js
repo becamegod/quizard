@@ -24,7 +24,7 @@ authClient.interceptors.response.use(
 
     if (error?.response?.status === 401 && !config?.sent) {
       localStorage.setItem(constants.unauthorized, true);
-      window.location.href = "/login";
+      window.location.href = "/";
       // config.sent = true;
       // const result = await memoizedRefreshToken();
       // if (result?.accessToken) {
