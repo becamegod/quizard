@@ -1,4 +1,10 @@
 import {
+  DeleteOutlined,
+  LoadingOutlined,
+  SettingOutlined,
+  UserOutlined
+} from "@ant-design/icons";
+import {
   Avatar,
   Button,
   Card,
@@ -14,12 +20,6 @@ import {
   Tag,
   Typography
 } from "antd";
-import {
-  UserOutlined,
-  DeleteOutlined,
-  SettingOutlined,
-  LoadingOutlined
-} from "@ant-design/icons";
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GroupService from "../../services/groups";
@@ -78,14 +78,14 @@ export default function GroupMemberCard() {
     }
     setChangeRoleModalVisible(false);
   };
-  const permission = (role) => {
-    if (role === "Owner") {
-      return true;
-    }
-    if (role === "Co-Owner") {
-      return userRole === "Member" || userRole === "Co-Owner";
-    }
-    return userRole !== "Owner";
+  const permission = (record) => {
+    // eslint-disable-next-line no-underscore-dangle
+    if (record._id === user._id) return false;
+    if (record.role === "Owner") return false;
+    if (record.role === "Co-Owner") return userRole === "Owner";
+    if (record.role === "Member")
+      return userRole === "Co-Owner" || userRole === "Owner";
+    return false;
   };
   const priority = {
     Owner: 1,
@@ -119,11 +119,17 @@ export default function GroupMemberCard() {
       title: "Role",
       key: "role",
       dataIndex: "role",
-      render: (_, { role }) => {
+      render: (_, { role, _id }) => {
         return (
-          <Tag color={color[role]} key={role}>
-            {role}
-          </Tag>
+          <Space direction="horizontal" size="small">
+            <Tag color={color[role]} key={role}>
+              {role}
+            </Tag>
+            {/* eslint-disable-next-line no-underscore-dangle */}
+            <Tag key="you" hidden={_id !== user._id}>
+              You
+            </Tag>
+          </Space>
         );
       },
       sorter: (a, b) => priority[a.role] - priority[b.role],
@@ -156,7 +162,7 @@ export default function GroupMemberCard() {
               setSelectedMember(record);
               setRemoveModalVisible(true);
             }}
-            hidden={permission(record.role)}
+            hidden={!permission(record)}
           >
             <DeleteOutlined />
           </Button>
@@ -166,7 +172,7 @@ export default function GroupMemberCard() {
               setSelectedMember(record);
               setChangeRoleModalVisible(true);
             }}
-            hidden={permission(record.role)}
+            hidden={!permission(record)}
           >
             <SettingOutlined />
           </Button>
@@ -180,7 +186,8 @@ export default function GroupMemberCard() {
       const { data } = await GroupService.detail(groupId);
       setMembers(data.joinedUser);
       setUserRole(
-        data.joinedUser.find((member) => member.email === user.email).role
+        // eslint-disable-next-line no-underscore-dangle
+        data.joinedUser.find((member) => member._id === user._id).role
       );
       setStage(1);
     }
