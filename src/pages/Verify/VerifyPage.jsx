@@ -6,7 +6,7 @@ import {
   CloseCircleOutlined,
   LoadingOutlined
 } from "@ant-design/icons";
-import authService from "../services/auth";
+import authService from "../../api/auth";
 
 export default function VerifyPage() {
   const [verify, setVerify] = useState(0);

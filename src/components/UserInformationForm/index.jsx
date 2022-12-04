@@ -13,7 +13,7 @@ import {
 } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import moment from "moment";
-import { updateProfile, getProfile } from "../../services/user.service";
+import { updateProfile, getProfile } from "../../api/user";
 
 // eslint-disable-next-line react/prop-types
 export default function UserInformationForm() {

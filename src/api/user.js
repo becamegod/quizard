@@ -1,4 +1,4 @@
-import authClient from "../api/authClient";
+import authClient from "./authClient";
 
 const getProfile = () => {
   return authClient.get(`/users/profile`);

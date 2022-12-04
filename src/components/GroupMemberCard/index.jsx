@@ -22,7 +22,7 @@ import {
 } from "antd";
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import GroupService from "../../services/groups";
+import GroupService from "../../api/groups";
 import InviteButton from "../InviteButton";
 
 export default function GroupMemberCard() {

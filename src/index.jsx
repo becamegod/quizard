@@ -4,12 +4,12 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import JoinGroup from "./components/JoinGroup";
 import "./index.css";
-import DashboardPage from "./pages/DashboardPage";
-import GroupDetailPage from "./pages/GroupDetailPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import UserInformationPage from "./pages/UserInformationPage";
-import VerifyPage from "./pages/VerifyPage";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
+import GroupDetailPage from "./pages/GroupDetail/GroupDetailPage";
+import LoginPage from "./pages/Login/LoginPage";
+import RegisterPage from "./pages/Register/RegisterPage";
+import UserInformationPage from "./pages/UserInformation/UserInformationPage";
+import VerifyPage from "./pages/Verify/VerifyPage";
 import reportWebVitals from "./reportWebVitals";
 
 const router = createBrowserRouter([

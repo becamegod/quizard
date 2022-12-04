@@ -1,8 +1,8 @@
 import { React } from "react";
 import { Row, Col, Space } from "antd";
-import GroupInfoCard from "../components/GroupInfoCard";
-import DashboardLayout from "../components/DashboardLayout";
-import GroupMemberCard from "../components/GroupMemberCard";
+import GroupInfoCard from "../../components/GroupInfoCard";
+import DashboardLayout from "../../components/DashboardLayout";
+import GroupMemberCard from "../../components/GroupMemberCard";
 import "./GroupDetailPage.css";
 
 export default function GroupDetailPage() {

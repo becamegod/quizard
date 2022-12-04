@@ -1,9 +1,9 @@
 import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Modal, notification, Row, Tabs } from "antd";
 import React, { useState } from "react";
-import DashboardLayout from "../components/DashboardLayout";
-import GroupList from "../components/GroupList";
-import groups from "../services/groups";
+import DashboardLayout from "../../components/DashboardLayout";
+import GroupList from "../../components/GroupList";
+import groups from "../../api/groups";
 import "./DashboardPage.css";
 
 export default function DashboardPage() {

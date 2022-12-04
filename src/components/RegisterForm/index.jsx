@@ -15,7 +15,7 @@ import { Content } from "antd/lib/layout/layout";
 import Title from "antd/lib/typography/Title";
 import { React, useState, useEffect } from "react";
 import moment from "moment";
-import authService from "../../services/auth";
+import authService from "../../api/auth";
 
 export default function RegisterForm() {
   const [stage, setStage] = useState(0);

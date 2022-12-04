@@ -1,4 +1,4 @@
-import authClient from "../api/authClient";
+import authClient from "./authClient";
 
 const list = (filter) => {
   return authClient.get("/groups", { params: filter });

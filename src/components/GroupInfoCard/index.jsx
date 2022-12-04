@@ -18,7 +18,7 @@ import {
   Spin
 } from "antd";
 import { useParams } from "react-router-dom";
-import GroupService from "../../services/groups";
+import GroupService from "../../api/groups";
 import "./GroupInfoCard.css";
 
 export default function GroupInfoCard() {
