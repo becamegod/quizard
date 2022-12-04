@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import inviteLink from "../../api/inviteLink";
 import InviteEmailForm from "./InviteEmailForm";
+import constants from "../../constants";
 
 export default function InviteButton({ group }) {
   const [showModal, setShowModal] = useState(false);
@@ -13,7 +14,7 @@ export default function InviteButton({ group }) {
   const onClick = async () => {
     setShowModal(true);
     const res = await inviteLink.get(group);
-    setUrl(`quizard.vercel.app/join/${res.data.url}`);
+    setUrl(`${constants.baseUrl}/join/${res.data.url}`);
   };
   const onCancel = () => setShowModal(false);
 
