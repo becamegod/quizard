@@ -1,0 +1,70 @@
+.list-slide-container,
+.main-editor,
+.choice-container {
+  background: #fff;
+  height: 100%;
+}
+
+.slide-editor-container {
+  margin-top: 20px;
+  height: 100%;
+}
+.list-slide-container {
+  margin-right: 20px;
+}
+
+.main-editor {
+  margin-right: 20px;
+}
+
+.list-slide {
+  overflow: auto;
+  height: 100%;
+}
+
+.list-slide-space {
+  height: 100%;
+  padding: 15px;
+}
+
+.slide-container{
+  justify-content: space-around;
+}
+
+.slide-container .ant-card-body{
+  padding: 0;
+  height: 100%;
+}
+
+.slide-container:hover{
+  cursor: pointer;
+  transition:cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+.slide {
+  width: 80%;
+  margin: 5px;
+  height: 100px;
+  border: 1px solid rgb(183, 186, 194);
+}
+
+.number{
+  font-weight: 600;
+}
+
+.slide .ant-image{
+  height: 100%;
+  width: 100%;
+}
+
+.slide-img{
+  height: 100%;
+}
+
+.list-slide .selected{
+  background-color: rgb(209, 226, 255);
+}
+
+.list-slide .selected .slide{
+  border: 2px solid rgb(25, 108, 255);
+}
