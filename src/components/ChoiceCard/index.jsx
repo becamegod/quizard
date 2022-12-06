@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Row, Typography, Button, Space } from "antd";
+import { Form, Input, Row, Typography, Button } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 const { Title, Text } = Typography;
@@ -11,7 +11,7 @@ export default function ChoiceCard() {
         <Text style={{ marginBottom: "5px", fontSize: "14pt" }} strong>
           Your question
         </Text>
-        <Input className="input-question" defaultValue={"Question"} />
+        <Input className="input-question round" defaultValue="Question" />
       </Row>
       <div className="option-container">
         <Text style={{ marginBottom: "5px", fontSize: "14pt" }} strong>
@@ -23,7 +23,7 @@ export default function ChoiceCard() {
               <>
                 {fields.map((field, index) => (
                   <Form.Item required={false} key={field.key}>
-                    <Form.Item {...field} noStyle>
+                    <Form.Item key={field.key} name={field.name} noStyle>
                       <Input
                         placeholder={`Option ${index + 1}`}
                         style={{
@@ -32,15 +32,15 @@ export default function ChoiceCard() {
                         }}
                       />
                     </Form.Item>
-                      <MinusCircleOutlined
-                        className="dynamic-delete-button"
-                        onClick={() => remove(field.name)}
-                      />
+                    <MinusCircleOutlined
+                      className="dynamic-delete-button"
+                      onClick={() => remove(field.name)}
+                    />
                   </Form.Item>
                 ))}
                 <Form.Item>
                   <Button
-                  className="button-add-option"
+                    className="button-add-option"
                     onClick={() => add()}
                     style={{
                       width: "100%",

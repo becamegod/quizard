@@ -1,22 +1,23 @@
 import React from "react";
-import { Layout, Col, Row } from "antd";
+import { Col, Input, Row } from "antd";
 import "./SlideEditorPage.css";
 import ListSlide from "../../components/ListSlide";
-import NavBar from "../../components/NavBar";
 import ChoiceCard from "../../components/ChoiceCard";
+import ChartScreen from "../../components/ChartScreen";
 
-const { Header } = Layout;
 export default function SlideEditorPage() {
   return (
     <>
-      <Header style={{ background: "none", padding: "0px" }}>
-        <NavBar />
-      </Header>
+      <Row className="slide-editor-header">
+        <Input className="round" />
+      </Row>
       <Row className="slide-editor-container">
         <Col className="list-slide-container" span={3}>
           <ListSlide />
         </Col>
-        <Col className="main-editor" span={13}></Col>
+        <Col className="chart-screen" span={13}>
+          <ChartScreen />
+        </Col>
         <Col className="choice-container" span={7}>
           <ChoiceCard />
         </Col>
