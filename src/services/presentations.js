@@ -13,7 +13,6 @@ const detail = (id) => {
 };
 
 const remove = (_id) => {
-  console.log(_id);
   return authClient.post("/presentations/delete", { _id });
 };
 

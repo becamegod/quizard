@@ -16,9 +16,15 @@ import {
   Table,
   Typography
 } from "antd";
+import moment from "moment/moment";
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Presentations from "../../services/presentations";
+import CreateButton from "./CreateButton";
+
+function timeDifference(previous) {
+  return moment.utc(previous).local().startOf("seconds").fromNow();
+}
 
 export default function PresentationCard() {
   const { groupId } = useParams();
@@ -29,10 +35,8 @@ export default function PresentationCard() {
 
   const removePresentation = async () => {
     try {
-      console.log(selection);
       // eslint-disable-next-line no-underscore-dangle
-      const data = await Presentations.remove(selection._id);
-      console.log(data);
+      await Presentations.remove(selection._id);
       setStage(0);
       notification.success({
         message: "Presentation removed successfully",
@@ -47,11 +51,6 @@ export default function PresentationCard() {
       });
     }
     setRemoveModalVisible(false);
-  };
-
-  const onCreateButtonClick = async () => {
-    const { data } = await Presentations.create(groupId);
-    console.log(data);
   };
 
   const columns = [
@@ -86,7 +85,9 @@ export default function PresentationCard() {
       key: "modified",
       dataIndex: "modified",
       render: (text) => (
-        <Typography.Text type="secondary">{text}</Typography.Text>
+        <Typography.Text type="secondary">
+          {timeDifference(text)}
+        </Typography.Text>
       )
     },
     {
@@ -94,7 +95,9 @@ export default function PresentationCard() {
       key: "created",
       dataIndex: "created",
       render: (text) => (
-        <Typography.Text type="secondary">{text}</Typography.Text>
+        <Typography.Text type="secondary">
+          {timeDifference(text)}
+        </Typography.Text>
       )
     },
     {
@@ -166,7 +169,7 @@ export default function PresentationCard() {
       <Col span={12}>
         <Row justify="end" align="middle" gutter={[20, 0]}>
           <Col>
-            <Button onClick={onCreateButtonClick}>Create new</Button>
+            <CreateButton groupId={groupId} />
           </Col>
         </Row>
       </Col>
