@@ -12,16 +12,9 @@ const detail = (id) => {
   return authClient.get(`/groups/detail/${id}`);
 };
 
-const changeRole = (data) => {
-  return authClient.post("/groups/changeRole/", data);
+const remove = (_id) => {
+  console.log(_id);
+  return authClient.post("/presentations/delete", { _id });
 };
 
-const kick = (data) => {
-  return authClient.post("/groups/kickUser", data);
-};
-
-const join = (url) => {
-  return authClient.post("/groups/join", { url });
-};
-
-export default { list, create, detail, changeRole, delete: kick, join };
+export default { list, create, detail, remove };

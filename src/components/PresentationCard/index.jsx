@@ -29,10 +29,10 @@ export default function PresentationCard() {
 
   const removePresentation = async () => {
     try {
-      await Presentations.delete({
-        groupId,
-        email: selection.email
-      });
+      console.log(selection);
+      // eslint-disable-next-line no-underscore-dangle
+      const data = await Presentations.remove(selection._id);
+      console.log(data);
       setStage(0);
       notification.success({
         message: "Presentation removed successfully",

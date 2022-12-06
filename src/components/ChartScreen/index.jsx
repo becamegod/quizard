@@ -1,5 +1,14 @@
 import React from "react";
-import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import {
+  BarChart,
+  Bar,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend
+} from "recharts";
+
 const data = [
   {
     name: "Page A",

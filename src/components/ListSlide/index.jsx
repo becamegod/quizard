@@ -29,7 +29,7 @@ const mockData = [
 ];
 
 export default function ListSlide() {
-  const [elements, setElements] = useState(mockData);
+  const [elements] = useState(mockData);
   const [selectedID, setSelectedID] = useState(0);
 
   const handleOnClick = (id) => {
