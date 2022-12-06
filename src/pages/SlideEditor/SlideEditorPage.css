@@ -8,6 +8,7 @@
 .slide-editor-container {
   margin-top: 20px;
   height: 100%;
+  padding: 20px;
 }
 .list-slide-container {
   margin-right: 20px;
@@ -67,4 +68,38 @@
 
 .list-slide .selected .slide{
   border: 2px solid rgb(25, 108, 255);
+}
+
+.choice-card-title{
+  margin-top: 20px;
+  text-align: center;
+}
+
+.input-question-container{
+  padding: 15px;
+}
+
+.option-container{
+  padding: 15px;
+}
+
+.choice-container{
+  overflow: auto;
+  height: 100%;
+}
+
+.button-add-option{
+  background-color: rgb(219, 220, 225);
+}
+
+.button-add-option:hover{
+  background-color: rgb(175, 176, 180);
+  border: none;
+  color: rgba(0,0,0,.85);
+}
+
+.button-add-option:focus{
+  background-color: rgb(175, 176, 180);
+  border: none;
+  color: rgba(0,0,0,.85);
 }
