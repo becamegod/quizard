@@ -8,6 +8,7 @@ import DashboardPage from "./pages/Dashboard/DashboardPage";
 import GroupDetailPage from "./pages/GroupDetail/GroupDetailPage";
 import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
+import SlideEditorPage from "./pages/SlideEditor/SlideEditorPage";
 import UserInformationPage from "./pages/UserInformation/UserInformationPage";
 import VerifyPage from "./pages/Verify/VerifyPage";
 import reportWebVitals from "./reportWebVitals";
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/join/:url",
     element: <JoinGroup />
+  },
+  {
+    path: "/slideeditor",
+    element: <SlideEditorPage />
   }
 ]);
 
