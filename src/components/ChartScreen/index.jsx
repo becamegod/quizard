@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  BarChart,
-  Bar,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend
-} from "recharts";
+import { Bar, BarChart, LabelList, Tooltip, XAxis } from "recharts";
 
 const data = [
   {
@@ -68,13 +60,15 @@ const data = [
 ];
 export default function ChartScreen() {
   return (
-    <BarChart width={730} height={250} data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
+    <BarChart width={800} height={600} data={data}>
+      {/* <CartesianGrid strokeDasharray="3 3" /> */}
       <XAxis dataKey="name" />
-      <YAxis />
+      {/* <YAxis /> */}
       <Tooltip />
-      <Legend />
-      <Bar dataKey="pv" fill="#8884d8" />
+      {/* <Legend /> */}
+      <Bar dataKey="pv" fill="#8884d8">
+        <LabelList dataKey="pv" position="top" />
+      </Bar>
     </BarChart>
   );
 }

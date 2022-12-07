@@ -3,10 +3,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import JoinGroup from "./components/JoinGroup";
+import { SocketContext, socket } from "./context/socket";
 import "./index.css";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import GroupDetailPage from "./pages/GroupDetail/GroupDetailPage";
 import LoginPage from "./pages/Login/LoginPage";
+import PresentationForHost from "./pages/Presentation/PresentationForHost";
+import PresentationForMember from "./pages/Presentation/PresentationForMember";
 import RegisterPage from "./pages/Register/RegisterPage";
 import SlideEditorPage from "./pages/SlideEditor/SlideEditorPage";
 import UserInformationPage from "./pages/UserInformation/UserInformationPage";
@@ -45,13 +48,23 @@ const router = createBrowserRouter([
   {
     path: "/slideeditor",
     element: <SlideEditorPage />
+  },
+  {
+    path: "/presentations/:presentationId",
+    element: <PresentationForMember />
+  },
+  {
+    path: "/host/:presentationId",
+    element: <PresentationForHost />
   }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <SocketContext.Provider value={socket}>
+      <RouterProvider router={router} />
+    </SocketContext.Provider>
   </React.StrictMode>
 );
 

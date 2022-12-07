@@ -20,7 +20,7 @@ import moment from "moment/moment";
 import { React, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import constants from "../../constants";
-import Presentations from "../../services/presentations";
+import Presentations from "../../api/presentations";
 import CreateButton from "./CreateButton";
 
 function timeDifference(previous) {

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import constants from "../../constants";
-import Presentations from "../../services/presentations";
+import Presentations from "../../api/presentations";
 
 export default function CreateButton({ groupId }) {
   const [loading, setLoading] = useState(false);
