@@ -18,7 +18,8 @@ import {
 } from "antd";
 import moment from "moment/moment";
 import { React, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import constants from "../../constants";
 import Presentations from "../../services/presentations";
 import CreateButton from "./CreateButton";
 
@@ -32,11 +33,11 @@ export default function PresentationCard() {
   const [removeModalVisible, setRemoveModalVisible] = useState(false);
   const [selection, setSelection] = useState(null);
   const [stage, setStage] = useState(0);
+  const navigate = useNavigate();
 
   const removePresentation = async () => {
     try {
-      // eslint-disable-next-line no-underscore-dangle
-      await Presentations.remove(selection._id);
+      await Presentations.remove(selection.id);
       setStage(0);
       notification.success({
         message: "Presentation removed successfully",
@@ -51,6 +52,10 @@ export default function PresentationCard() {
       });
     }
     setRemoveModalVisible(false);
+  };
+
+  const onEdit = (id) => {
+    navigate(constants.editPresentationUrl(groupId, id));
   };
 
   const columns = [
@@ -107,10 +112,7 @@ export default function PresentationCard() {
         <Space size="middle" direction="horizontal">
           <Button
             shape="round"
-            onClick={() => {
-              setSelection(record);
-              setRemoveModalVisible(true);
-            }}
+            onClick={() => onEdit(record.id)}
             // hidden={!permission(record)}
           >
             <EditOutlined />
@@ -158,7 +160,7 @@ export default function PresentationCard() {
         dataSource={presentations}
         columns={columns}
         pagination={{ pageSize: 10 }}
-        rowKey="_id"
+        rowKey="id"
       />
     </Col>
   );

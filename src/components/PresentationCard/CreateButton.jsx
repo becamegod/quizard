@@ -3,6 +3,7 @@ import { Button } from "antd";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import constants from "../../constants";
 import Presentations from "../../services/presentations";
 
 export default function CreateButton({ groupId }) {
@@ -13,7 +14,7 @@ export default function CreateButton({ groupId }) {
     setLoading(true);
     const { data } = await Presentations.create(groupId);
     console.log(data);
-    navigate("/slideeditor");
+    navigate(constants.editPresentationUrl(groupId, data.id));
   };
   return (
     <Button
