@@ -15,23 +15,22 @@ export default function PresentationForHost() {
     const live = async () => {
       try {
         socket.emit("joinPresentation", presentationId);
-        socket.on("slideUpdate", (slide) => {
-          console.log(slide);
-        });
-
         const { data } = await presentations.detail(presentationId);
         const { slides } = data.presentation;
         if (slides.length > 0) {
           const currentIndex = 0;
           const currentSlide = slides[currentIndex];
-          socket.emit("slideUpdate", currentSlide);
+          socket.emit("slideUpdate", presentationId, currentSlide);
+          console.log("HOST UPDATE", currentSlide);
         }
       } catch (error) {
         console.log(error);
       }
     };
     live();
-    return () => {};
+    return () => {
+      socket.off("slideUpdate");
+    };
   }, []);
 
   return (

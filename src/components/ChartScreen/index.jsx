@@ -72,5 +72,15 @@ export default function ChartScreen() {
         <Bar dataKey="pv" fill="#8884d8" />
       </BarChart>
     </Row>
+    //   <BarChart width={800} height={600} data={data}>
+    //   {/* <CartesianGrid strokeDasharray="3 3" /> */}
+    //   <XAxis dataKey="name" />
+    //   {/* <YAxis /> */}
+    //   <Tooltip />
+    //   {/* <Legend /> */}
+    //   <Bar dataKey="pv" fill="#8884d8">
+    //     <LabelList dataKey="pv" position="top" />
+    //   </Bar>
+    // </BarChart>
   );
 }
