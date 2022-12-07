@@ -1,5 +1,6 @@
 import React from "react";
-import { Bar, BarChart, LabelList, Tooltip, XAxis } from "recharts";
+import { BarChart, Bar, XAxis, Tooltip, Legend } from "recharts";
+import { Typography, Row } from "antd";
 
 const data = [
   {
@@ -60,15 +61,16 @@ const data = [
 ];
 export default function ChartScreen() {
   return (
-    <BarChart width={800} height={600} data={data}>
-      {/* <CartesianGrid strokeDasharray="3 3" /> */}
-      <XAxis dataKey="name" />
-      {/* <YAxis /> */}
-      <Tooltip />
-      {/* <Legend /> */}
-      <Bar dataKey="pv" fill="#8884d8">
-        <LabelList dataKey="pv" position="top" />
-      </Bar>
-    </BarChart>
+    <Row>
+      <Typography.Title className="chart-screen-question" level={2}>
+        Question
+      </Typography.Title>
+      <BarChart width={730} height={250} data={data}>
+        <XAxis dataKey="name" />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="pv" fill="#8884d8" />
+      </BarChart>
+    </Row>
   );
 }
