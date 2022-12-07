@@ -43,7 +43,7 @@ const router = createBrowserRouter([
     element: <JoinGroup />
   },
   {
-    path: "/slideeditor",
+    path: "/groups/:groupId/:presentationId",
     element: <SlideEditorPage />
   }
 ]);

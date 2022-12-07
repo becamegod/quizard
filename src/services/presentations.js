@@ -9,7 +9,7 @@ const create = (groupId) => {
 };
 
 const detail = (id) => {
-  return authClient.get(`/groups/detail/${id}`);
+  return authClient.get(`/presentations/detail/${id}`);
 };
 
 const remove = (_id) => {
