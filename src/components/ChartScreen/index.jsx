@@ -8,79 +8,23 @@ import {
   Tooltip,
   XAxis
 } from "recharts";
+import PropTypes from "prop-types";
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300
-  }
-];
-export default function ChartScreen() {
+export default function ChartScreen({ slide }) {
   return (
     <>
       <Row>
         <Typography.Title className="chart-screen-question" level={2}>
-          Question
+          {slide.question}
         </Typography.Title>
       </Row>
       <Row className="expand-height">
         <ResponsiveContainer>
-          <BarChart width={730} height={250} data={data}>
-            <XAxis dataKey="name" />
+          <BarChart width={730} height={250} data={slide.options}>
+            <XAxis dataKey="text" />
             <Tooltip />
-            <Bar dataKey="pv" fill="#8884d8">
-              <LabelList dataKey="pv" position="top" />
+            <Bar dataKey="vote" fill="#8884d8">
+              <LabelList dataKey="vote" position="top" />
             </Bar>
           </BarChart>
         </ResponsiveContainer>
@@ -88,3 +32,27 @@ export default function ChartScreen() {
     </>
   );
 }
+
+ChartScreen.propTypes = {
+  slide: PropTypes.shape({
+    question: PropTypes.string,
+    options: PropTypes.arrayOf(
+      PropTypes.shape({
+        text: PropTypes.string,
+        vote: PropTypes.number
+      })
+    )
+  })
+};
+
+ChartScreen.defaultProps = {
+  slide: {
+    question: "Loading question...",
+    options: [
+      {
+        text: "Loading choice...",
+        vote: 0
+      }
+    ]
+  }
+};
