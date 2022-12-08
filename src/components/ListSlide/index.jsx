@@ -56,7 +56,7 @@ export default function ListSlide({
 
 ListSlide.propTypes = {
   presentation: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
     group: PropTypes.string.isRequired,

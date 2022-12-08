@@ -117,7 +117,7 @@ export default function SlideEditorPage() {
               onClick={handleOnClickBackButton}
             />
             <Input
-              className="input-name-presentation"
+              className="input-name-presentation round"
               defaultValue={presentation.name}
               onChange={(e) => handleChangeName(e)}
             />
@@ -160,7 +160,7 @@ export default function SlideEditorPage() {
           <Col className="chart-screen" span={12}>
             <ChartScreen slide={presentation.slides[selectedId]} />
           </Col>
-          <Col className="choice-container" span={7}>
+          <Col className="choice-container" span={8}>
             <ChoiceCard
               selectedSlide={presentation.slides[selectedId]}
               handleChangeOption={handleChangeOption}

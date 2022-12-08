@@ -1,40 +1,27 @@
 import { Row, Typography } from "antd";
 import React from "react";
-import {
-  Bar,
-  BarChart,
-  LabelList,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis
-} from "recharts";
+import { Bar, BarChart, LabelList, Tooltip, XAxis } from "recharts";
 import PropTypes from "prop-types";
 
-export default function ChartScreen({ slide }) {
+export default function ChartScreen({ selectedSlide }) {
   return (
-    <>
-      <Row>
-        <Typography.Title className="chart-screen-question" level={2}>
-          {slide.question}
-        </Typography.Title>
-      </Row>
-      <Row className="expand-height">
-        <ResponsiveContainer>
-          <BarChart width={730} height={250} data={slide.options}>
-            <XAxis dataKey="text" />
-            <Tooltip />
-            <Bar dataKey="vote" fill="#8884d8">
-              <LabelList dataKey="vote" position="top" />
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </Row>
-    </>
+    <Row className="chart-screen-container">
+      <Typography.Title className="chart-screen-question" level={2}>
+        {selectedSlide.question}
+      </Typography.Title>
+      <BarChart width={730} height={250} data={selectedSlide.options}>
+        <XAxis dataKey="text" />
+        <Tooltip />
+        <Bar dataKey="vote" fill="#8884d8">
+          <LabelList dataKey="vote" position="top" />
+        </Bar>
+      </BarChart>
+    </Row>
   );
 }
 
 ChartScreen.propTypes = {
-  slide: PropTypes.shape({
+  selectedSlide: PropTypes.shape({
     question: PropTypes.string,
     options: PropTypes.arrayOf(
       PropTypes.shape({
@@ -46,7 +33,7 @@ ChartScreen.propTypes = {
 };
 
 ChartScreen.defaultProps = {
-  slide: {
+  selectedSlide: {
     question: "Loading question...",
     options: [
       {

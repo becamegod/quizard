@@ -22,7 +22,7 @@ export default function ChoiceCard({
 
   const handleOnClickAddOption = (slide) => {
     const newOptions = slide.options.map((option) => option);
-    newOptions.push({ text: "", count: 0 });
+    newOptions.push({ text: "", vote: 0 });
     const newSlide = {
       question: slide.question,
       options: newOptions
@@ -54,9 +54,21 @@ export default function ChoiceCard({
   if (copySlide) {
     return (
       <>
-        <Title className="choice-card-title">Content</Title>
+        <Title
+          className="choice-card-title"
+          style={{ color: "rgb(0, 219, 145)" }}
+        >
+          Content
+        </Title>
         <div className="input-question-container">
-          <Text style={{ marginBottom: "5px", fontSize: "14pt" }} strong>
+          <Text
+            style={{
+              marginBottom: "5px",
+              fontSize: "14pt",
+              color: "rgb(0, 219, 145)"
+            }}
+            strong
+          >
             Your question
           </Text>
           <Form form={form}>
@@ -69,65 +81,52 @@ export default function ChoiceCard({
           </Form>
         </div>
         <div className="option-container">
-          <Text style={{ marginBottom: "5px", fontSize: "14pt" }} strong>
+          <Text
+            style={{
+              marginBottom: "5px",
+              fontSize: "14pt",
+              color: "rgb(0, 219, 145)"
+            }}
+            strong
+          >
             Options
           </Text>
-          <Form initialValues={() => {}}>
-            <Form.List name="options">
-              {(fields, { add, remove }, { errors }) => (
-                <>
-                  {copySlide.options.map((option, index) => (
-                    <Form.Item
-                      required={false}
-                      key={`${copySlide.question}-${index.toString()}`}
-                    >
-                      <Form.Item
-                        key={`${copySlide.question}-${index.toString()}`}
-                        name={`${copySlide.question}-${index.toString()}`}
-                        noStyle
-                      >
-                        <Input
-                          defaultValue={option.text}
-                          placeholder="Option"
-                          style={{
-                            width: "90%",
-                            marginRight: "4%"
-                          }}
-                          onChange={(e) =>
-                            handleOnChangeOption(e, copySlide, index)
-                          }
-                        />
-                      </Form.Item>
-                      <MinusCircleOutlined
-                        className="dynamic-delete-button"
-                        onClick={() => {
-                          remove(`${copySlide.question}-${index.toString()}`);
-                          handleOnClickRemoveOption(index);
-                        }}
-                      />
-                    </Form.Item>
-                  ))}
-                  <Form.Item>
-                    <Button
-                      className="button-add-option"
-                      onClick={() => {
-                        add();
-                        handleOnClickAddOption(copySlide);
-                      }}
-                      style={{
-                        width: "100%",
-                        fontWeight: 600
-                      }}
-                      icon={<PlusOutlined />}
-                    >
-                      Add option
-                    </Button>
-                    <Form.ErrorList errors={errors} />
-                  </Form.Item>
-                </>
-              )}
-            </Form.List>
-          </Form>
+
+          {copySlide.options.map((option, index) => (
+            <>
+              <Input
+                className="round"
+                key={`${copySlide.question}-${index.toString()}`}
+                defaultValue={option.text}
+                placeholder="Option"
+                style={{
+                  width: "90%",
+                  marginRight: "4%",
+                  marginBottom: "4%"
+                }}
+                onChange={(e) => handleOnChangeOption(e, copySlide, index)}
+              />
+              <MinusCircleOutlined
+                className="dynamic-delete-button"
+                onClick={() => {
+                  handleOnClickRemoveOption(index);
+                }}
+              />
+            </>
+          ))}
+          <Button
+            className="button-add-option"
+            onClick={() => {
+              handleOnClickAddOption(copySlide);
+            }}
+            style={{
+              width: "100%",
+              fontWeight: 600
+            }}
+            icon={<PlusOutlined />}
+          >
+            Add option
+          </Button>
         </div>
       </>
     );
