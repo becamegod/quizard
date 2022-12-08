@@ -13,7 +13,6 @@ export default function CreateButton({ groupId }) {
   const onClick = async () => {
     setLoading(true);
     const { data } = await Presentations.create(groupId);
-    console.log(data);
     navigate(constants.editPresentationUrl(groupId, data.id));
   };
   return (
