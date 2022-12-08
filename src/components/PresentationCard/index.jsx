@@ -2,7 +2,8 @@ import {
   BarChartOutlined,
   DeleteOutlined,
   EditOutlined,
-  LoadingOutlined
+  LoadingOutlined,
+  EyeOutlined
 } from "@ant-design/icons";
 import {
   Button,
@@ -58,6 +59,10 @@ export default function PresentationCard() {
     navigate(constants.editPresentationUrl(groupId, id));
   };
 
+  const onView = (id) => {
+    navigate(constants.joinPresentationUrl(id));
+  };
+
   const columns = [
     {
       title: "Name",
@@ -110,6 +115,13 @@ export default function PresentationCard() {
       key: "action",
       render: (_, record) => (
         <Space size="middle" direction="horizontal">
+          <Button
+            shape="round"
+            onClick={() => onView(record.id)}
+            // hidden={!permission(record)}
+          >
+            <EyeOutlined />
+          </Button>
           <Button
             shape="round"
             onClick={() => onEdit(record.id)}
