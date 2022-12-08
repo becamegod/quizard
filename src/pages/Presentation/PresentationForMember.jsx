@@ -19,20 +19,16 @@ export default function PresentationForMember() {
   const socket = useContext(SocketContext);
   useEffect(() => {
     const join = async () => {
-      try {
-        const { data } = await presentations.join(presentationId);
-        const { slide: s, slideIndex: i } = data;
-        setSlide(s);
-        setSlideIndex(i);
+      const { data } = await presentations.join(presentationId);
+      const { slide: s, slideIndex: i } = data;
+      setSlide(s);
+      setSlideIndex(i);
 
-        // socket.emit("joinPresentation", presentationId);
-        // socket.on("slideUpdate", (update) => {
-        //   console.log("UPDATE", update);
-        //   setSlide(update);
-        // });
-      } catch (error) {
-        console.log(error);
-      }
+      // socket.emit("joinPresentation", presentationId);
+      // socket.on("slideUpdate", (update) => {
+      //   console.log("UPDATE", update);
+      //   setSlide(update);
+      // });
     };
     join();
     return () => {
@@ -46,7 +42,6 @@ export default function PresentationForMember() {
       slideIndex,
       values.choice
     );
-    console.log("FINISH", data);
     setResult(data);
   };
 

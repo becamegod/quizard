@@ -23,23 +23,18 @@ export default function PresentationForHost() {
 
   useEffect(() => {
     const live = async () => {
-      try {
-        const { data: presentation } = await presentations.live(presentationId);
-        console.log(presentation);
-        setSlide(presentation.slides[presentation.currentSlideIndex]);
+      const { data: presentation } = await presentations.live(presentationId);
+      setSlide(presentation.slides[presentation.currentSlideIndex]);
 
-        // socket.emit("joinPresentation", presentationId);
-        // const { data } = await presentations.detail(presentationId);
-        // const { slides } = data.presentation;
-        // if (slides.length > 0) {
-        //   const currentIndex = 0;
-        //   const currentSlide = slides[currentIndex];
-        //   socket.emit("slideUpdate", presentationId, currentSlide);
-        //   console.log("HOST UPDATE", currentSlide);
-        // }
-      } catch (error) {
-        console.log(error);
-      }
+      // socket.emit("joinPresentation", presentationId);
+      // const { data } = await presentations.detail(presentationId);
+      // const { slides } = data.presentation;
+      // if (slides.length > 0) {
+      //   const currentIndex = 0;
+      //   const currentSlide = slides[currentIndex];
+      //   socket.emit("slideUpdate", presentationId, currentSlide);
+      //   console.log("HOST UPDATE", currentSlide);
+      // }
     };
     live();
     return () => {
