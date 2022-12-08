@@ -1,4 +1,4 @@
-import { Button, Card, Form, Radio, Space } from "antd";
+import { Button, Card, Form, Radio, Row, Space } from "antd";
 import Title from "antd/lib/typography/Title";
 import React, { useContext, useEffect, useState } from "react";
 
@@ -9,7 +9,10 @@ import "./Presentation.css";
 
 export default function PresentationForMember() {
   const { presentationId } = useParams();
-  const [slide, setSlide] = useState({ question: "Question?", options: [] });
+  const [slide, setSlide] = useState({
+    question: "Question?",
+    options: [{ text: "ABC" }, { text: "ABCD" }, { text: "ABCDEF" }]
+  });
   const socket = useContext(SocketContext);
   useEffect(() => {
     const join = async () => {
@@ -34,24 +37,34 @@ export default function PresentationForMember() {
   useEffect(() => {}, []);
 
   return (
-    <Card>
-      <Title>{slide.question}</Title>
-      <Form>
-        <Form.Item>
-          <Radio.Group>
-            <Space direction="vertical">
-              {slide.options.map((option, index) => (
-                <Radio.Button value={index} key={index.toString()}>
-                  {option.text}
-                </Radio.Button>
-              ))}
-            </Space>
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item>
-          <Button>Submit</Button>
-        </Form.Item>
-      </Form>
-    </Card>
+    <div className="login-base">
+      <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
+        <Card className="round">
+          <Title>{slide.question}</Title>
+          <Form>
+            <Form.Item>
+              <Radio.Group className="expand">
+                <Space direction="vertical" className="expand">
+                  {slide.options.map((option, index) => (
+                    <Radio.Button
+                      className="round expand"
+                      value={index}
+                      key={index.toString()}
+                    >
+                      {option.text}
+                    </Radio.Button>
+                  ))}
+                </Space>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" size="large" className="round login-btn">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Card>
+      </Row>
+    </div>
   );
 }
