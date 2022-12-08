@@ -16,4 +16,8 @@ const remove = (_id) => {
   return authClient.post("/presentations/delete", { _id });
 };
 
-export default { list, create, detail, remove };
+const save = (presentation) => {
+  return authClient.post("/presentations/save", { presentation });
+};
+
+export default { list, create, detail, remove, save };

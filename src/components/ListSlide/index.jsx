@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Card, Image, List } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 
-export default function ListSlide({ presentation, handleSelectedSlide }) {
-  const [slides] = useState(presentation.slides);
+export default function ListSlide({
+  presentation,
+  handleSelectedSlide,
+  handleOnClickDeleteSlideButton
+}) {
+  const [slides, setSlides] = useState(presentation.slides);
   const [selectedID, setSelectedID] = useState(0);
 
-  const handleOnClick = (item, index) => {
+  const handleOnClick = (index) => {
     setSelectedID(index);
-    handleSelectedSlide(item);
+    handleSelectedSlide(index);
   };
+  useEffect(() => {
+    setSlides(presentation.slides);
+  }, [presentation]);
 
   const getSelectedClass = (id) => (selectedID === id ? "selected" : "");
   return (
@@ -18,19 +25,30 @@ export default function ListSlide({ presentation, handleSelectedSlide }) {
       className="list-slide"
       dataSource={slides}
       renderItem={(item, index) => (
-        <List.Item
-          className={`slide-container ${getSelectedClass(index)}`}
-          onClick={() => handleOnClick(item, index)}
-          key={index + 1}
-        >
-          <div className="number">{index + 1}</div>
-          <Card className="slide" hoverable>
-            <Image className="slide-img" src="/img/slide.png" preview={false} />
-          </Card>
-          <Button type="primary" danger className="button-delete-slide round">
+        <div className="slide-card">
+          <List.Item
+            className={`slide-container ${getSelectedClass(index)}`}
+            onClick={() => handleOnClick(index)}
+            key={index + 1}
+          >
+            <div className="number">{index + 1}</div>
+            <Card className="slide" hoverable>
+              <Image
+                className="slide-img"
+                src="/img/slide.png"
+                preview={false}
+              />
+            </Card>
+          </List.Item>
+          <Button
+            type="primary"
+            danger
+            className="button-delete-slide round"
+            onClick={() => handleOnClickDeleteSlideButton(index)}
+          >
             <DeleteOutlined />
           </Button>
-        </List.Item>
+        </div>
       )}
     />
   );
@@ -46,5 +64,6 @@ ListSlide.propTypes = {
     modified: PropTypes.string.isRequired,
     slides: PropTypes.arrayOf(PropTypes.shape({})).isRequired
   }).isRequired,
-  handleSelectedSlide: PropTypes.func.isRequired
+  handleSelectedSlide: PropTypes.func.isRequired,
+  handleOnClickDeleteSlideButton: PropTypes.func.isRequired
 };
