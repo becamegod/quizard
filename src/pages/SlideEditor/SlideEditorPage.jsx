@@ -68,6 +68,10 @@ export default function SlideEditorPage() {
     <LoadingOutlined style={{ fontSize: 48, color: "red" }} spin />
   );
 
+  const onPresent = () => {
+    navigate(`/host/${presentationId}`);
+  };
+
   const handleOnClickAddSlideButton = () => {
     const newSlide = {
       question: "",
@@ -135,7 +139,11 @@ export default function SlideEditorPage() {
               <SaveOutlined />
               Save
             </Button>
-            <Button className="button-present" type="primary">
+            <Button
+              className="button-present"
+              type="primary"
+              onClick={onPresent}
+            >
               <CaretRightOutlined />
               Present
             </Button>
@@ -150,7 +158,7 @@ export default function SlideEditorPage() {
             />
           </Col>
           <Col className="chart-screen" span={12}>
-            <ChartScreen selectedSlide={presentation.slides[selectedId]} />
+            <ChartScreen slide={presentation.slides[selectedId]} />
           </Col>
           <Col className="choice-container" span={7}>
             <ChoiceCard
