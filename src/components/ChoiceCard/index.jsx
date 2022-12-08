@@ -96,7 +96,9 @@ export default function ChoiceCard({
             <>
               <Input
                 className="round"
-                key={`${copySlide.question}-${index.toString()}`}
+                key={`${copySlide.question}-${index.toString()}-${
+                  option.text
+                }}`}
                 defaultValue={option.text}
                 placeholder="Option"
                 style={{
