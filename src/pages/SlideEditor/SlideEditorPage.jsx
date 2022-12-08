@@ -71,7 +71,7 @@ export default function SlideEditorPage() {
   const handleOnClickAddSlideButton = () => {
     const newSlide = {
       question: "",
-      options: [{ text: "", choose: 0 }]
+      options: [{ text: "", vote: 0 }]
     };
     const newSlides = presentation.slides.map((slide) => slide);
     newSlides.push(newSlide);

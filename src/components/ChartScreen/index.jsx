@@ -19,7 +19,7 @@ export default function ChartScreen({ selectedSlide }) {
           <XAxis dataKey="text" />
           <Tooltip />
           <Legend />
-          <Bar dataKey="choose" fill="#8884d8" />
+          <Bar dataKey="vote" fill="#8884d8" />
         </BarChart>
       </Row>
     );

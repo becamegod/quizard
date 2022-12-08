@@ -37,7 +37,7 @@ export default function ChoiceCard({
   const handleOnChangeOption = (e, slide, index) => {
     const newOption = {
       text: e.target.value,
-      choose: slide.options[index].choose
+      vote: slide.options[index].vote
     };
     const newOptions = slide.options.map((option) => option);
     newOptions[index] = newOption;
