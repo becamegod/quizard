@@ -64,7 +64,7 @@ export default function PresentationForHost() {
               </Button>
             </Space>
           </Row>
-          <ChartScreen slide={slide} />
+          <ChartScreen selectedSlide={slide} />
         </Card>
       </Row>
     </div>

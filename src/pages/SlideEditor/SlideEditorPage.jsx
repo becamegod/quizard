@@ -158,7 +158,7 @@ export default function SlideEditorPage() {
             />
           </Col>
           <Col className="chart-screen" span={12}>
-            <ChartScreen slide={presentation.slides[selectedId]} />
+            <ChartScreen selectedSlide={presentation.slides[selectedId]} />
           </Col>
           <Col className="choice-container" span={8}>
             <ChoiceCard

@@ -54,7 +54,7 @@ export default function PresentationForMember() {
     result != null ? (
       <Card className="result round" bodyStyle={{ height: "100%" }}>
         <Title>Result for...</Title>
-        <ChartScreen slide={result} />
+        <ChartScreen selectedSlide={result} />
       </Card>
     ) : (
       <Card className="round">
