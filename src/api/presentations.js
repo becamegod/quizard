@@ -1,4 +1,4 @@
-import authClient from "../api/authClient";
+import authClient from "./authClient";
 
 const list = (groupId) => {
   return authClient.get("/presentations", { groupId });
@@ -20,4 +20,12 @@ const save = (presentation) => {
   return authClient.post("/presentations/save", { presentation });
 };
 
-export default { list, create, detail, remove, save };
+const join = (_id) => {
+  return authClient.get("/presentations/join", { _id });
+};
+
+const getSlides = (_id) => {
+  return authClient.get("/presentations/slides", { _id });
+};
+
+export default { list, create, detail, remove, join, getSlides, save };

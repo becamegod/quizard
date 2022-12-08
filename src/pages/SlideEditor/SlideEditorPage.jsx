@@ -12,7 +12,7 @@ import "./SlideEditorPage.css";
 import ListSlide from "../../components/ListSlide";
 import ChoiceCard from "../../components/ChoiceCard";
 import ChartScreen from "../../components/ChartScreen";
-import Presentation from "../../services/presentations";
+import Presentation from "../../api/presentations";
 
 export default function SlideEditorPage() {
   const { presentationId } = useParams();
