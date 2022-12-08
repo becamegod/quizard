@@ -31,6 +31,28 @@
   margin-right: 20px;
   font-weight: bold;
   background-color: rgb(25, 108, 255);
+  border-style: solid;
+  border-radius: 3px 0px 0px 3px;
+  opacity: 0.9;
+}
+
+.button-new-slide:hover{
+  background-color: rgb(25, 108, 255);
+  opacity: 1;
+}
+
+.button-save {
+  margin-right: 20px;
+  font-weight: bold;
+  background-color: rgb(0, 219, 145);
+  border-style: solid;
+  border-radius: 3px 0px 0px 3px;
+  opacity: 0.9;
+}
+
+.button-save:hover{
+  background-color: rgb(0, 219, 145);
+  opacity: 1;
 }
 
 .button-present {
@@ -38,6 +60,11 @@
   background-color: rgb(25, 108, 255);
   border-style: solid;
   border-radius: 3px 0px 0px 3px;
+  opacity: 0.9;
+}
+
+.button-present:hover {
+  background-color: rgb(25, 108, 255);
   opacity: 1;
 }
 
@@ -161,4 +188,10 @@
 
 .chart-screen-question{
   margin-left: 20px;
+}
+
+.slide-card{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

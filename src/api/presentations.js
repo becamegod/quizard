@@ -16,6 +16,10 @@ const remove = (_id) => {
   return authClient.post("/presentations/delete", { _id });
 };
 
+const save = (presentation) => {
+  return authClient.post("/presentations/save", { presentation });
+};
+
 const live = (id) => {
   return authClient.post("/presentations/live", { id });
 };
@@ -28,4 +32,4 @@ const getSlides = (_id) => {
   return authClient.get("/presentations/slides", { _id });
 };
 
-export default { list, create, detail, remove, join, getSlides, live };
+export default { list, create, detail, remove, join, getSlides, save, live };
