@@ -1,4 +1,4 @@
-import { Card, Carousel } from "antd";
+import { Button, Card, Row, Space } from "antd";
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import presentations from "../../api/presentations";
@@ -34,10 +34,26 @@ export default function PresentationForHost() {
   }, []);
 
   return (
-    <Carousel className="pres-carousel">
-      <Card className="pres-carousel">
-        <ChartScreen />
-      </Card>
-    </Carousel>
+    // <Carousel
+    //   className="pres-carousel"
+    //   adaptiveHeight
+    //   style={{ height: "100%" }}
+    // >
+    <div className="login-base">
+      <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
+        <Card className="pres-carousel round" bodyStyle={{ height: "100%" }}>
+          <Row justify="end">
+            <Space>
+              <Button shape="round">Previous</Button>
+              <Button type="primary" shape="round">
+                Next
+              </Button>
+            </Space>
+          </Row>
+          <ChartScreen />
+        </Card>
+      </Row>
+    </div>
+    // </Carousel>
   );
 }
