@@ -21,7 +21,7 @@ import moment from "moment/moment";
 import { React, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import constants from "../../constants";
-import Presentations from "../../api/presentations";
+import Presentations from "../../api/Presentations";
 import CreateButton from "./CreateButton";
 
 function timeDifference(previous) {
@@ -38,7 +38,7 @@ export default function PresentationCard() {
 
   const removePresentation = async () => {
     try {
-      await Presentations.remove(selection.id);
+      await Presentations.delete(selection.id);
       setStage(0);
       notification.success({
         message: "Presentation removed successfully",
@@ -148,7 +148,7 @@ export default function PresentationCard() {
   useEffect(() => {
     async function fetchData() {
       const { data } = await Presentations.list(groupId);
-      setPresentations(data);
+      setPresentations(data.presentations);
       setStage(1);
     }
     if (stage === 0) {

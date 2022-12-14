@@ -18,7 +18,7 @@ import {
   Spin
 } from "antd";
 import { useParams } from "react-router-dom";
-import GroupService from "../../api/groups";
+import groups from "../../api/Groups";
 import "./GroupInfoCard.css";
 
 export default function GroupInfoCard() {
@@ -55,15 +55,16 @@ export default function GroupInfoCard() {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await GroupService.detail(groupId);
-      setOwner(data.joinedUser.find((member) => member.role === "Owner"));
+      const { data } = await groups.detail(groupId);
+      const { group } = data;
+      setOwner(group.joinedUser.find((member) => member.role === "Owner"));
       setUserRole(
         // eslint-disable-next-line no-underscore-dangle
-        data.joinedUser.find((member) => member._id === user._id).role
+        group.joinedUser.find((member) => member._id === user._id).role
       );
       form.setFieldsValue({
-        name: data.name,
-        description: data.description
+        name: group.name,
+        description: group.description
       });
       setStage(1);
     }

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import constants from "../../constants";
-import Presentations from "../../api/presentations";
+import Presentations from "../../api/Presentations";
 
 export default function CreateButton({ groupId }) {
   const [loading, setLoading] = useState(false);
@@ -13,8 +13,8 @@ export default function CreateButton({ groupId }) {
   const onClick = async () => {
     setLoading(true);
     const { data } = await Presentations.create(groupId);
-    console.log(data);
-    navigate(constants.editPresentationUrl(groupId, data.id));
+    const { presentation } = data;
+    navigate(constants.editPresentationUrl(groupId, presentation.id));
   };
   return (
     <Button

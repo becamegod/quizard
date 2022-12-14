@@ -1,53 +1,29 @@
 import authClient from "./authClient";
 
-const list = (groupId) => {
-  return authClient.get("/presentations", { groupId });
-};
-
-const create = (groupId) => {
-  return authClient.post("/presentations/create", { groupId });
-};
-
-const detail = (id) => {
-  return authClient.get(`/presentations/detail/${id}`);
-};
-
-const remove = (_id) => {
-  return authClient.post("/presentations/delete", { _id });
-};
-
-const save = (presentation) => {
-  return authClient.post("/presentations/save", { presentation });
-};
-
-const live = (id) => {
-  return authClient.post("/presentations/live", { id });
-};
-
-const join = (id) => {
-  return authClient.post("/presentations/join", { id });
-};
-
-const getSlides = (_id) => {
-  return authClient.get("/presentations/slides", { _id });
-};
-
-const choose = (id, slideIndex, optionIndex) => {
-  return authClient.post("/presentations/choose", {
-    id,
-    slideIndex,
-    optionIndex
-  });
-};
+const base = "/presentations";
 
 export default {
-  list,
-  create,
-  detail,
-  remove,
-  join,
-  getSlides,
-  save,
-  live,
-  choose
+  list: (groupId) => authClient.get(base, { groupId }),
+
+  create: (groupId) => authClient.post(base, { groupId }),
+
+  detail: (id) => authClient.get(`${base}/${id}`),
+
+  delete: (_id) =>
+    authClient.delete(`${base}/delete`, { headers: {}, data: { _id } }),
+
+  save: (presentation) => authClient.post(`${base}/save`, { presentation }),
+
+  live: (id) => authClient.post(`${base}/live`, { id }),
+
+  join: (id) => authClient.post(`${base}/join`, { id }),
+
+  getSlides: (_id) => authClient.get(`${base}/slides`, { _id }),
+
+  choose: (id, slideIndex, optionIndex) =>
+    authClient.post(`${base}/choose`, {
+      id,
+      slideIndex,
+      optionIndex
+    })
 };

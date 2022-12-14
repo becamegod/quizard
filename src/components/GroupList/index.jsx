@@ -3,7 +3,7 @@ import { Row, Col, Pagination, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import GroupCard from "../GroupCard";
-import groupService from "../../api/groups";
+import groupService from "../../api/Groups";
 
 export default function GroupList({ category }) {
   const [stage, setStage] = useState(0);
@@ -23,9 +23,10 @@ export default function GroupList({ category }) {
     async function fetchGroups() {
       try {
         const { data } = await groupService.list(filter);
-        setGroups(data);
-        setTotalPages(Math.ceil(data.length / filter.pageSize));
-        if (data.length === 0) {
+        const resGroups = data.groups;
+        setGroups(resGroups);
+        setTotalPages(Math.ceil(resGroups.length / filter.pageSize));
+        if (resGroups.length === 0) {
           setStage(1);
         } else {
           setStage(2);

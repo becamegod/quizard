@@ -3,7 +3,7 @@ import Title from "antd/lib/typography/Title";
 import React, { useContext, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
-import presentations from "../../api/presentations";
+import presentations from "../../api/Presentations";
 import { SocketContext } from "../../context/socket";
 import "./Presentation.css";
 import ChartScreen from "../../components/ChartScreen";

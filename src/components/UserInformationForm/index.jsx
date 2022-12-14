@@ -13,7 +13,7 @@ import {
 } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import moment from "moment";
-import { updateProfile, getProfile } from "../../api/user";
+import users from "../../api/Users";
 
 // eslint-disable-next-line react/prop-types
 export default function UserInformationForm() {
@@ -21,7 +21,7 @@ export default function UserInformationForm() {
 
   async function fetchData() {
     try {
-      return getProfile();
+      return users.getProfile();
     } catch (err) {
       throw new Error(err);
     }
@@ -50,7 +50,7 @@ export default function UserInformationForm() {
       dob: dobString
     };
     try {
-      const updateUser = await updateProfile(user);
+      const updateUser = await users.updateProfile(user);
       setUserData(updateUser);
       notification.success({
         message: "Edit information succeed"

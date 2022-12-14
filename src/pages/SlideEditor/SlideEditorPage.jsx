@@ -12,7 +12,7 @@ import "./SlideEditorPage.css";
 import ListSlide from "../../components/ListSlide";
 import ChoiceCard from "../../components/ChoiceCard";
 import ChartScreen from "../../components/ChartScreen";
-import Presentation from "../../api/presentations";
+import presentations from "../../api/Presentations";
 
 export default function SlideEditorPage() {
   const { presentationId } = useParams();
@@ -21,7 +21,7 @@ export default function SlideEditorPage() {
 
   async function fetchData() {
     try {
-      return Presentation.detail(presentationId);
+      return presentations.detail(presentationId);
     } catch (err) {
       throw new Error(err);
     }
@@ -84,7 +84,7 @@ export default function SlideEditorPage() {
 
   const handleOnClickSaveButton = async () => {
     try {
-      await Presentation.save(presentation);
+      await presentations.save(presentation);
       notification.success({
         message: "Save succeed"
       });

@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import groups from "../../api/groups";
+import groups from "../../api/Groups";
 
 export default function JoinGroup() {
   const [groupId, setGroupId] = useState("");

@@ -3,7 +3,7 @@ import { Button, Col, Form, Input, Modal, notification, Row, Tabs } from "antd";
 import React, { useState } from "react";
 import DashboardLayout from "../../components/DashboardLayout";
 import GroupList from "../../components/GroupList";
-import groups from "../../api/groups";
+import Groups from "../../api/Groups";
 import "./DashboardPage.css";
 
 export default function DashboardPage() {
@@ -22,7 +22,8 @@ export default function DashboardPage() {
 
   const onFinish = async (values) => {
     try {
-      const res = await groups.create(values);
+      const res = await Groups.create(values);
+      console.log(res);
       if (res.status === 201)
         notification.success({ message: "Group created successfully" });
       setReload(reload + 1);

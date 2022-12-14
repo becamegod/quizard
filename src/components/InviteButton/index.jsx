@@ -3,7 +3,7 @@ import { Button, Modal, Tabs } from "antd";
 import Title from "antd/lib/typography/Title";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import inviteLink from "../../api/inviteLink";
+import inviteLink from "../../api/InviteLinks";
 import InviteEmailForm from "./InviteEmailForm";
 import constants from "../../constants";
 

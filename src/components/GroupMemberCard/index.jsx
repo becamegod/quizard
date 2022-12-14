@@ -22,7 +22,7 @@ import {
 } from "antd";
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import GroupService from "../../api/groups";
+import groups from "../../api/Groups";
 import InviteButton from "../InviteButton";
 
 export default function GroupMemberCard() {
@@ -37,7 +37,7 @@ export default function GroupMemberCard() {
   const [stage, setStage] = useState(0);
   const removeUser = async () => {
     try {
-      await GroupService.kick({
+      await groups.kick({
         groupId,
         email: selectedMember.email
       });
@@ -58,7 +58,7 @@ export default function GroupMemberCard() {
   };
   const changeRole = async () => {
     try {
-      await GroupService.changeRole({
+      await groups.changeRole({
         groupId,
         roleWantToChange: form.getFieldValue("role"),
         email: selectedMember.email
@@ -183,11 +183,12 @@ export default function GroupMemberCard() {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await GroupService.detail(groupId);
-      setMembers(data.joinedUser);
+      const { data } = await groups.detail(groupId);
+      const { group } = data;
+      setMembers(group.joinedUser);
       setUserRole(
         // eslint-disable-next-line no-underscore-dangle
-        data.joinedUser.find((member) => member._id === user._id).role
+        group.joinedUser.find((member) => member._id === user._id).role
       );
       setStage(1);
     }
