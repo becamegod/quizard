@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Image, Row } from "antd";
-import RegisterForm from "../../components/RegisterForm";
-import "./RegisterPage.css";
+import RegisterForm from "./RegisterForm";
+import "./index.css";
 
 export default function RegisterPage() {
   return (

@@ -2,8 +2,8 @@ import { React, useState, useEffect } from "react";
 import { Row, Col, Pagination, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
-import GroupCard from "../GroupCard";
-import groupService from "../../api/Groups";
+import GroupCard from "../GroupDetail/GroupCard";
+import groupService from "../../api/groups";
 
 export default function GroupList({ category }) {
   const [stage, setStage] = useState(0);

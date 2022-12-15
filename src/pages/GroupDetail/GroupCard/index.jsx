@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Typography } from "antd";
-import "./GroupCard.css";
+import "./index.css";
 import { UserOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 

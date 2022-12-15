@@ -1,7 +1,7 @@
 import { Button, Form, Input, notification } from "antd";
 import React from "react";
 import PropTypes from "prop-types";
-import inviteLink from "../../api/InviteLinks";
+import inviteLink from "../../../api/InviteLinks";
 
 export default function InviteEmailForm({ link }) {
   const [form] = Form.useForm();

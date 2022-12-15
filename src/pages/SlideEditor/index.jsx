@@ -8,11 +8,11 @@ import {
   SaveOutlined
 } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
-import "./SlideEditorPage.css";
-import ListSlide from "../../components/ListSlide";
-import ChoiceCard from "../../components/ChoiceCard";
-import ChartScreen from "../../components/ChartScreen";
-import presentations from "../../api/Presentations";
+import "./index.css";
+import ListSlide from "./ListSlide";
+import ChoiceCard from "./ChoiceCard";
+import ChartScreen from "./ChartScreen";
+import presentations from "../../api/presentations";
 
 export default function SlideEditorPage() {
   const { presentationId } = useParams();

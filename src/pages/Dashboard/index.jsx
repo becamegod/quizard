@@ -1,10 +1,10 @@
 import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Modal, notification, Row, Tabs } from "antd";
 import React, { useState } from "react";
-import DashboardLayout from "../../components/DashboardLayout";
-import GroupList from "../../components/GroupList";
-import Groups from "../../api/Groups";
-import "./DashboardPage.css";
+import DashboardLayout from "../../components/Layout/DashboardLayout";
+import GroupList from "./GroupList";
+import Groups from "../../api/groups";
+import "./index.css";
 
 export default function DashboardPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);

@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Layout } from "antd";
-import UserInformationForm from "../../components/UserInformationForm";
-import "./UserInformationPage.css";
+import UserInformationForm from "./UserInformationForm";
+import "./index.css";
 import NavBar from "../../components/NavBar";
 
 const { Header } = Layout;

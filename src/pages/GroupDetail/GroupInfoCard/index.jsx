@@ -18,8 +18,8 @@ import {
   Spin
 } from "antd";
 import { useParams } from "react-router-dom";
-import groups from "../../api/Groups";
-import "./GroupInfoCard.css";
+import groups from "../../../api/groups";
+import "./index.css";
 
 export default function GroupInfoCard() {
   const user = JSON.parse(localStorage.getItem("user"));

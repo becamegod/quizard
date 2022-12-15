@@ -2,8 +2,8 @@ import { Button, Card, Row, Space } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
-import presentations from "../../api/Presentations";
-import ChartScreen from "../../components/ChartScreen";
+import presentations from "../../api/presentations";
+import ChartScreen from "../SlideEditor/ChartScreen";
 
 import { SocketContext } from "../../context/socket";
 import "./Presentation.css";

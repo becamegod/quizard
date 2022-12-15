@@ -2,9 +2,9 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Col, Image, notification, Row } from "antd";
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
-import LoginForm from "../../components/LoginForm";
+import LoginForm from "./LoginForm";
 import constants from "../../constants";
-import "./LoginPage.css";
+import "./index.css";
 
 export default function LoginPage({ logout }) {
   useEffect(() => {

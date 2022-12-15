@@ -22,8 +22,8 @@ import {
 } from "antd";
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import groups from "../../api/Groups";
-import InviteButton from "../InviteButton";
+import groups from "../../../api/groups";
+import InviteButton from "./InviteButton";
 
 export default function GroupMemberCard() {
   const { groupId } = useParams();

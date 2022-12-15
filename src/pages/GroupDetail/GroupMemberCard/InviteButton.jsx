@@ -3,9 +3,9 @@ import { Button, Modal, Tabs } from "antd";
 import Title from "antd/lib/typography/Title";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import inviteLink from "../../api/InviteLinks";
+import inviteLink from "../../../api/InviteLinks";
 import InviteEmailForm from "./InviteEmailForm";
-import constants from "../../constants";
+import constants from "../../../constants";
 
 export default function InviteButton({ group }) {
   const [showModal, setShowModal] = useState(false);

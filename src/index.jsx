@@ -5,15 +5,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import JoinGroup from "./components/JoinGroup";
 import { SocketContext, socket } from "./context/socket";
 import "./index.css";
-import DashboardPage from "./pages/Dashboard/DashboardPage";
-import GroupDetailPage from "./pages/GroupDetail/GroupDetailPage";
-import LoginPage from "./pages/Login/LoginPage";
+import DashboardPage from "./pages/Dashboard";
+import GroupDetailPage from "./pages/GroupDetail";
+import LoginPage from "./pages/Login";
 import PresentationForHost from "./pages/Presentation/PresentationForHost";
 import PresentationForMember from "./pages/Presentation/PresentationForMember";
-import RegisterPage from "./pages/Register/RegisterPage";
-import SlideEditorPage from "./pages/SlideEditor/SlideEditorPage";
-import UserInformationPage from "./pages/UserInformation/UserInformationPage";
-import VerifyPage from "./pages/Verify/VerifyPage";
+import RegisterPage from "./pages/Register";
+import SlideEditorPage from "./pages/SlideEditor";
+import UserInformationPage from "./pages/UserInformation";
+import VerifyPage from "./pages/Verify";
 import reportWebVitals from "./reportWebVitals";
 
 const router = createBrowserRouter([

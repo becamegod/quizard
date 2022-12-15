@@ -3,10 +3,10 @@ import Title from "antd/lib/typography/Title";
 import React, { useContext, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
-import presentations from "../../api/Presentations";
+import presentations from "../../api/presentations";
 import { SocketContext } from "../../context/socket";
 import "./Presentation.css";
-import ChartScreen from "../../components/ChartScreen";
+import ChartScreen from "../SlideEditor/ChartScreen";
 
 export default function PresentationForMember() {
   const { presentationId } = useParams();

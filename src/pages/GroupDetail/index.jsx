@@ -1,10 +1,10 @@
 import { React } from "react";
 import { Row, Col, Space } from "antd";
-import GroupInfoCard from "../../components/GroupInfoCard";
-import DashboardLayout from "../../components/DashboardLayout";
-import GroupMemberCard from "../../components/GroupMemberCard";
-import "./GroupDetailPage.css";
-import PresentationCard from "../../components/PresentationCard";
+import GroupInfoCard from "./GroupInfoCard";
+import DashboardLayout from "../Dashboard";
+import GroupMemberCard from "./GroupMemberCard";
+import "./index.css";
+import PresentationCard from "./PresentationCard";
 
 export default function GroupDetailPage() {
   return (
