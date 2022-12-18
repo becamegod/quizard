@@ -20,7 +20,6 @@ export default function GroupList({ category }) {
   };
 
   useEffect(() => {
-    console.log(JSON.parse(localStorage.getItem("user")));
     async function fetchGroups() {
       try {
         const { data } = await groupService.list(filter);

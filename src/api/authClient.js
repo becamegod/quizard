@@ -20,12 +20,15 @@ authClient.interceptors.request.use(
       "$1"
     );
     if (accessToken) {
-      const user = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("user"))
-        ?.split("=")[1];
+      const user = decodeURIComponent(
+        document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("user"))
+          ?.split("=")[1]
+      );
       c.headers.authorization = `Bearer ${accessToken}`;
-      localStorage.setItem("user", user);
+      localStorage.setItem(constants.accessToken, accessToken);
+      localStorage.setItem(constants.user, user);
     }
     return c;
   },
