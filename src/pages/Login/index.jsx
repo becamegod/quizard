@@ -13,6 +13,7 @@ export default function LoginPage() {
   useEffect(() => {
     if (location.state === constants.unauthorized) {
       location.state = null;
+      window.history.replaceState({}, document.title);
       notification.error({
         message: "Unauthorized",
         description: "You have to log in to view this content",

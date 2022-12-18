@@ -28,7 +28,7 @@ export default function LoginForm() {
       notification.success({
         message: "Login succeed"
       });
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       const { status } = err.request;
       let description;

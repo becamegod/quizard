@@ -1,7 +1,6 @@
 import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Modal, notification, Row, Tabs } from "antd";
 import React, { useState } from "react";
-import DashboardLayout from "../../components/Layout/DashboardLayout";
 import GroupList from "./GroupList";
 import Groups from "../../api/groups";
 import "./index.css";
@@ -59,56 +58,54 @@ export default function DashboardPage() {
           </Form.Item>
         </Form>
       </Modal>
-      <DashboardLayout>
-        <Row justify="end" style={{ marginBottom: "32px" }}>
-          <Col>
-            <Button
-              type="info"
-              shape="round"
-              icon={<PlusOutlined />}
-              size="large"
-              onClick={createGroup}
-            >
-              Create Group
-            </Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <Tabs
-              className="content-holder"
-              tabBarStyle={{
-                background: "rgba(255, 255, 255, 0.40)",
-                borderRadius: "10px",
-                padding: "10px",
-                color: "white",
-                fontSize: "24px",
-                fontWeight: "bold"
-              }}
-              tabPosition="left"
-              defaultActiveKey="1"
-              // key={reload}
-              items={[
-                {
-                  key: "1",
-                  label: "All Groups",
-                  children: <GroupList category="all" key={reload} />
-                },
-                {
-                  key: "2",
-                  label: "My Groups",
-                  children: <GroupList category="owned" key={reload} />
-                },
-                {
-                  key: "3",
-                  label: "Joined Groups",
-                  children: <GroupList category="joined" key={reload} />
-                }
-              ]}
-            />
-          </Col>
-        </Row>
-      </DashboardLayout>
+      <Row justify="end" style={{ marginBottom: "32px" }}>
+        <Col>
+          <Button
+            type="info"
+            shape="round"
+            icon={<PlusOutlined />}
+            size="large"
+            onClick={createGroup}
+          >
+            Create Group
+          </Button>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <Tabs
+            className="content-holder"
+            tabBarStyle={{
+              background: "rgba(255, 255, 255, 0.40)",
+              borderRadius: "10px",
+              padding: "10px",
+              color: "white",
+              fontSize: "24px",
+              fontWeight: "bold"
+            }}
+            tabPosition="left"
+            defaultActiveKey="1"
+            // key={reload}
+            items={[
+              {
+                key: "1",
+                label: "All Groups",
+                children: <GroupList category="all" key={reload} />
+              },
+              {
+                key: "2",
+                label: "My Groups",
+                children: <GroupList category="owned" key={reload} />
+              },
+              {
+                key: "3",
+                label: "Joined Groups",
+                children: <GroupList category="joined" key={reload} />
+              }
+            ]}
+          />
+        </Col>
+      </Row>
     </>
   );
 }

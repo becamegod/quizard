@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import { Outlet, useNavigate } from "react-router-dom";
-import auth from "./api/auth";
-import constants from "./constants";
+import auth from "../../api/auth";
+import constants from "../../constants";
 
 export default function AuthGate() {
   const [content, setContent] = useState(null);
