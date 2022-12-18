@@ -1,5 +1,5 @@
-import React from "react";
-import socketio from "socket.io-client";
+// import React from "react";
+// import socketio from "socket.io-client";
 
-export const socket = socketio.connect("localhost:5000");
-export const SocketContext = React.createContext();
+// export const socket = socketio.connect("localhost:5000");
+// export const SocketContext = React.createContext();
