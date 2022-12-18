@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import JoinGroup from "./components/JoinGroup";
-import { SocketContext, socket } from "./context/socket";
+// import { SocketContext, socket } from "./context/socket";
 import "./index.css";
 import DashboardPage from "./pages/Dashboard";
 import GroupDetailPage from "./pages/GroupDetail";
@@ -62,9 +62,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <SocketContext.Provider value={socket}>
-      <RouterProvider router={router} />
-    </SocketContext.Provider>
+    {/* <SocketContext.Provider value={socket}> */}
+    <RouterProvider router={router} />
+    {/* </SocketContext.Provider> */}
   </React.StrictMode>
 );
 
