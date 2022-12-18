@@ -13,9 +13,9 @@ import {
 import { Content } from "antd/lib/layout/layout";
 import Title from "antd/lib/typography/Title";
 import React from "react";
-import constants from "../../constants";
+import constants from "../../utils/constants";
 import auth from "../../api/auth";
-import SocialIcon from "../../components/SocialIcon";
+import SocialIcon from "./SocialIcon";
 
 export default function LoginForm() {
   const navigate = useNavigate();

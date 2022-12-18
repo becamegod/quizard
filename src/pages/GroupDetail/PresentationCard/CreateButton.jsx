@@ -3,7 +3,7 @@ import { Button } from "antd";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import constants from "../../../constants";
+import constants from "../../../utils/constants";
 import Presentations from "../../../api/presentations";
 
 export default function CreateButton({ groupId }) {

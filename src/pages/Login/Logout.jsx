@@ -2,7 +2,7 @@ import { notification } from "antd";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
-import constants from "../../constants";
+import constants from "../../utils/constants";
 
 export default function Logout() {
   const navigate = useNavigate();

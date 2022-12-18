@@ -2,7 +2,7 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Col, Image, notification, Row } from "antd";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import constants from "../../constants";
+import constants from "../../utils/constants";
 import "./index.css";
 import LoginForm from "./LoginForm";
 

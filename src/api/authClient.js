@@ -1,6 +1,6 @@
 import axios from "axios";
 import api from "./index";
-import constants from "../constants";
+import constants from "../utils/constants";
 
 const authClient = axios.create({
   baseURL: api,

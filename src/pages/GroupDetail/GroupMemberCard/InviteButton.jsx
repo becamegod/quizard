@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import inviteLink from "../../../api/InviteLinks";
 import InviteEmailForm from "./InviteEmailForm";
-import constants from "../../../constants";
+import constants from "../../../utils/constants";
 
 export default function InviteButton({ group }) {
   const [showModal, setShowModal] = useState(false);

@@ -18,7 +18,7 @@ import {
 import moment from "moment/moment";
 import { React, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import constants from "../../../constants";
+import constants from "../../../utils/constants";
 import Presentations from "../../../api/presentations";
 import CreateButton from "./CreateButton";
 import LoadingIcon from "../../../components/LoadingIcon";

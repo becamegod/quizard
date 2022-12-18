@@ -16,8 +16,6 @@ import UserInformationPage from "./pages/UserInformation";
 import VerifyPage from "./pages/Verify";
 
 export default function BaseRoutes() {
-  // const [content, setContent] = useState(<RouterProvider router={router} />);
-
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />

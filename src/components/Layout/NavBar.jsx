@@ -3,8 +3,8 @@ import { Image, Row, Col, Input, Space } from "antd";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { SearchOutlined } from "@ant-design/icons";
-import UserButton from "../UserButton";
-import NotificationButton from "../NotificationButton";
+import UserButton from "./UserButton";
+import NotificationButton from "./NotificationButton";
 
 export default function NavBar() {
   return (
