@@ -1,6 +1,6 @@
+import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { Avatar, Dropdown, Space, Typography } from "antd";
 import React from "react";
-import { Avatar, Dropdown } from "antd";
-import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 const items = [
@@ -17,10 +17,16 @@ const items = [
 ];
 
 export default function UserButton() {
+  const user = localStorage.getItem("user");
+  const { name } = JSON.parse(user);
+
   return (
     // more gap between the button and the dropdown menu using antd
-    <Dropdown menu={{ items }} placement="bottom" arrow>
-      <Avatar icon={<UserOutlined />} src="" />
-    </Dropdown>
+    <Space>
+      <Typography.Text>{name}</Typography.Text>
+      <Dropdown menu={{ items }} placement="bottom" arrow>
+        <Avatar icon={<UserOutlined />} src="" />
+      </Dropdown>
+    </Space>
   );
 }
