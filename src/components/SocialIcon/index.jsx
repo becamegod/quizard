@@ -3,9 +3,17 @@ import PropTypes from "prop-types";
 import React from "react";
 
 export default function SocialIcon({ src }) {
+  const handleOnClick = async () => {
+    window.location.href = "http://localhost:4000/auth/google";
+  };
   return (
     <div className="social-item">
-      <Image preview={false} className="social-icon" src={src} />
+      <Image
+        preview={false}
+        className="social-icon"
+        src={src}
+        onClick={handleOnClick}
+      />
     </div>
   );
 }

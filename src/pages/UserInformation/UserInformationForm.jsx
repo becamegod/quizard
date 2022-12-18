@@ -8,12 +8,11 @@ import {
   Button,
   Input,
   Select,
-  notification,
-  Spin
+  notification
 } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
 import moment from "moment";
 import users from "../../api/Users";
+import LoadingIcon from "../../components/LoadingIcon";
 
 // eslint-disable-next-line react/prop-types
 export default function UserInformationForm() {
@@ -37,9 +36,6 @@ export default function UserInformationForm() {
     });
   }, []);
 
-  const antIcon = (
-    <LoadingOutlined style={{ fontSize: 48, color: "red" }} spin />
-  );
   const onFinish = async (values) => {
     const { name, email, dob, gender } = { ...values };
     const dobString = moment(dob).format("DD/MM/YYYY");
@@ -120,5 +116,5 @@ export default function UserInformationForm() {
       </Card>
     );
   }
-  return <Spin indicator={antIcon} />;
+  return <LoadingIcon />;
 }

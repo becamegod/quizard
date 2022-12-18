@@ -1,12 +1,9 @@
 import { React, useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { Row, Typography, Button, Card, Col, Spin } from "antd";
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  LoadingOutlined
-} from "@ant-design/icons";
+import { Row, Typography, Button, Card, Col } from "antd";
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import authService from "../../api/auth";
+import LoadingIcon from "../../components/LoadingIcon";
 
 export default function VerifyPage() {
   const [verify, setVerify] = useState(0);
@@ -23,10 +20,6 @@ export default function VerifyPage() {
         setVerify(2);
       });
   }, []);
-
-  const antIcon = (
-    <LoadingOutlined style={{ fontSize: 48, color: "red" }} spin />
-  );
 
   switch (verify) {
     case 1:
@@ -87,7 +80,7 @@ export default function VerifyPage() {
           <Col span={6}>
             <Card className="round">
               <Row justify="center">
-                <Spin size="large" indicator={antIcon} />
+                <LoadingIcon />
               </Row>
               <Row justify="center">
                 <Typography.Title level={3}>Verifying...</Typography.Title>

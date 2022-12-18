@@ -1,15 +1,15 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Col, Image, notification, Row } from "antd";
-import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import LoginForm from "./LoginForm";
 import constants from "../../constants";
 import "./index.css";
 
-export default function LoginPage({ logout }) {
+export default function LoginPage() {
   useEffect(() => {
-    if (logout && localStorage.getItem(constants.accessToken)) {
+    if (localStorage.getItem(constants.accessToken)) {
       localStorage.removeItem(constants.accessToken);
+      localStorage.removeItem(constants.user);
       notification.info({ message: "You have logged out." });
     }
     if (localStorage.getItem(constants.unauthorized)) {
@@ -40,11 +40,3 @@ export default function LoginPage({ logout }) {
     </div>
   );
 }
-
-LoginPage.propTypes = {
-  logout: PropTypes.bool
-};
-
-LoginPage.defaultProps = {
-  logout: false
-};

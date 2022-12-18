@@ -18,4 +18,12 @@ const verify = (token) => {
   return instance.get(`/auth/confirm/${token}`);
 };
 
-export default { login, register, verify };
+const googleLogin = () => {
+  return instance.get("/auth/google");
+};
+
+const googleRedirect = () => {
+  return instance.get("/auth/google/redirect");
+};
+
+export default { login, register, verify, googleLogin, googleRedirect };

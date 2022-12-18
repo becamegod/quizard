@@ -2,7 +2,6 @@ import {
   BarChartOutlined,
   DeleteOutlined,
   EditOutlined,
-  LoadingOutlined,
   EyeOutlined
 } from "@ant-design/icons";
 import {
@@ -13,7 +12,6 @@ import {
   notification,
   Row,
   Space,
-  Spin,
   Table,
   Typography
 } from "antd";
@@ -23,6 +21,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import constants from "../../../constants";
 import Presentations from "../../../api/presentations";
 import CreateButton from "./CreateButton";
+import LoadingIcon from "../../../components/LoadingIcon";
 
 function timeDifference(previous) {
   return moment.utc(previous).local().startOf("seconds").fromNow();
@@ -156,13 +155,9 @@ export default function PresentationCard() {
     }
   }, [groupId, stage]);
 
-  const antIcon = (
-    <LoadingOutlined style={{ fontSize: 48, color: "red" }} spin />
-  );
-
   const loading = (
     <Col>
-      <Spin size="large" indicator={antIcon} />
+      <LoadingIcon />
     </Col>
   );
 

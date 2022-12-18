@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Button, Col, Input, notification, Row, Spin } from "antd";
+import { Button, Col, Input, notification, Row } from "antd";
 import {
   ArrowLeftOutlined,
   CaretRightOutlined,
   PlusOutlined,
-  LoadingOutlined,
   SaveOutlined
 } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
@@ -13,6 +12,7 @@ import ListSlide from "./ListSlide";
 import ChoiceCard from "./ChoiceCard";
 import ChartScreen from "./ChartScreen";
 import presentations from "../../api/presentations";
+import LoadingIcon from "../../components/LoadingIcon";
 
 export default function SlideEditorPage() {
   const { presentationId } = useParams();
@@ -64,9 +64,6 @@ export default function SlideEditorPage() {
   };
 
   const handleOnClickBackButton = () => navigate(-1);
-  const antIcon = (
-    <LoadingOutlined style={{ fontSize: 48, color: "red" }} spin />
-  );
 
   const onPresent = () => {
     navigate(`/host/${presentationId}`);
@@ -171,5 +168,5 @@ export default function SlideEditorPage() {
       </>
     );
   }
-  return <Spin indicator={antIcon} />;
+  return <LoadingIcon />;
 }

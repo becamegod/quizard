@@ -14,12 +14,12 @@ import {
   Input,
   Row,
   Typography,
-  notification,
-  Spin
+  notification
 } from "antd";
 import { useParams } from "react-router-dom";
 import groups from "../../../api/groups";
 import "./index.css";
+import LoadingIcon from "../../../components/LoadingIcon";
 
 export default function GroupInfoCard() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -72,10 +72,6 @@ export default function GroupInfoCard() {
       fetchData();
     }
   }, [groupId]);
-
-  const antIcon = (
-    <LoadingOutlined style={{ fontSize: 48, color: "red" }} spin />
-  );
 
   switch (stage) {
     case 1:
@@ -184,7 +180,7 @@ export default function GroupInfoCard() {
           </Row>
           <Row justify="center" style={{ marginBottom: "32px" }}>
             <Col>
-              <Spin size="large" indicator={antIcon} />
+              <LoadingIcon />
             </Col>
           </Row>
         </Card>

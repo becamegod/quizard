@@ -1,9 +1,9 @@
 import { React, useState, useEffect } from "react";
-import { Row, Col, Pagination, Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { Row, Col, Pagination } from "antd";
 import PropTypes from "prop-types";
 import GroupCard from "../GroupDetail/GroupCard";
 import groupService from "../../api/groups";
+import LoadingIcon from "../../components/LoadingIcon";
 
 export default function GroupList({ category }) {
   const [stage, setStage] = useState(0);
@@ -20,6 +20,7 @@ export default function GroupList({ category }) {
   };
 
   useEffect(() => {
+    console.log(JSON.parse(localStorage.getItem("user")));
     async function fetchGroups() {
       try {
         const { data } = await groupService.list(filter);
@@ -41,10 +42,6 @@ export default function GroupList({ category }) {
       fetchGroups();
     }
   }, [filter, stage]);
-
-  const antIcon = (
-    <LoadingOutlined style={{ fontSize: 48, color: "red" }} spin />
-  );
 
   switch (stage) {
     case 1:
@@ -90,7 +87,7 @@ export default function GroupList({ category }) {
       return (
         <Row justify="center">
           <Col>
-            <Spin size="large" indicator={antIcon} />
+            <LoadingIcon />
           </Col>
         </Row>
       );

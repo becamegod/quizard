@@ -1,6 +1,5 @@
 import {
   DeleteOutlined,
-  LoadingOutlined,
   SettingOutlined,
   UserOutlined
 } from "@ant-design/icons";
@@ -15,7 +14,6 @@ import {
   Row,
   Select,
   Space,
-  Spin,
   Table,
   Tag,
   Typography
@@ -23,6 +21,7 @@ import {
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import groups from "../../../api/groups";
+import LoadingIcon from "../../../components/LoadingIcon";
 import InviteButton from "./InviteButton";
 
 export default function GroupMemberCard() {
@@ -197,10 +196,6 @@ export default function GroupMemberCard() {
     }
   }, [groupId, stage]);
 
-  const antIcon = (
-    <LoadingOutlined style={{ fontSize: 48, color: "red" }} spin />
-  );
-
   switch (stage) {
     case 1:
       return (
@@ -278,7 +273,7 @@ export default function GroupMemberCard() {
           </Row>
           <Row justify="center" style={{ marginBottom: "32px" }}>
             <Col>
-              <Spin size="large" indicator={antIcon} />
+              <LoadingIcon />
             </Col>
           </Row>
         </Card>

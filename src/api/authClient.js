@@ -9,9 +9,24 @@ const authClient = axios.create({
 
 authClient.interceptors.request.use(
   async (config) => {
-    const accessToken = localStorage.getItem(constants.accessToken);
+    let accessToken = localStorage.getItem(constants.accessToken);
     const c = config;
-    if (accessToken) c.headers.authorization = `Bearer ${accessToken}`;
+    if (accessToken) {
+      c.headers.authorization = `Bearer ${accessToken}`;
+      return c;
+    }
+    accessToken = document.cookie.replace(
+      /(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    if (accessToken) {
+      const user = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("user"))
+        ?.split("=")[1];
+      c.headers.authorization = `Bearer ${accessToken}`;
+      localStorage.setItem("user", user);
+    }
     return c;
   },
   (error) => Promise.reject(error)
