@@ -35,25 +35,25 @@ authClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-authClient.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const config = error?.config;
+// authClient.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     const config = error?.config;
 
-    if (error?.response?.status === 401 && !config?.sent) {
-      localStorage.setItem(constants.unauthorized, true);
-      window.location.href = "/";
-      // config.sent = true;
-      // const result = await memoizedRefreshToken();
-      // if (result?.accessToken) {
-      //   config.headers = {
-      //     ...config.headers,
-      //     authorization: `Bearer ${result?.accessToken}`
-      //   };
-      // }
-    }
-    return Promise.reject(error);
-  }
-);
+//     if (error?.response?.status === 401 && !config?.sent) {
+//       localStorage.setItem(constants.unauthorized, true);
+//       window.location.href = "/";
+//       // config.sent = true;
+//       // const result = await memoizedRefreshToken();
+//       // if (result?.accessToken) {
+//       //   config.headers = {
+//       //     ...config.headers,
+//       //     authorization: `Bearer ${result?.accessToken}`
+//       //   };
+//       // }
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 export default authClient;

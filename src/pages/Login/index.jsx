@@ -1,19 +1,18 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Col, Image, notification, Row } from "antd";
 import React, { useEffect } from "react";
-import LoginForm from "./LoginForm";
+import { useLocation, useNavigate } from "react-router-dom";
 import constants from "../../constants";
 import "./index.css";
+import LoginForm from "./LoginForm";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
-    if (localStorage.getItem(constants.accessToken)) {
-      localStorage.removeItem(constants.accessToken);
-      localStorage.removeItem(constants.user);
-      notification.info({ message: "You have logged out." });
-    }
-    if (localStorage.getItem(constants.unauthorized)) {
-      localStorage.removeItem(constants.unauthorized);
+    if (location.state === constants.unauthorized) {
+      location.state = null;
       notification.error({
         message: "Unauthorized",
         description: "You have to log in to view this content",
@@ -24,6 +23,9 @@ export default function LoginPage() {
         }
       });
     }
+
+    const accessToken = localStorage.getItem(constants.accessToken);
+    if (accessToken) navigate("/dashboard");
     return () => {};
   }, []);
 

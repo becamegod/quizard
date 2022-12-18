@@ -11,14 +11,15 @@ const items = [
   },
   {
     key: "2",
-    label: <Link to="/">Logout</Link>,
+    label: <Link to="/logout">Logout</Link>,
     icon: <LogoutOutlined />
   }
 ];
 
 export default function UserButton() {
-  const user = localStorage.getItem("user");
-  const { name } = JSON.parse(user);
+  // const user = localStorage.getItem("user");
+  // const { name } = JSON.parse(user);
+  const name = "Test";
 
   return (
     // more gap between the button and the dropdown menu using antd
