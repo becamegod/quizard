@@ -25,8 +25,8 @@ export default function BaseRoutes() {
         <Route element={<GeneralLayout />}>
           <Route path="/groups/:groupId" element={<GroupDetailPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/profile" element={<UserInformationPage />} />
         </Route>
-        <Route path="/profile" element={<UserInformationPage />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/join/:url" element={<JoinGroup />} />
         <Route

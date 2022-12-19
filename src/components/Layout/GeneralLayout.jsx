@@ -2,6 +2,7 @@ import { Col, Layout, Row } from "antd";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
+import "./GeneralLayout.css";
 
 const { Header, Content } = Layout;
 
