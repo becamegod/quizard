@@ -1,8 +1,6 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
-  Card,
   Divider,
   Form,
   Input,
@@ -12,12 +10,14 @@ import {
 } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import Title from "antd/lib/typography/Title";
+import PropTypes from "prop-types";
 import React from "react";
-import constants from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 import auth from "../../api/auth";
+import constants from "../../utils/constants";
 import SocialIcon from "./SocialIcon";
 
-export default function LoginForm() {
+export default function LoginForm({ onRegister }) {
   const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
@@ -62,7 +62,7 @@ export default function LoginForm() {
   };
 
   return (
-    <Card className="round login-card">
+    <>
       <Title className="login-title">LOGIN</Title>
       <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
         <Form.Item
@@ -89,7 +89,9 @@ export default function LoginForm() {
           <Content className="register-link-container">
             <Space>
               <Typography.Text>Have no account yet?</Typography.Text>
-              <Link to="/register">Register</Link>
+              <Button type="link" onClick={onRegister}>
+                Register
+              </Button>
             </Space>
           </Content>
         </Form.Item>
@@ -115,6 +117,10 @@ export default function LoginForm() {
           </Space>
         </Form.Item>
       </Form>
-    </Card>
+    </>
   );
 }
+
+LoginForm.propTypes = {
+  onRegister: PropTypes.func.isRequired
+};

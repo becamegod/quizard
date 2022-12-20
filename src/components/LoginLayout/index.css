@@ -11,8 +11,8 @@
 }
 
 .login-card {
-    width: max-content;
-    height: max-content;
+    width: 309px;
+    height: 513px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -56,6 +56,11 @@
 
 .register-link-container {
     justify-content: right;
+    display: flex;
+}
+
+.login-link-container {
+    justify-content: left;
     display: flex;
 }
 

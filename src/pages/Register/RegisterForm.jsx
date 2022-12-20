@@ -1,30 +1,31 @@
 import {
+  Button,
   Card,
   Form,
   Input,
-  Button,
-  Select,
-  DatePicker,
   notification,
-  Row,
+  Space,
   Typography
-  // Col
 } from "antd";
-import { CheckCircleOutlined } from "@ant-design/icons";
 import { Content } from "antd/lib/layout/layout";
 import Title from "antd/lib/typography/Title";
-import { React, useState, useEffect } from "react";
 import moment from "moment";
+import { React, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import authService from "../../api/auth";
+import RegisterSuccess from "./RegisterSuccess";
+import UserInfoForm from "./UserInfoForm";
 
-export default function RegisterForm() {
+export default function RegisterForm({ onLogin }) {
   const [stage, setStage] = useState(0);
   const [user, setUser] = useState({});
+
   const onFinish = (values) => {
     const dob = moment(values.dob).format("DD-MM-YYYY");
     setUser({ ...user, ...values, dob });
     setStage(stage + 1);
   };
+
   const onFinishFailed = (errorInfo) => {
     throw new Error(errorInfo);
   };
@@ -52,127 +53,42 @@ export default function RegisterForm() {
     }
   }, [stage]);
 
+  // const slider = useRef();
+
+  // return (
+  //   <Carousel
+  //     speed={300}
+  //     on
+  //     ref={(ref) => {
+  //       slider.current = ref;
+  //     }}
+  //   >
+  //     <Card className="round register-card">
+  //         <Title>REGISTER</Title>
+  //         <UserInfoForm />
+  //       </Card>
+  //     <LoginForm onLogin={() => slider.current.next()} />
+  //     <RegisterSuccess />
+  //   </Carousel>
+  // );
+
   switch (stage) {
     case 1:
       return (
         <Card className="round register-card">
           <Title>REGISTER</Title>
-          <Form
-            layout="vertical"
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-          >
-            <Form.Item
-              label="Name"
-              name="name"
-              validateTrigger="onBlur"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your name!"
-                },
-                {
-                  max: 200,
-                  message: "Name must be less than 200 characters long!"
-                }
-              ]}
-            >
-              <Input className="round" />
-            </Form.Item>
-            <Form.Item
-              label="Gender"
-              name="gender"
-              rules={[
-                {
-                  required: true,
-                  message: "Please select your gender!"
-                }
-              ]}
-            >
-              <Select
-                className="round input-field"
-                style={{ width: "100%", borderRadius: "5px" }}
-                options={[
-                  {
-                    value: "Male",
-                    label: "Male"
-                  },
-                  {
-                    value: "Female",
-                    label: "Female"
-                  }
-                ]}
-              />
-            </Form.Item>
-            <Form.Item
-              label="Date of birth"
-              name="dob"
-              rules={[
-                {
-                  required: true,
-                  message: "Please select your date of birth!"
-                },
-                () => ({
-                  validator(rule, value) {
-                    if (value && value.isAfter(new Date())) {
-                      // eslint-disable-next-line prefer-promise-reject-errors
-                      return Promise.reject(
-                        "Date of birth must be in the past!"
-                      );
-                    }
-                    return Promise.resolve();
-                  }
-                })
-              ]}
-            >
-              <DatePicker className="round input-field" value={new Date()} />
-            </Form.Item>
-            <Form.Item>
-              <Content className="register-container">
-                <Button
-                  type="primary"
-                  size="large"
-                  className="round register-btn"
-                  htmlType="submit"
-                >
-                  Register
-                </Button>
-              </Content>
-            </Form.Item>
-          </Form>
+          <UserInfoForm />
         </Card>
       );
     case 3:
       return (
-        <Card className="round register-card">
-          <Row justify="center">
-            <CheckCircleOutlined
-              style={{
-                fontSize: "64px",
-                color: "#7ED957"
-              }}
-            />
-          </Row>
-          <Row justify="center">
-            <Typography.Title level={3}>Register Successfully</Typography.Title>
-          </Row>
-          <Row justify="center">
-            <Typography.Title level={5}>
-              Please check your email to verify your account
-            </Typography.Title>
-          </Row>
-          <Row justify="center">
-            <Typography.Text>
-              Did not receive mail?
-              <Button type="link">Resend it</Button>
-            </Typography.Text>
-          </Row>
+        <Card className="round login-card">
+          <RegisterSuccess />
         </Card>
       );
     default:
       return (
-        <Card className="round register-card">
+        <>
           <Title>REGISTER</Title>
           <Form
             layout="vertical"
@@ -251,8 +167,22 @@ export default function RegisterForm() {
                 </Button>
               </Content>
             </Form.Item>
+            <Form.Item>
+              <Content className="login-link-container">
+                <Space>
+                  <Typography.Text>Already have an account?</Typography.Text>
+                  <Button type="link" onClick={onLogin}>
+                    Login
+                  </Button>
+                </Space>
+              </Content>
+            </Form.Item>
           </Form>
-        </Card>
+        </>
       );
   }
 }
+
+RegisterForm.propTypes = {
+  onLogin: PropTypes.func.isRequired
+};

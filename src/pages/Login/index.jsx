@@ -1,9 +1,9 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { Col, Image, notification, Row } from "antd";
-import React, { useEffect } from "react";
+import { Card, Carousel, notification } from "antd";
+import React, { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import constants from "../../utils/constants";
-import "./index.css";
+import RegisterForm from "../Register/RegisterForm";
 import LoginForm from "./LoginForm";
 
 export default function LoginPage() {
@@ -27,19 +27,23 @@ export default function LoginPage() {
 
     const accessToken = localStorage.getItem(constants.accessToken);
     if (accessToken) navigate("/dashboard");
+
     return () => {};
   }, []);
 
+  const slider = useRef();
+
   return (
-    <div className="login-base">
-      <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
-        <Col span={4} className="logo">
-          <Image preview={false} src="/logo/quizardLogo.png" />
-        </Col>
-        <Col span={4}>
-          <LoginForm />
-        </Col>
-      </Row>
-    </div>
+    <Card className="round login-card">
+      <Carousel
+        speed={300}
+        ref={(ref) => {
+          slider.current = ref;
+        }}
+      >
+        <LoginForm onRegister={() => slider.current.next()} />
+        <RegisterForm onLogin={() => slider.current.prev()} />
+      </Carousel>
+    </Card>
   );
 }
