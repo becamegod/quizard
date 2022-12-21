@@ -10,8 +10,13 @@
     display: flex;
 }
 
+.center-flex {
+    justify-content: center;
+    display: flex;
+}
+
 .login-card {
-    width: 309px;
+    width: 320px;
     height: 513px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

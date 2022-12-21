@@ -1,9 +1,11 @@
-import { Button, DatePicker, Form, Input, Select } from "antd";
-import { Content } from "antd/lib/layout/layout";
+import { DatePicker, Form, Input, Select } from "antd";
 import moment from "moment";
+import PropTypes from "prop-types";
 import { React } from "react";
+import ExpandRow from "../../components/UI/ExpandRow";
+import MyButton from "../../components/UI/MyButton";
 
-export default function UserInfoForm() {
+export default function UserInfoForm({ onBack }) {
   const onFinish = (values) => {
     const dob = moment(values.dob).format("DD-MM-YYYY");
     return dob;
@@ -86,17 +88,17 @@ export default function UserInfoForm() {
         <DatePicker className="round input-field" value={new Date()} />
       </Form.Item>
       <Form.Item>
-        <Content className="register-container">
-          <Button
-            type="primary"
-            size="large"
-            className="round register-btn"
-            htmlType="submit"
-          >
+        <ExpandRow>
+          <MyButton onClick={onBack}>Back</MyButton>
+          <MyButton primary submit>
             Register
-          </Button>
-        </Content>
+          </MyButton>
+        </ExpandRow>
       </Form.Item>
     </Form>
   );
 }
+
+UserInfoForm.propTypes = {
+  onBack: PropTypes.func.isRequired
+};
