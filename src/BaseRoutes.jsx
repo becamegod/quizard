@@ -14,12 +14,16 @@ import RegisterPage from "./pages/Register";
 import SlideEditorPage from "./pages/SlideEditor";
 import UserInformationPage from "./pages/UserInformation";
 import VerifyPage from "./pages/Verify";
+import ForgotPasswordPage from "./pages/ForgotPassword";
+import ResetPasswordPage from "./pages/ResetPassword";
 
 export default function BaseRoutes() {
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password/:url" element={<ResetPasswordPage />} />
       <Route path="/verify" element={<VerifyPage />} />
       <Route element={<AuthGate />}>
         <Route element={<GeneralLayout />}>

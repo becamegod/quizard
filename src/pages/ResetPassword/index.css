@@ -1,0 +1,10 @@
+.reset-password-layout{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+}
+.lock-image-container{
+  justify-content: center;
+}

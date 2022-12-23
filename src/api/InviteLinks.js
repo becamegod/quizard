@@ -11,5 +11,7 @@ const sendToEmail = (email, link) => {
 // const create = (user) => {
 //   return authClient.put("/users/profile", user);
 // };
-
-export default { get, sendToEmail };
+const checkLink = (url) => {
+  return authClient.post("/auth/resetPassword/check", { url });
+};
+export default { get, sendToEmail, checkLink };

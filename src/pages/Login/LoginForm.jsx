@@ -105,6 +105,13 @@ export default function LoginForm() {
             </Button>
           </Content>
         </Form.Item>
+        <Form.Item>
+          <Content style={{ display: "flex", justifyContent: "center" }}>
+            <Space>
+              <Link to="/forgot-password">Forgot password?</Link>
+            </Space>
+          </Content>
+        </Form.Item>
         <Divider plain style={{ marginTop: "80px" }}>
           or you can login using social accounts
         </Divider>

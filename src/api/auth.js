@@ -19,6 +19,14 @@ const register = (user) => {
   return instance.post("/auth/register", user);
 };
 
+const forgotPassword = (body) => {
+  return instance.post("/auth/forgotPassword", { ...body });
+};
+
+const resetPassword = (email, newPassword, url) => {
+  return instance.post("/auth/resetPassword", { email, newPassword, url });
+};
+
 const verify = (token) => {
   return instance.get(`/auth/confirm/${token}`);
 };
@@ -31,4 +39,13 @@ const googleRedirect = () => {
   return instance.get("/auth/google/redirect");
 };
 
-export default { login, register, verify, googleLogin, googleRedirect, check };
+export default {
+  login,
+  register,
+  verify,
+  googleLogin,
+  googleRedirect,
+  check,
+  forgotPassword,
+  resetPassword
+};
