@@ -4,11 +4,9 @@ import React from "react";
 
 export default function ExpandRow({ children, gutter }) {
   return (
-    <Row gutter={gutter}>
+    <Row gutter={gutter} className="expand" justify="space-between">
       {children.map((child) => (
-        <Col key={Object.keys(child.props).join("-")} flex={1}>
-          {child}
-        </Col>
+        <Col key={Object.keys(child.props).join("-")}>{child}</Col>
       ))}
     </Row>
   );

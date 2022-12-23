@@ -1,6 +1,7 @@
 import { ConfigProvider } from "antd";
 // import "antd/dist/antd.min.css";
-import "antd/dist/antd.variable.min.css";
+// import "antd/dist/antd.variable.min.css";
+import "antd/dist/reset.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -9,16 +10,14 @@ import BaseRoutes from "./BaseRoutes";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
-ConfigProvider.config({
-  theme: { primaryColor: "00CC11" }
-});
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     {/* <SocketContext.Provider value={socket}> */}
     <BrowserRouter>
-      <ConfigProvider>
+      <ConfigProvider
+        theme={{ token: { colorPrimary: "00CC11", colorInfo: "00CC11" } }}
+      >
         <BaseRoutes />
       </ConfigProvider>
     </BrowserRouter>

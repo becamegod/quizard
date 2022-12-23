@@ -17,9 +17,9 @@ code {
   background: linear-gradient(135deg, rgba(0, 131, 204, 1) 0%, rgba(0, 255, 209, 1) 100%);
 }
 
-.round {
+/* .round {
   border-radius: 10px;
-}
+} */
 
 ::-webkit-scrollbar {
   background-color: #f5f5f5;

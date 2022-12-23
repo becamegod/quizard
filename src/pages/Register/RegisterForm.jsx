@@ -51,7 +51,7 @@ export default function RegisterForm({ onLogin }) {
       <Title>REGISTER</Title>
       <Carousel
         speed={300}
-        on
+        dots={false}
         ref={(ref) => {
           slider.current = ref;
         }}

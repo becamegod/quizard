@@ -37,6 +37,7 @@ export default function LoginPage() {
     <Card className="round login-card">
       <Carousel
         speed={300}
+        dots={false}
         ref={(ref) => {
           slider.current = ref;
         }}
