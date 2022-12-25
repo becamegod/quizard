@@ -30,7 +30,7 @@ export default function LoginForm({ onRegister }) {
       notification.success({
         message: "Login succeed"
       });
-      navigate("/dashboard", { replace: true });
+      navigate(constants.homeUrl, { replace: true });
     } catch (err) {
       const { status } = err.request;
       let description;
@@ -93,14 +93,6 @@ export default function LoginForm({ onRegister }) {
             <MyButton primary submit>
               Login
             </MyButton>
-            {/* <Button
-              type="primary"
-              size="large"
-              className="login-btn"
-              htmlType="submit"
-            >
-              Login
-            </Button> */}
           </Content>
         </Form.Item>
         <Form.Item>
@@ -110,8 +102,8 @@ export default function LoginForm({ onRegister }) {
             </Space>
           </Content>
         </Form.Item>
-        <Divider plain style={{ marginTop: "80px" }}>
-          or you can login using social accounts
+        <Divider plain style={{ marginTop: "40px" }}>
+          or logging in using social accounts
         </Divider>
         <Form.Item>
           <Space className="login-container">

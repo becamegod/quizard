@@ -18,8 +18,8 @@ root.render(
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: "00CC11",
-            colorInfo: "00CC11"
+            colorPrimary: "#00CC11",
+            colorInfo: "#00CC11"
           },
           components: {
             Button: {

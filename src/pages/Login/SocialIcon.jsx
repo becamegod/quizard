@@ -8,12 +8,7 @@ export default function SocialIcon({ src }) {
   };
   return (
     <div className="social-item">
-      <Image
-        preview={false}
-        className="social-icon"
-        src={src}
-        onClick={handleOnClick}
-      />
+      <Image preview={false} src={src} onClick={handleOnClick} />
     </div>
   );
 }
