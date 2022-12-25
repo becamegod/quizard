@@ -1,4 +1,7 @@
-import "antd/dist/antd.min.css";
+import { ConfigProvider } from "antd";
+// import "antd/dist/antd.min.css";
+// import "antd/dist/antd.variable.min.css";
+import "antd/dist/reset.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -12,7 +15,22 @@ root.render(
   <React.StrictMode>
     {/* <SocketContext.Provider value={socket}> */}
     <BrowserRouter>
-      <BaseRoutes />
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "00CC11",
+            colorInfo: "00CC11"
+          },
+          components: {
+            Button: {
+              controlHeight: 40,
+              fontSize: 16
+            }
+          }
+        }}
+      >
+        <BaseRoutes />
+      </ConfigProvider>
     </BrowserRouter>
     {/* </SocketContext.Provider> */}
   </React.StrictMode>

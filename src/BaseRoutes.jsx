@@ -3,14 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import AuthGate from "./components/AuthGate/AuthGate";
 
 import JoinGroup from "./components/JoinGroup";
-import GeneralLayout from "./components/Layout/GeneralLayout";
+import GeneralLayout from "./components/GeneralLayout";
+import LoginLayout from "./components/LoginLayout";
 import DashboardPage from "./pages/Dashboard";
 import GroupDetailPage from "./pages/GroupDetail";
 import LoginPage from "./pages/Login";
 import Logout from "./pages/Login/Logout";
 import PresentationForHost from "./pages/Presentation/PresentationForHost";
 import PresentationForMember from "./pages/Presentation/PresentationForMember";
-import RegisterPage from "./pages/Register";
 import SlideEditorPage from "./pages/SlideEditor";
 import UserInformationPage from "./pages/UserInformation";
 import VerifyPage from "./pages/Verify";
@@ -20,8 +20,10 @@ import ResetPasswordPage from "./pages/ResetPassword";
 export default function BaseRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
+      <Route element={<LoginLayout />}>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<LoginPage isRegister />} />
+      </Route>
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password/:url" element={<ResetPasswordPage />} />
       <Route path="/verify" element={<VerifyPage />} />

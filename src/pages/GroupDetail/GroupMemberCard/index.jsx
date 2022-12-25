@@ -199,7 +199,7 @@ export default function GroupMemberCard() {
   switch (stage) {
     case 1:
       return (
-        <Card className="round group-member-card">
+        <Card className="group-member-card">
           <Row style={{ marginBottom: "24px" }}>
             <Col span={12}>
               <Row justify="start">
@@ -263,7 +263,7 @@ export default function GroupMemberCard() {
       );
     default:
       return (
-        <Card className="round group-member-card">
+        <Card className="group-member-card">
           <Row style={{ marginBottom: "24px" }}>
             <Col span={12}>
               <Row justify="start">

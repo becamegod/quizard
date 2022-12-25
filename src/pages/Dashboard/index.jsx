@@ -61,7 +61,6 @@ export default function DashboardPage() {
       <Row justify="end" style={{ marginBottom: "32px" }}>
         <Col>
           <Button
-            type="info"
             shape="round"
             icon={<PlusOutlined />}
             size="large"

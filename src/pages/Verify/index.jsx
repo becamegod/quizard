@@ -26,7 +26,7 @@ export default function VerifyPage() {
       return (
         <Row justify="center" align="middle" style={{ height: "100vh" }}>
           <Col span={6}>
-            <Card className="round">
+            <Card>
               <Row justify="center">
                 <CheckCircleOutlined
                   style={{
@@ -45,9 +45,7 @@ export default function VerifyPage() {
               </Row>
               <Row justify="center">
                 <Link to="/">
-                  <Button type="primary" className="round">
-                    Login
-                  </Button>
+                  <Button type="primary">Login</Button>
                 </Link>
               </Row>
             </Card>
@@ -58,7 +56,7 @@ export default function VerifyPage() {
       return (
         <Row justify="center" align="middle" style={{ height: "100vh" }}>
           <Col span={6}>
-            <Card className="round">
+            <Card>
               <Row justify="center">
                 <CloseCircleOutlined
                   style={{
@@ -78,7 +76,7 @@ export default function VerifyPage() {
       return (
         <Row justify="center" align="middle" style={{ height: "100vh" }}>
           <Col span={6}>
-            <Card className="round">
+            <Card>
               <Row justify="center">
                 <LoadingIcon />
               </Row>

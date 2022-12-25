@@ -10,9 +10,22 @@
     display: flex;
 }
 
+.register-steps {
+    margin-bottom: 10px;
+}
+
+.center-flex {
+    justify-content: center;
+    display: flex;
+}
+
+.justify-evenly {
+    justify-content: space-evenly;
+}
+
 .login-card {
-    width: max-content;
-    height: max-content;
+    width: 350px;
+    height: 513px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -22,7 +35,7 @@
 
 .login-btn {
     width: 100%;
-    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    /* box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px; */
     box-sizing: border-box;
     border: 1px solid #00CC11;
     background: #00CC11;
@@ -56,6 +69,11 @@
 
 .register-link-container {
     justify-content: right;
+    display: flex;
+}
+
+.login-link-container {
+    justify-content: left;
     display: flex;
 }
 

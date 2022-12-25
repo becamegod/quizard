@@ -37,7 +37,7 @@ export default function InviteEmailForm({ link }) {
       <Button
         type="primary"
         size="large"
-        className="round login-btn"
+        className="login-btn"
         htmlType="submit"
       >
         Invite

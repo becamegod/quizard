@@ -1,8 +1,6 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
-  Card,
   Divider,
   Form,
   Input,
@@ -12,12 +10,16 @@ import {
 } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import Title from "antd/lib/typography/Title";
+import PropTypes from "prop-types";
 import React from "react";
-import constants from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 import auth from "../../api/auth";
+import MyButton from "../../components/UI/MyButton";
+import constants from "../../utils/constants";
+import reuseables from "../../utils/reuseables";
 import SocialIcon from "./SocialIcon";
 
-export default function LoginForm() {
+export default function LoginForm({ onRegister }) {
   const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
@@ -62,47 +64,43 @@ export default function LoginForm() {
   };
 
   return (
-    <Card className="round login-card">
+    <>
       <Title className="login-title">LOGIN</Title>
       <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
         <Form.Item
           className="login-form-item"
           name="email"
           validateTrigger="onBlur"
-          rules={[
-            {
-              type: "email",
-              message: "The input is not valid E-mail!"
-            },
-            {
-              required: true,
-              message: `Please input your email!`
-            }
-          ]}
+          rules={reuseables.emailRule}
         >
-          <Input className="round" placeholder="Email" />
+          <Input placeholder="Email" />
         </Form.Item>
         <Form.Item className="login-form-item" name="password">
-          <Input.Password className="round" placeholder="Password" />
+          <Input.Password placeholder="Password" />
         </Form.Item>
         <Form.Item>
           <Content className="register-link-container">
             <Space>
               <Typography.Text>Have no account yet?</Typography.Text>
-              <Link to="/register">Register</Link>
+              <Button type="link" onClick={onRegister}>
+                Register
+              </Button>
             </Space>
           </Content>
         </Form.Item>
         <Form.Item>
           <Content className="login-container">
-            <Button
+            <MyButton primary submit>
+              Login
+            </MyButton>
+            {/* <Button
               type="primary"
               size="large"
-              className="round login-btn"
+              className="login-btn"
               htmlType="submit"
             >
               Login
-            </Button>
+            </Button> */}
           </Content>
         </Form.Item>
         <Form.Item>
@@ -122,6 +120,10 @@ export default function LoginForm() {
           </Space>
         </Form.Item>
       </Form>
-    </Card>
+    </>
   );
 }
+
+LoginForm.propTypes = {
+  onRegister: PropTypes.func.isRequired
+};
