@@ -12,7 +12,7 @@ import { Content } from "antd/lib/layout/layout";
 import Title from "antd/lib/typography/Title";
 import PropTypes from "prop-types";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../api/auth";
 import MyButton from "../../components/UI/MyButton";
 import constants from "../../utils/constants";

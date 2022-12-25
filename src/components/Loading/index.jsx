@@ -14,7 +14,7 @@ export default function Loading() {
   );
   return (
     <Row
-      justify="space-evenly"
+      justify="space-around"
       align="middle"
       style={{ width: "100%", height: "100%" }}
     >
