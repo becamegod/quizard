@@ -1,20 +1,19 @@
 import { FileAddOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import constants from "../../../utils/constants";
 import Presentations from "../../../api/presentations";
+import constants from "../../../utils/constants";
 
-export default function CreateButton({ groupId }) {
+export default function CreateButton() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const onClick = async () => {
     setLoading(true);
-    const { data } = await Presentations.create(groupId);
+    const { data } = await Presentations.create(null);
     const { presentation } = data;
-    navigate(constants.editPresentationUrl(groupId, presentation.id));
+    navigate(constants.editPresentationUrl(null, presentation.id));
   };
   return (
     <Button
@@ -24,11 +23,7 @@ export default function CreateButton({ groupId }) {
       onClick={onClick}
       loading={loading}
     >
-      Create
+      Create presentation
     </Button>
   );
 }
-
-CreateButton.propTypes = {
-  groupId: PropTypes.string.isRequired
-};

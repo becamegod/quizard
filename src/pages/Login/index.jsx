@@ -27,7 +27,7 @@ export default function LoginPage() {
     }
 
     const accessToken = localStorage.getItem(constants.accessToken);
-    if (accessToken) navigate("/dashboard");
+    if (accessToken) navigate(constants.homeUrl);
 
     return () => {};
   }, []);

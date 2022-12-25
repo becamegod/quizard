@@ -18,6 +18,7 @@ import {
 import moment from "moment/moment";
 import { React, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Title from "antd/lib/typography/Title";
 import constants from "../../../utils/constants";
 import Presentations from "../../../api/presentations";
 import CreateButton from "./CreateButton";
@@ -199,7 +200,7 @@ export default function PresentationCard() {
       <Row style={{ marginBottom: "24px" }}>
         <Col span={12}>
           <Row justify="start">
-            <h1>Presentations</h1>
+            <Title>Presentations</Title>
           </Row>
         </Col>
         {createButton}

@@ -6,5 +6,8 @@ export default {
   // baseUrl: "quizard.vercel.app",
   editPresentationUrl: (groupId, presentationId) =>
     `/groups/${groupId}/${presentationId}`,
-  joinPresentationUrl: (presentationId) => `/presentations/${presentationId}`
+  joinPresentationUrl: (presentationId) => `/presentations/${presentationId}`,
+  groupsUrl: "/groups",
+  presentationsUrl: "/presentations",
+  homeUrl: "/groups"
 };

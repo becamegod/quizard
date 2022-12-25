@@ -16,6 +16,9 @@ import UserInformationPage from "./pages/UserInformation";
 import VerifyPage from "./pages/Verify";
 import ForgotPasswordPage from "./pages/ForgotPassword";
 import ResetPasswordPage from "./pages/ResetPassword";
+import constants from "./utils/constants";
+import GroupsPage from "./pages/Groups/GroupsPage";
+import PresentationCard from "./pages/GroupDetail/PresentationCard";
 
 export default function BaseRoutes() {
   return (
@@ -29,8 +32,13 @@ export default function BaseRoutes() {
       <Route path="/verify" element={<VerifyPage />} />
       <Route element={<AuthGate />}>
         <Route element={<GeneralLayout />}>
-          <Route path="/groups/:groupId" element={<GroupDetailPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path={constants.groupsUrl} element={<GroupsPage />} />
+          <Route path="/groups/:groupId" element={<GroupDetailPage />} />
+          <Route
+            path={constants.presentationsUrl}
+            element={<PresentationCard />}
+          />
           <Route path="/profile" element={<UserInformationPage />} />
         </Route>
         <Route path="/logout" element={<Logout />} />
