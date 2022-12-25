@@ -16,7 +16,18 @@ root.render(
     {/* <SocketContext.Provider value={socket}> */}
     <BrowserRouter>
       <ConfigProvider
-        theme={{ token: { colorPrimary: "00CC11", colorInfo: "00CC11" } }}
+        theme={{
+          token: {
+            colorPrimary: "00CC11",
+            colorInfo: "00CC11"
+          },
+          components: {
+            Button: {
+              controlHeight: 40,
+              fontSize: 16
+            }
+          }
+        }}
       >
         <BaseRoutes />
       </ConfigProvider>

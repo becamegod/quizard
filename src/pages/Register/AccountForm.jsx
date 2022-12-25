@@ -1,8 +1,10 @@
 import { Form, Input } from "antd";
 import PropTypes from "prop-types";
 import { React } from "react";
+
 import ExpandRow from "../../components/UI/ExpandRow";
 import MyButton from "../../components/UI/MyButton";
+import reuseables from "../../utils/reuseables";
 
 export default function AccountForm({ onLogin, onFinish }) {
   const onFinishFailed = (errorInfo) => {
@@ -15,26 +17,16 @@ export default function AccountForm({ onLogin, onFinish }) {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
+      size="large"
     >
       <Form.Item
-        label="Email"
         name="email"
         validateTrigger="onBlur"
-        rules={[
-          {
-            type: "email",
-            message: "The input is not valid E-mail!"
-          },
-          {
-            required: true,
-            message: "Please input your E-mail!"
-          }
-        ]}
+        rules={reuseables.emailRule}
       >
-        <Input className="round" />
+        <Input placeholder="Email" />
       </Form.Item>
       <Form.Item
-        label="Password"
         name="password"
         validateTrigger="onBlur"
         rules={[
@@ -49,10 +41,9 @@ export default function AccountForm({ onLogin, onFinish }) {
           }
         ]}
       >
-        <Input.Password className="round" />
+        <Input.Password placeholder="Password" />
       </Form.Item>
       <Form.Item
-        label="Confirm password"
         name="confirm-password"
         validateTrigger="onBlur"
         rules={[
@@ -65,15 +56,14 @@ export default function AccountForm({ onLogin, onFinish }) {
               if (!value || getFieldValue("password") === value) {
                 return Promise.resolve();
               }
-              // eslint-disable-next-line prefer-promise-reject-errors
               return Promise.reject(
-                "The two passwords that you entered do not match!"
+                Error("The two passwords that you entered do not match!")
               );
             }
           })
         ]}
       >
-        <Input.Password className="round" />
+        <Input.Password placeholder="Confirm password" />
       </Form.Item>
       <Form.Item>
         <ExpandRow>
@@ -82,21 +72,6 @@ export default function AccountForm({ onLogin, onFinish }) {
             Next
           </MyButton>
         </ExpandRow>
-        {/* <Row gutter={10}>
-          <Col span={12}>
-            <MyButton onClick={onLogin}>Back to login</MyButton>
-          </Col>
-          <Col span={12}>
-            <MyButton primary submit>
-              Next
-            </MyButton>
-          </Col>
-        </Row> */}
-        {/* <Content className="register-container">
-          <MyButton primary submit>
-            Continue
-          </MyButton>
-        </Content> */}
       </Form.Item>
     </Form>
   );

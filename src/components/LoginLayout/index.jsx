@@ -6,7 +6,11 @@ import "./index.css";
 export default function LoginLayout() {
   return (
     <div className="login-base">
-      <Row justify="space-around" align="middle" className="expand">
+      <Row
+        justify="space-evenly"
+        align="middle"
+        className="expand justify-evenly"
+      >
         <Col>
           <Image preview={false} src="/logo/quizardLogo.png" />
         </Col>

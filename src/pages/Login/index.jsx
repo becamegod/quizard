@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import constants from "../../utils/constants";
 import RegisterForm from "../Register/RegisterForm";
+import RegisterSuccess from "../Register/RegisterSuccess";
 import LoginForm from "./LoginForm";
 
 export default function LoginPage() {
@@ -34,7 +35,7 @@ export default function LoginPage() {
   const slider = useRef();
 
   return (
-    <Card className="round login-card">
+    <Card className="login-card">
       <Carousel
         speed={300}
         dots={false}
@@ -43,7 +44,11 @@ export default function LoginPage() {
         }}
       >
         <LoginForm onRegister={() => slider.current.next()} />
-        <RegisterForm onLogin={() => slider.current.prev()} />
+        <RegisterForm
+          onLogin={() => slider.current.prev()}
+          onDoneRegister={() => slider.current.next()}
+        />
+        <RegisterSuccess onLogin={() => slider.current.goTo(0)} />
       </Carousel>
     </Card>
   );

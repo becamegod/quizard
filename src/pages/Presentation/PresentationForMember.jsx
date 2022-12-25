@@ -57,7 +57,7 @@ export default function PresentationForMember() {
         <ChartScreen selectedSlide={result} />
       </Card>
     ) : (
-      <Card className="round">
+      <Card>
         <Title>{slide.question}</Title>
         <Form onFinish={onFinish}>
           <Form.Item name="choice">
@@ -65,7 +65,7 @@ export default function PresentationForMember() {
               <Space direction="vertical" className="expand">
                 {slide.options.map((option, index) => (
                   <Radio.Button
-                    className="round expand"
+                    className="expand"
                     value={index}
                     key={index.toString()}
                   >
@@ -79,7 +79,7 @@ export default function PresentationForMember() {
             <Button
               type="primary"
               size="large"
-              className="round login-btn"
+              className="login-btn"
               htmlType="submit"
             >
               Submit

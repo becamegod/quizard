@@ -185,7 +185,7 @@ export default function PresentationCard() {
     ) : null;
 
   return (
-    <Card className="round group-member-card">
+    <Card className="group-member-card">
       <Modal
         title="Remove presentation"
         open={removeModalVisible}

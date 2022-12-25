@@ -22,7 +22,11 @@ export default function InviteButton({ group }) {
     {
       label: "Invite by link",
       key: "1",
-      children: <Title copyable>{url}</Title>
+      children: (
+        <Title level={1} copyable>
+          {`${url}  `}
+        </Title>
+      )
     },
     {
       label: "Invite by email",

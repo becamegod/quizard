@@ -14,7 +14,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import auth from "../../api/auth";
+import MyButton from "../../components/UI/MyButton";
 import constants from "../../utils/constants";
+import reuseables from "../../utils/reuseables";
 import SocialIcon from "./SocialIcon";
 
 export default function LoginForm({ onRegister }) {
@@ -69,21 +71,12 @@ export default function LoginForm({ onRegister }) {
           className="login-form-item"
           name="email"
           validateTrigger="onBlur"
-          rules={[
-            {
-              type: "email",
-              message: "The input is not valid E-mail!"
-            },
-            {
-              required: true,
-              message: `Please input your email!`
-            }
-          ]}
+          rules={reuseables.emailRule}
         >
-          <Input className="round" placeholder="Email" />
+          <Input placeholder="Email" />
         </Form.Item>
         <Form.Item className="login-form-item" name="password">
-          <Input.Password className="round" placeholder="Password" />
+          <Input.Password placeholder="Password" />
         </Form.Item>
         <Form.Item>
           <Content className="register-link-container">
@@ -97,14 +90,17 @@ export default function LoginForm({ onRegister }) {
         </Form.Item>
         <Form.Item>
           <Content className="login-container">
-            <Button
+            <MyButton primary submit>
+              Login
+            </MyButton>
+            {/* <Button
               type="primary"
               size="large"
-              className="round login-btn"
+              className="login-btn"
               htmlType="submit"
             >
               Login
-            </Button>
+            </Button> */}
           </Content>
         </Form.Item>
         <Divider plain style={{ marginTop: "80px" }}>

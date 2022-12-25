@@ -8,8 +8,7 @@ export default function MyButton({ children, onClick, primary, submit }) {
   return (
     <Button
       shape="round"
-      size="large"
-      className=""
+      className="expand"
       onClick={onClick}
       type={type}
       htmlType={htmlType}

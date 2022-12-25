@@ -76,7 +76,7 @@ export default function GroupInfoCard() {
   switch (stage) {
     case 1:
       return (
-        <Card className="round">
+        <Card>
           <Row style={{ marginBottom: "24px" }}>
             <Col span={12}>
               <Row justify="start">
@@ -121,10 +121,10 @@ export default function GroupInfoCard() {
                     }
                   ]}
                 >
-                  <Input className="round" />
+                  <Input />
                 </Form.Item>
                 <Form.Item label="Group Description" name="description">
-                  <Input.TextArea className="round" />
+                  <Input.TextArea />
                 </Form.Item>
                 <Row justify="center" gutter={[12, 0]}>
                   <Col hidden={!editMode}>
@@ -170,7 +170,7 @@ export default function GroupInfoCard() {
       );
     default:
       return (
-        <Card className="round">
+        <Card>
           <Row style={{ marginBottom: "24px" }}>
             <Col span={12}>
               <Row justify="start">

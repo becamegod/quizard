@@ -1,18 +1,10 @@
 import { DatePicker, Form, Input, Select } from "antd";
-import moment from "moment";
 import PropTypes from "prop-types";
 import { React } from "react";
 import ExpandRow from "../../components/UI/ExpandRow";
 import MyButton from "../../components/UI/MyButton";
 
-export default function UserInfoForm({ onBack }) {
-  const onFinish = (values) => {
-    const dob = moment(values.dob).format("DD-MM-YYYY");
-    return dob;
-    // setUser({ ...user, ...values, dob });
-    // setStage(stage + 1);
-  };
-
+export default function UserInfoForm({ onBack, onFinish }) {
   const onFinishFailed = (errorInfo) => {
     throw new Error(errorInfo);
   };
@@ -23,9 +15,9 @@ export default function UserInfoForm({ onBack }) {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
+      size="large"
     >
       <Form.Item
-        label="Name"
         name="name"
         validateTrigger="onBlur"
         rules={[
@@ -39,10 +31,9 @@ export default function UserInfoForm({ onBack }) {
           }
         ]}
       >
-        <Input className="round" />
+        <Input placeholder="Name" />
       </Form.Item>
       <Form.Item
-        label="Gender"
         name="gender"
         rules={[
           {
@@ -52,7 +43,7 @@ export default function UserInfoForm({ onBack }) {
         ]}
       >
         <Select
-          className="round input-field"
+          placeholder="Gender"
           style={{ width: "100%", borderRadius: "5px" }}
           options={[
             {
@@ -67,7 +58,6 @@ export default function UserInfoForm({ onBack }) {
         />
       </Form.Item>
       <Form.Item
-        label="Date of birth"
         name="dob"
         rules={[
           {
@@ -85,7 +75,11 @@ export default function UserInfoForm({ onBack }) {
           })
         ]}
       >
-        <DatePicker className="round input-field" value={new Date()} />
+        <DatePicker
+          placeholder="Birthday"
+          className="expand"
+          value={new Date()}
+        />
       </Form.Item>
       <Form.Item>
         <ExpandRow>
@@ -100,5 +94,6 @@ export default function UserInfoForm({ onBack }) {
 }
 
 UserInfoForm.propTypes = {
-  onBack: PropTypes.func.isRequired
+  onBack: PropTypes.func.isRequired,
+  onFinish: PropTypes.func.isRequired
 };

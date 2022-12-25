@@ -74,14 +74,13 @@ export default function UserInformationForm() {
                 }}
               >
                 <Form.Item label="Email" name="email">
-                  <Input className="round" disabled />
+                  <Input disabled />
                 </Form.Item>
                 <Form.Item label="Fullname" name="name">
-                  <Input className="round" required />
+                  <Input required />
                 </Form.Item>
                 <Form.Item label="Gender" name="gender">
                   <Select
-                    className="round"
                     options={[
                       {
                         value: "Male",
@@ -96,7 +95,7 @@ export default function UserInformationForm() {
                   />
                 </Form.Item>
                 <Form.Item label="Date of birth" name="dob">
-                  <DatePicker className="round" format="DD/MM/YYYY" required />
+                  <DatePicker format="DD/MM/YYYY" required />
                 </Form.Item>
                 <Form.Item>
                   <Button
@@ -132,14 +131,13 @@ export default function UserInformationForm() {
                 }}
               >
                 <Form.Item label="Email" name="email">
-                  <Input className="round" disabled />
+                  <Input disabled />
                 </Form.Item>
                 <Form.Item label="Fullname" name="name">
-                  <Input className="round" required />
+                  <Input required />
                 </Form.Item>
                 <Form.Item label="Gender" name="gender">
                   <Select
-                    className="round"
                     options={[
                       {
                         value: "Male",
@@ -154,7 +152,7 @@ export default function UserInformationForm() {
                   />
                 </Form.Item>
                 <Form.Item label="Date of birth" name="dob">
-                  <DatePicker className="round" format="DD/MM/YYYY" required />
+                  <DatePicker format="DD/MM/YYYY" required />
                 </Form.Item>
                 <Form.Item>
                   <Button
