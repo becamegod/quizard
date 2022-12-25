@@ -22,11 +22,11 @@ export default function ResetPassword() {
   const handleOnClickBackButton = () => {
     navigate("/");
   };
+
   const success = () => {
     Modal.success({
-      title: "Reset password",
-      content:
-        "Please check your email. We have sent an email to reeet your password",
+      title: "Change password successfully",
+      content: "Your password is changed",
       onOk: () => handleOnClickBackButton()
     });
   };

@@ -6,6 +6,7 @@ import { React, useRef, useState } from "react";
 
 // import authService from "../../api/auth";
 import auth from "../../api/auth";
+import constants from "../../utils/constants";
 import AccountForm from "./AccountForm";
 import UserInfoForm from "./UserInfoForm";
 
@@ -25,7 +26,7 @@ export default function RegisterForm({ onLogin, onDoneRegister }) {
     setUser({ ...user, ...values, dob });
     const u = { ...user, ...values, dob };
     try {
-      await auth.register(u);
+      await auth.register(u, `${constants.baseUrl}/verify?token=`);
     } catch (error) {
       notification.error({
         message: "Register Failed",

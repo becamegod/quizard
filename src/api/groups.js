@@ -16,5 +16,6 @@ export default {
 
   kick: (data) => authClient.post(`${base}/kickUser`, data),
 
-  join: (url) => authClient.post(`${base}/join`, { url })
+  join: (url) => authClient.post(`${base}/join`, { url }),
+  delete: (groupId) => authClient.delete(`${base}/${groupId}`)
 };

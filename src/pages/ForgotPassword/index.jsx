@@ -21,10 +21,12 @@ export default function ForgotPassword() {
   const handleOnClickBackButton = () => {
     navigate("/");
   };
+
   const success = () => {
     Modal.success({
-      title: "Change password successfully",
-      content: "Your password is changed",
+      title: "Reset password",
+      content:
+        "Please check your email. We have sent an email to reset your password",
       onOk: () => handleOnClickBackButton()
     });
   };
@@ -33,7 +35,7 @@ export default function ForgotPassword() {
     try {
       const body = {
         ...values,
-        link: `http://${constants.baseUrl}/reset-password`
+        link: `${constants.baseUrl}/reset-password`
       };
       success();
       await auth.forgotPassword(body);

@@ -3,7 +3,9 @@ import {
   EditOutlined,
   UserOutlined,
   SaveOutlined,
-  LoadingOutlined
+  LoadingOutlined,
+  DeleteOutlined,
+  ExclamationCircleOutlined
 } from "@ant-design/icons";
 import {
   Avatar,
@@ -14,14 +16,16 @@ import {
   Input,
   Row,
   Typography,
-  notification
+  notification,
+  Modal
 } from "antd";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import groups from "../../../api/groups";
 import "./index.css";
 import LoadingIcon from "../../../components/LoadingIcon";
 
 export default function GroupInfoCard() {
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const [userRole, setUserRole] = useState("Member");
   const [editMode, setEditMode] = useState(false);
@@ -31,12 +35,51 @@ export default function GroupInfoCard() {
     name: "",
     avatar: ""
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { groupId } = useParams();
   const [form] = Form.useForm();
 
   const enableEdit = () => {
     setEditMode(!editMode);
   };
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = async () => {
+    try {
+      setIsModalOpen(false);
+      await groups.delete(groupId);
+      navigate("/groups");
+    } catch (err) {
+      const { status } = err.request;
+      let description;
+      switch (status) {
+        case 403:
+          description = "Forbidden";
+          break;
+
+        default:
+          description = "Something's wrong. Please try again later.";
+          break;
+      }
+      notification.error({
+        message: "Error",
+        description,
+        icon: <ExclamationCircleOutlined style={{ color: "#FF4D4F" }} />,
+        style: {
+          backgroundColor: "#FFF1F0",
+          borderRadius: "10px"
+        }
+      });
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const onFinish = () => {
     setBusy(true);
     setTimeout(() => {
@@ -76,7 +119,7 @@ export default function GroupInfoCard() {
   switch (stage) {
     case 1:
       return (
-        <Card>
+        <Card className="round">
           <Row style={{ marginBottom: "24px" }}>
             <Col span={12}>
               <Row justify="start">
@@ -121,10 +164,10 @@ export default function GroupInfoCard() {
                     }
                   ]}
                 >
-                  <Input />
+                  <Input className="round" />
                 </Form.Item>
                 <Form.Item label="Group Description" name="description">
-                  <Input.TextArea />
+                  <Input.TextArea className="round" />
                 </Form.Item>
                 <Row justify="center" gutter={[12, 0]}>
                   <Col hidden={!editMode}>
@@ -158,11 +201,35 @@ export default function GroupInfoCard() {
                     type="primary"
                     shape="round"
                     onClick={() => enableEdit()}
+                    style={{
+                      marginBottom: "120px"
+                    }}
                     icon={<EditOutlined />}
                   >
                     Edit
                   </Button>
                 </Col>
+              </Row>
+              <Row justify="end">
+                <Col>
+                  <Button
+                    type="primary"
+                    shape="round"
+                    danger
+                    onClick={showModal}
+                    icon={<DeleteOutlined />}
+                  >
+                    Delete
+                  </Button>
+                </Col>
+                <Modal
+                  title="Delete group"
+                  open={isModalOpen}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                >
+                  <p>Do you want to delete this group?</p>
+                </Modal>
               </Row>
             </Col>
           </Row>
@@ -170,7 +237,7 @@ export default function GroupInfoCard() {
       );
     default:
       return (
-        <Card>
+        <Card className="round">
           <Row style={{ marginBottom: "24px" }}>
             <Col span={12}>
               <Row justify="start">
