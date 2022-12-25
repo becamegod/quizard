@@ -19,6 +19,7 @@ import ResetPasswordPage from "./pages/ResetPassword";
 import constants from "./utils/constants";
 import GroupsPage from "./pages/Groups/GroupsPage";
 import PresentationCard from "./pages/GroupDetail/PresentationCard";
+import NotFoundPage from "./pages/NotFoundPage";
 
 export default function BaseRoutes() {
   return (
@@ -53,6 +54,7 @@ export default function BaseRoutes() {
         />
         <Route path="/host/:presentationId" element={<PresentationForHost />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

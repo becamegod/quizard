@@ -53,7 +53,7 @@ export default function PresentationForHost() {
     //   adaptiveHeight
     //   style={{ height: "100%" }}
     // >
-    <div className="login-base">
+    <div className="center-base">
       <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
         <Card className="pres-carousel round" bodyStyle={{ height: "100%" }}>
           <Row justify="end">

@@ -73,14 +73,14 @@ export default function LoginForm({ onRegister, isUnauthorized }) {
       <Title className="login-title">LOGIN</Title>
       <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
         <Form.Item
-          className="login-form-item"
+          className="tight-bottom"
           name="email"
           validateTrigger="onBlur"
           rules={reuseables.emailRule}
         >
           <Input placeholder="Email" />
         </Form.Item>
-        <Form.Item className="login-form-item" name="password">
+        <Form.Item className="tight-bottom" name="password">
           <Input.Password placeholder="Password" />
         </Form.Item>
         <Form.Item>

@@ -5,7 +5,7 @@ import "./index.css";
 
 export default function LoginLayout() {
   return (
-    <div className="login-base">
+    <div className="center-base">
       <Row
         justify="space-evenly"
         align="middle"

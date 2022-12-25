@@ -1,17 +1,12 @@
-import {
-  Card,
-  Form,
-  Input,
-  notification,
-  Button,
-  Typography,
-  Modal
-} from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import Link from "../../api/InviteLinks";
+import { Card, Col, Form, Input, Modal, notification, Row } from "antd";
+import Title from "antd/es/typography/Title";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import auth from "../../api/auth";
+import Link from "../../api/InviteLinks";
+import Loading from "../../components/Loading";
+import MyButton from "../../components/UI/MyButton";
 import "./index.css";
 
 export default function ResetPassword() {
@@ -84,19 +79,15 @@ export default function ResetPassword() {
     });
   };
   if (isExpired || (link && link.status === "Invalid")) {
-    return (
-      <div className="reset-password-layout">
-        <Typography.Title level={2}>
-          This page is not available
-        </Typography.Title>
-      </div>
-    );
+    navigate("/404");
+    return <Loading />;
   }
   return (
     <div className="reset-password-layout">
       <Card className="reset-password-card">
+        <Title level={2}>Enter your new password</Title>
         <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
-          <Form.Item name="newPassword">
+          <Form.Item name="newPassword" className="tight-bottom">
             <Input
               className="round"
               placeholder="New password"
@@ -112,9 +103,15 @@ export default function ResetPassword() {
               required
             />
           </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit">Change password</Button>
-          </Form.Item>
+          <Row justify="end">
+            <Col span={16}>
+              <Form.Item>
+                <MyButton primary submit>
+                  Change password
+                </MyButton>
+              </Form.Item>
+            </Col>
+          </Row>
         </Form>
       </Card>
     </div>

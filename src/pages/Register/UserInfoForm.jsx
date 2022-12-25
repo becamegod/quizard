@@ -15,7 +15,6 @@ export default function UserInfoForm({ onBack, onFinish }) {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
-      size="large"
     >
       <Form.Item
         name="name"

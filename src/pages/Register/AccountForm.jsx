@@ -17,7 +17,6 @@ export default function AccountForm({ onLogin, onFinish }) {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
-      size="large"
     >
       <Form.Item
         name="email"

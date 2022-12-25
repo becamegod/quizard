@@ -90,7 +90,7 @@ export default function PresentationForMember() {
     );
 
   return (
-    <div className="login-base">
+    <div className="center-base">
       <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
         {content}
       </Row>

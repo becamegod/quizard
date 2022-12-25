@@ -1,20 +1,23 @@
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
   Card,
-  Image,
-  Typography,
-  Row,
-  Input,
-  Button,
   Form,
+  Image,
+  Input,
+  Modal,
   notification,
-  Modal
+  Row,
+  Space,
+  Typography
 } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import Title from "antd/es/typography/Title";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import auth from "../../api/auth";
+import ExpandRow from "../../components/UI/ExpandRow";
+import MyButton from "../../components/UI/MyButton";
 import constants from "../../utils/constants";
-import "./index.css";
+import reuseables from "../../utils/reuseables";
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
@@ -76,32 +79,34 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="forgot-password-layout">
-      <Card className="forgot-password-card">
-        <Row className="lock-image-container">
-          <Image src="/img/lock.png" preview={false} height="100px" />
+    <div className="center-base">
+      <Card>
+        <Row className="lock-image-container" style={{ height: "100px" }}>
+          <Image src="/img/forgotPassword.png" preview={false} height="100%" />
         </Row>
-        <Typography.Text>
-          Enter your email and we will send you a link to reset your password.
-        </Typography.Text>
-        <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
-          <Form.Item name="email">
-            <Input className="round" placeholder="Email" type="email" />
-          </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit">Send mail reset password</Button>
-          </Form.Item>
-        </Form>
-
-        <Typography.Text>OR</Typography.Text>
-        <Row>
+        <Row justify="center">
+          <Title>Forgot password</Title>
+        </Row>
+        <Space direction="vertical">
           <Typography.Text>
-            <Link to="/register">Create your account</Link>
+            Enter your email and we will send you a link to reset your password.
           </Typography.Text>
-        </Row>
-        <Row>
-          <Button onClick={handleOnClickBackButton}>Back to login</Button>
-        </Row>
+          <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
+            <Form.Item name="email" rules={reuseables.emailRule}>
+              <Input className="round" placeholder="Email" type="email" />
+            </Form.Item>
+            <Form.Item>
+              <ExpandRow gutter={0}>
+                <MyButton onClick={handleOnClickBackButton}>
+                  Back to login
+                </MyButton>
+                <MyButton primary submit>
+                  Send mail reset password
+                </MyButton>
+              </ExpandRow>
+            </Form.Item>
+          </Form>
+        </Space>
       </Card>
     </div>
   );
