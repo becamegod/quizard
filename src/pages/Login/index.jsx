@@ -1,6 +1,6 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Card, Carousel, notification } from "antd";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import constants from "../../utils/constants";
 import RegisterForm from "../Register/RegisterForm";
@@ -10,6 +10,7 @@ import LoginForm from "./LoginForm";
 export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isUnauthorized, setIsUnauthorized] = useState(false);
 
   useEffect(() => {
     if (location.state === constants.unauthorized) {
@@ -24,6 +25,7 @@ export default function LoginPage() {
           borderRadius: "10px"
         }
       });
+      setIsUnauthorized(true);
     }
 
     const accessToken = localStorage.getItem(constants.accessToken);
@@ -43,7 +45,10 @@ export default function LoginPage() {
           slider.current = ref;
         }}
       >
-        <LoginForm onRegister={() => slider.current.next()} />
+        <LoginForm
+          onRegister={() => slider.current.next()}
+          isUnauthorized={isUnauthorized}
+        />
         <RegisterForm
           onLogin={() => slider.current.prev()}
           onDoneRegister={() => slider.current.next()}

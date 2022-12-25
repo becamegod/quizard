@@ -19,7 +19,7 @@ import constants from "../../utils/constants";
 import reuseables from "../../utils/reuseables";
 import SocialIcon from "./SocialIcon";
 
-export default function LoginForm({ onRegister }) {
+export default function LoginForm({ onRegister, isUnauthorized }) {
   const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
@@ -30,7 +30,11 @@ export default function LoginForm({ onRegister }) {
       notification.success({
         message: "Login succeed"
       });
-      navigate("/dashboard", { replace: true });
+      if (isUnauthorized === true) {
+        navigate(-2, { replace: true });
+      } else {
+        navigate("/dashboard", { replace: true });
+      }
     } catch (err) {
       const { status } = err.request;
       let description;
@@ -125,5 +129,6 @@ export default function LoginForm({ onRegister }) {
 }
 
 LoginForm.propTypes = {
-  onRegister: PropTypes.func.isRequired
+  onRegister: PropTypes.func.isRequired,
+  isUnauthorized: PropTypes.bool.isRequired
 };

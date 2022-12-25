@@ -15,8 +15,8 @@ const check = () => {
   return authClient.post("/auth/check");
 };
 
-const register = (user) => {
-  return instance.post("/auth/register", user);
+const register = (user, link) => {
+  return instance.post("/auth/register", { ...user, link });
 };
 
 const forgotPassword = (body) => {
