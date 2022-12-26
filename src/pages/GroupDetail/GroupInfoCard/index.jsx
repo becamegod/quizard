@@ -102,8 +102,7 @@ export default function GroupInfoCard() {
       const { group } = data;
       setOwner(group.joinedUser.find((member) => member.role === "Owner"));
       setUserRole(
-        // eslint-disable-next-line no-underscore-dangle
-        group.joinedUser.find((member) => member._id === user._id).role
+        group.joinedUser.find((member) => member.id === user.id).role
       );
       form.setFieldsValue({
         name: group.name,

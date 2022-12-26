@@ -18,7 +18,7 @@ import ForgotPasswordPage from "./pages/ForgotPassword";
 import ResetPasswordPage from "./pages/ResetPassword";
 import constants from "./utils/constants";
 import GroupsPage from "./pages/Groups/GroupsPage";
-import PresentationCard from "./pages/GroupDetail/PresentationCard";
+import PresentationListPage from "./pages/PresentationList";
 import NotFoundPage from "./pages/NotFoundPage";
 
 export default function BaseRoutes() {
@@ -38,14 +38,14 @@ export default function BaseRoutes() {
           <Route path="/groups/:groupId" element={<GroupDetailPage />} />
           <Route
             path={constants.presentationsUrl}
-            element={<PresentationCard />}
+            element={<PresentationListPage />}
           />
           <Route path="/profile" element={<UserInformationPage />} />
         </Route>
         <Route path="/logout" element={<Logout />} />
         <Route path="/join/:url" element={<JoinGroup />} />
         <Route
-          path="/groups/:groupId/:presentationId"
+          path="/presentations/edit/:presentationId"
           element={<SlideEditorPage />}
         />
         <Route

@@ -1,45 +1,39 @@
+import React, { useEffect, useState } from "react";
 import {
   BarChartOutlined,
   DeleteOutlined,
   EditOutlined,
   EyeOutlined
 } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import {
-  Button,
-  Card,
   Col,
-  Modal,
-  notification,
-  Row,
-  Space,
   Table,
-  Typography
+  Button,
+  notification,
+  Space,
+  Typography,
+  Modal,
+  Row
 } from "antd";
+import PropTypes from "prop-types";
 import moment from "moment/moment";
-import { React, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Title from "antd/lib/typography/Title";
-import constants from "../../../utils/constants";
-import Presentations from "../../../api/presentations";
-import CreateButton from "./CreateButton";
-import LoadingIcon from "../../../components/LoadingIcon";
+import constants from "../../utils/constants";
+import Presentations from "../../api/presentations";
 
 function timeDifference(previous) {
   return moment.utc(previous).local().startOf("seconds").fromNow();
 }
 
-export default function PresentationCard() {
-  const { groupId } = useParams();
+export default function PresentationTable({ category }) {
   const [presentations, setPresentations] = useState([]);
   const [removeModalVisible, setRemoveModalVisible] = useState(false);
   const [selection, setSelection] = useState(null);
-  const [stage, setStage] = useState(0);
   const navigate = useNavigate();
 
   const removePresentation = async () => {
     try {
       await Presentations.delete(selection.id);
-      setStage(0);
       notification.success({
         message: "Presentation removed successfully",
         description: `presentation ${selection.name} removed`,
@@ -56,12 +50,20 @@ export default function PresentationCard() {
   };
 
   const onEdit = (id) => {
-    navigate(constants.editPresentationUrl(groupId, id));
+    console.log(id);
+    navigate(constants.editPresentationUrl(id));
   };
 
   const onView = (id) => {
     navigate(constants.joinPresentationUrl(id));
   };
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await Presentations.listOwnedPresentation(category);
+      setPresentations(data.presentations);
+    }
+    fetchData();
+  }, []);
 
   const columns = [
     {
@@ -80,14 +82,6 @@ export default function PresentationCard() {
             </Typography.Text>
           </Col>
         </Row>
-      )
-    },
-    {
-      title: "Owner",
-      key: "owner",
-      dataIndex: "owner",
-      render: (text) => (
-        <Typography.Text type="secondary">{text}</Typography.Text>
       )
     },
     {
@@ -113,54 +107,39 @@ export default function PresentationCard() {
     {
       title: "Action",
       key: "action",
-      render: (_, record) => (
-        <Space size="middle" direction="horizontal">
-          <Button
-            shape="round"
-            onClick={() => onView(record.id)}
-            // hidden={!permission(record)}
-          >
-            <EyeOutlined />
-          </Button>
-          <Button
-            shape="round"
-            onClick={() => onEdit(record.id)}
-            // hidden={!permission(record)}
-          >
-            <EditOutlined />
-          </Button>
-          <Button
-            danger
-            shape="round"
-            onClick={() => {
-              setSelection(record);
-              setRemoveModalVisible(true);
-            }}
-            // hidden={!permission(record)}
-          >
-            <DeleteOutlined />
-          </Button>
-        </Space>
-      )
+      render: (_, record) => {
+        return (
+          <Space size="middle" direction="horizontal">
+            <Button
+              shape="round"
+              onClick={() => onView(record.id)}
+              // hidden={!permission(record)}
+            >
+              <EyeOutlined />
+            </Button>
+            <Button
+              shape="round"
+              onClick={() => onEdit(record.id)}
+              // hidden={!permission(record)}
+            >
+              <EditOutlined />
+            </Button>
+            <Button
+              danger
+              shape="round"
+              onClick={() => {
+                setSelection(record);
+                setRemoveModalVisible(true);
+              }}
+              // hidden={!permission(record)}
+            >
+              <DeleteOutlined />
+            </Button>
+          </Space>
+        );
+      }
     }
   ];
-
-  useEffect(() => {
-    async function fetchData() {
-      const { data } = await Presentations.list(groupId);
-      setPresentations(data.presentations);
-      setStage(1);
-    }
-    if (stage === 0) {
-      fetchData();
-    }
-  }, [groupId, stage]);
-
-  const loading = (
-    <Col>
-      <LoadingIcon />
-    </Col>
-  );
 
   const list = (
     <Col span={24}>
@@ -172,21 +151,8 @@ export default function PresentationCard() {
       />
     </Col>
   );
-
-  const content = stage === 1 ? list : loading;
-  const createButton =
-    stage === 1 ? (
-      <Col span={12}>
-        <Row justify="end" align="middle" gutter={[20, 0]}>
-          <Col>
-            <CreateButton groupId={groupId} />
-          </Col>
-        </Row>
-      </Col>
-    ) : null;
-
   return (
-    <Card className="group-member-card">
+    <>
       <Modal
         title="Remove presentation"
         open={removeModalVisible}
@@ -197,17 +163,17 @@ export default function PresentationCard() {
       >
         <p>Are you sure to remove this presentation?</p>
       </Modal>
-      <Row style={{ marginBottom: "24px" }}>
-        <Col span={12}>
-          <Row justify="start">
-            <Title>Presentations</Title>
-          </Row>
-        </Col>
-        {createButton}
-      </Row>
       <Row justify="center" style={{ marginBottom: "32px" }}>
-        {content}
+        {list}
       </Row>
-    </Card>
+    </>
   );
 }
+
+PresentationTable.propTypes = {
+  category: PropTypes.string
+};
+
+PresentationTable.defaultProps = {
+  category: "owned"
+};
