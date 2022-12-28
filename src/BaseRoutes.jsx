@@ -20,6 +20,7 @@ import constants from "./utils/constants";
 import GroupsPage from "./pages/Groups/GroupsPage";
 import PresentationListPage from "./pages/PresentationList";
 import NotFoundPage from "./pages/NotFoundPage";
+import CollaboratorPage from "./pages/Collaborator";
 
 export default function BaseRoutes() {
   return (
@@ -39,6 +40,10 @@ export default function BaseRoutes() {
           <Route
             path={constants.presentationsUrl}
             element={<PresentationListPage />}
+          />
+          <Route
+            path="/presentations/collaborators/:presentationId"
+            element={<CollaboratorPage />}
           />
           <Route path="/profile" element={<UserInformationPage />} />
         </Route>

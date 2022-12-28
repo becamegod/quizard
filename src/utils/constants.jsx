@@ -7,6 +7,8 @@ export default {
   editPresentationUrl: (presentationId) =>
     `/presentations/edit/${presentationId}`,
   joinPresentationUrl: (presentationId) => `/presentations/${presentationId}`,
+  collaboratorsPresentationUrl: (presentationId) =>
+    `/presentations/collaborators/${presentationId}`,
   groupsUrl: "/groups",
   presentationsUrl: "/presentations",
   homeUrl: "/groups"

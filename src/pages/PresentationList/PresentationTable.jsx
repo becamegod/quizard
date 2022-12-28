@@ -3,7 +3,9 @@ import {
   BarChartOutlined,
   DeleteOutlined,
   EditOutlined,
-  EyeOutlined
+  EyeOutlined,
+  EllipsisOutlined,
+  TeamOutlined
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import {
@@ -14,7 +16,8 @@ import {
   Space,
   Typography,
   Modal,
-  Row
+  Row,
+  Dropdown
 } from "antd";
 import PropTypes from "prop-types";
 import moment from "moment/moment";
@@ -36,9 +39,15 @@ export default function PresentationTable({ category }) {
       await Presentations.delete(selection.id);
       notification.success({
         message: "Presentation removed successfully",
-        description: `presentation ${selection.name} removed`,
+        description: `Presentation: ${selection.name} removed`,
         duration: 2
       });
+      const newPresentations = [...presentations];
+      const indexOfRemovedElement = newPresentations.findIndex(
+        (presentation) => presentation.id === selection.id
+      );
+      newPresentations.splice(indexOfRemovedElement, 1);
+      setPresentations(newPresentations);
     } catch (error) {
       notification.error({
         message: "Presentation remove failed",
@@ -50,16 +59,19 @@ export default function PresentationTable({ category }) {
   };
 
   const onEdit = (id) => {
-    console.log(id);
     navigate(constants.editPresentationUrl(id));
   };
 
   const onView = (id) => {
     navigate(constants.joinPresentationUrl(id));
   };
+
+  const onCollaborators = (id) => {
+    navigate(constants.collaboratorsPresentationUrl(id));
+  };
   useEffect(() => {
     async function fetchData() {
-      const { data } = await Presentations.listOwnedPresentation(category);
+      const { data } = await Presentations.getPresentations({ category });
       setPresentations(data.presentations);
     }
     fetchData();
@@ -79,6 +91,20 @@ export default function PresentationTable({ category }) {
           <Col>
             <Typography.Text strong style={{ color: "#0E86D4" }}>
               {text}
+            </Typography.Text>
+          </Col>
+        </Row>
+      )
+    },
+    {
+      title: "Owner",
+      dataIndex: "owner",
+      key: "owner",
+      render: (owner) => (
+        <Row align="middle" gutter={[8, 0]}>
+          <Col>
+            <Typography.Text strong style={{ color: "black" }}>
+              {owner.name}
             </Typography.Text>
           </Col>
         </Row>
@@ -108,34 +134,67 @@ export default function PresentationTable({ category }) {
       title: "Action",
       key: "action",
       render: (_, record) => {
+        const items = [
+          {
+            label: (
+              <Typography.Text
+                onClick={() => onView(record.id)}
+                style={{ width: "100%" }}
+              >
+                View <EyeOutlined />
+              </Typography.Text>
+            ),
+            key: `View ${record.id}`
+          },
+          {
+            label: (
+              <Typography.Text
+                onClick={() => onEdit(record.id)}
+                style={{ width: "100%" }}
+              >
+                Edit <EditOutlined />
+              </Typography.Text>
+            ),
+            key: `Edit ${record.id}`
+          }
+        ];
+        if (category === "owned") {
+          items.push(
+            {
+              label: (
+                <Typography.Text onClick={() => onCollaborators(record.id)}>
+                  Collaborators <TeamOutlined />
+                </Typography.Text>
+              ),
+              key: `Collaborator ${record.id}`
+            },
+            {
+              type: "divider"
+            },
+            {
+              label: (
+                <Typography.Text
+                  style={{ color: "red" }}
+                  onClick={() => {
+                    setSelection(record);
+                    setRemoveModalVisible(true);
+                  }}
+                >
+                  Delete <DeleteOutlined />
+                </Typography.Text>
+              ),
+              key: `Delete ${record.id}`
+            }
+          );
+        }
         return (
-          <Space size="middle" direction="horizontal">
-            <Button
-              shape="round"
-              onClick={() => onView(record.id)}
-              // hidden={!permission(record)}
-            >
-              <EyeOutlined />
+          <Dropdown menu={{ items }} trigger={["click"]}>
+            <Button shape="round" onClick={(e) => e.preventDefault()}>
+              <Space>
+                <EllipsisOutlined />
+              </Space>
             </Button>
-            <Button
-              shape="round"
-              onClick={() => onEdit(record.id)}
-              // hidden={!permission(record)}
-            >
-              <EditOutlined />
-            </Button>
-            <Button
-              danger
-              shape="round"
-              onClick={() => {
-                setSelection(record);
-                setRemoveModalVisible(true);
-              }}
-              // hidden={!permission(record)}
-            >
-              <DeleteOutlined />
-            </Button>
-          </Space>
+          </Dropdown>
         );
       }
     }

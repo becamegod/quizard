@@ -3,7 +3,7 @@ import authClient from "./authClient";
 const base = "/presentations";
 
 export default {
-  listOwnedPresentation: (category) => authClient.get(base),
+  getPresentations: (filter) => authClient.get(base, { params: filter }),
 
   create: () => authClient.post(base),
 
@@ -25,5 +25,9 @@ export default {
       id,
       slideIndex,
       optionIndex
-    })
+    }),
+  getCollaborators: (presentationId) =>
+    authClient.get(`${base}/collaborators`, { params: presentationId }),
+  addCollaborator: (presentationId, email) =>
+    authClient.post(`${base}/addCollaborator`, { presentationId, email })
 };
