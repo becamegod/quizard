@@ -35,7 +35,6 @@ export default function Collaborator() {
         presentationId.presentationId,
         values.email
       );
-      console.log(res.data.user);
       const newCollaborators = [...collaborators];
       newCollaborators.push(res.data.user);
       setCollaborators(newCollaborators);
@@ -83,7 +82,6 @@ export default function Collaborator() {
         presentationId.presentationId,
         id
       );
-      console.log(res.data.collaborators);
       setCollaborators(res.data.collaborators);
     } catch (err) {
       const { status } = err.request;
