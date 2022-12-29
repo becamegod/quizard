@@ -12,7 +12,6 @@ export default function CreateGroupButton({ onCreate }) {
   const onFinish = async (values) => {
     try {
       const res = await Groups.create(values);
-      console.log(res);
       if (res.status === 201)
         notification.success({ message: "Group created successfully" });
       onCreate();

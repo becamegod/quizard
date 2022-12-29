@@ -59,7 +59,6 @@ ListSlide.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
-    group: PropTypes.string.isRequired,
     created: PropTypes.string.isRequired,
     modified: PropTypes.string.isRequired,
     slides: PropTypes.arrayOf(PropTypes.shape({})).isRequired

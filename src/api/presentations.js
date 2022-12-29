@@ -3,14 +3,14 @@ import authClient from "./authClient";
 const base = "/presentations";
 
 export default {
-  list: (groupId) => authClient.get(base, { groupId }),
+  getPresentations: (filter) => authClient.get(base, { params: filter }),
 
-  create: (groupId) => authClient.post(base, { groupId }),
+  create: () => authClient.post(base),
 
   detail: (id) => authClient.get(`${base}/${id}`),
 
-  delete: (_id) =>
-    authClient.delete(`${base}/delete`, { headers: {}, data: { _id } }),
+  delete: (id) =>
+    authClient.delete(`${base}/delete`, { headers: {}, data: { id } }),
 
   save: (presentation) => authClient.post(`${base}/save`, { presentation }),
 
@@ -18,12 +18,21 @@ export default {
 
   join: (id) => authClient.post(`${base}/join`, { id }),
 
-  getSlides: (_id) => authClient.get(`${base}/slides`, { _id }),
+  getSlides: (id) => authClient.get(`${base}/slides`, { id }),
 
   choose: (id, slideIndex, optionIndex) =>
     authClient.post(`${base}/choose`, {
       id,
       slideIndex,
       optionIndex
+    }),
+  getCollaborators: (presentationId) =>
+    authClient.get(`${base}/collaborators`, { params: presentationId }),
+  addCollaborator: (presentationId, email) =>
+    authClient.post(`${base}/addCollaborator`, { presentationId, email }),
+  deleteCollaborator: (presentationId, collaboratorId) =>
+    authClient.delete(`${base}/collaborator`, {
+      headers: {},
+      data: { presentationId, collaboratorId }
     })
 };
