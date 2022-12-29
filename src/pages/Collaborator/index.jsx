@@ -5,11 +5,12 @@ import {
   Typography,
   Input,
   Button,
-  List,
+  Table,
   Form,
-  notification
+  notification,
+  Space
 } from "antd";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { ExclamationCircleOutlined, DeleteOutlined } from "@ant-design/icons";
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Presentation from "../../api/presentations";
@@ -34,6 +35,7 @@ export default function Collaborator() {
         presentationId.presentationId,
         values.email
       );
+      console.log(res.data.user);
       const newCollaborators = [...collaborators];
       newCollaborators.push(res.data.user);
       setCollaborators(newCollaborators);
@@ -48,6 +50,9 @@ export default function Collaborator() {
       const { status } = err.request;
       let description;
       switch (status) {
+        case 409:
+          description = "Add collaborator failed";
+          break;
         case 404:
           description = "Email not found";
           break;
@@ -72,7 +77,89 @@ export default function Collaborator() {
     }
   };
 
-  const handleOnClick = (id) => {};
+  const handleOnClick = async (id) => {
+    try {
+      const res = await Presentation.deleteCollaborator(
+        presentationId.presentationId,
+        id
+      );
+      console.log(res.data.collaborators);
+      setCollaborators(res.data.collaborators);
+    } catch (err) {
+      const { status } = err.request;
+      let description;
+      switch (status) {
+        default:
+          description = "Something's wrong. Please try again later.";
+          break;
+      }
+      notification.error({
+        message: "Error",
+        description,
+        icon: <ExclamationCircleOutlined style={{ color: "#FF4D4F" }} />,
+        style: {
+          backgroundColor: "#FFF1F0",
+          borderRadius: "10px"
+        }
+      });
+    }
+  };
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text) => (
+        <Row align="middle" gutter={[8, 0]}>
+          <Col>
+            <Typography.Text strong style={{ color: "#0E86D4" }}>
+              {text}
+            </Typography.Text>
+          </Col>
+        </Row>
+      )
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      render: (email) => (
+        <Row align="middle" gutter={[8, 0]}>
+          <Col>
+            <Typography.Text strong style={{ color: "black" }}>
+              {email}
+            </Typography.Text>
+          </Col>
+        </Row>
+      )
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Row align="middle" gutter={[8, 0]}>
+          <Button danger shape="round" onClick={() => handleOnClick(record.id)}>
+            <Space>
+              Delete <DeleteOutlined />
+            </Space>
+          </Button>
+        </Row>
+      )
+    }
+  ];
+
+  const list = (
+    <Col span={24}>
+      <Table
+        dataSource={collaborators}
+        columns={columns}
+        pagination={{ pageSize: 10 }}
+        rowKey="id"
+      />
+    </Col>
+  );
+
   if (collaborators) {
     return (
       <Card>
@@ -105,19 +192,7 @@ export default function Collaborator() {
             </Form.Item>
           </Form>
         </Row>
-        <List
-          bordered
-          style={{ overflow: "auto", height: "300px" }}
-          dataSource={collaborators}
-          renderItem={(item) => (
-            <List.Item style={{ justify: "space-between" }}>
-              <List.Item.Meta title={item.name} description={item.email} />
-              <Button shape="round" danger onClick={handleOnClick(item._id)}>
-                Delete
-              </Button>
-            </List.Item>
-          )}
-        />
+        {list}
       </Card>
     );
   }

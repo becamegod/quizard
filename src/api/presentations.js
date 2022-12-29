@@ -29,5 +29,10 @@ export default {
   getCollaborators: (presentationId) =>
     authClient.get(`${base}/collaborators`, { params: presentationId }),
   addCollaborator: (presentationId, email) =>
-    authClient.post(`${base}/addCollaborator`, { presentationId, email })
+    authClient.post(`${base}/addCollaborator`, { presentationId, email }),
+  deleteCollaborator: (presentationId, collaboratorId) =>
+    authClient.delete(`${base}/collaborator`, {
+      headers: {},
+      data: { presentationId, collaboratorId }
+    })
 };
