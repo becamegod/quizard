@@ -14,14 +14,16 @@ export default {
 
   save: (presentation) => authClient.post(`${base}/save`, { presentation }),
 
-  live: (id) => authClient.post(`${base}/live`, { id }),
+  live: (presentation) => authClient.post(`${base}/live`, { presentation }),
+
+  getCurrentSession: (id) => authClient.get(`${base}/current-session/${id}`),
 
   join: (id) => authClient.post(`${base}/join`, { id }),
 
   getSlides: (_id) => authClient.get(`${base}/slides`, { _id }),
 
-  choose: (id, slideIndex, optionIndex) =>
-    authClient.post(`${base}/choose`, {
+  vote: (id, slideIndex, optionIndex) =>
+    authClient.post(`${base}/vote`, {
       id,
       slideIndex,
       optionIndex

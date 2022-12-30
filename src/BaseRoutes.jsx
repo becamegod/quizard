@@ -49,7 +49,7 @@ export default function BaseRoutes() {
           element={<SlideEditorPage />}
         />
         <Route
-          path="/presentations/:presentationId"
+          path="/presentations/join/:presentationId"
           element={<PresentationForMember />}
         />
         <Route path="/host/:presentationId" element={<PresentationForHost />} />

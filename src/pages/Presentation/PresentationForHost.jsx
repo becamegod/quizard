@@ -22,9 +22,10 @@ export default function PresentationForHost() {
   const socket = useContext(SocketContext);
 
   useEffect(() => {
-    const live = async () => {
+    const getData = async () => {
       try {
-        const { data: presentation } = await presentations.live(presentationId);
+        const { data } = await presentations.detail(presentationId);
+        const { presentation } = data;
         console.log(presentation);
         setSlide(presentation.slides[presentation.currentSlideIndex]);
 
@@ -41,7 +42,7 @@ export default function PresentationForHost() {
         console.log(error);
       }
     };
-    live();
+    getData();
     return () => {
       socket.off("slideUpdate");
     };

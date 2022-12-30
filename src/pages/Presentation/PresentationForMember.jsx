@@ -1,6 +1,6 @@
 import { Button, Card, Form, Radio, Row, Space } from "antd";
 import Title from "antd/lib/typography/Title";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 
 import { useParams } from "react-router-dom";
 import presentations from "../../api/presentations";
@@ -8,22 +8,29 @@ import { SocketContext } from "../../context/socket";
 import "./Presentation.css";
 import ChartScreen from "../SlideEditor/ChartScreen";
 
+// const currentSlide = {
+//   question: "Loading question...",
+//   options: [{ text: "..." }, { text: "..." }, { text: "..." }]
+// };
 export default function PresentationForMember() {
   const { presentationId } = useParams();
-  const [slide, setSlide] = useState({
+  const [slides, setSlides] = useState({
     question: "Loading question...",
     options: [{ text: "..." }, { text: "..." }, { text: "..." }]
   });
   const [slideIndex, setSlideIndex] = useState(0);
   const [result, setResult] = useState(null);
   const socket = useContext(SocketContext);
+
+  // current slide
+  const currentSlide = useMemo(() => slides[slideIndex], [slides, slideIndex]);
+
   useEffect(() => {
     const join = async () => {
       try {
         const { data } = await presentations.join(presentationId);
-        const { slide: s, slideIndex: i } = data;
-        setSlide(s);
-        setSlideIndex(i);
+        setSlides(data.slides);
+        setSlideIndex(data.slideIndex);
 
         // socket.emit("joinPresentation", presentationId);
         // socket.on("slideUpdate", (update) => {
@@ -41,10 +48,10 @@ export default function PresentationForMember() {
   }, []);
 
   const onFinish = async (values) => {
-    const { data } = await presentations.choose(
+    const { data } = await presentations.vote(
       presentationId,
       slideIndex,
-      values.choice
+      values.optionIndex
     );
     console.log("FINISH", data);
     setResult(data);
@@ -58,12 +65,12 @@ export default function PresentationForMember() {
       </Card>
     ) : (
       <Card>
-        <Title>{slide.question}</Title>
+        <Title>{currentSlide.question}</Title>
         <Form onFinish={onFinish}>
-          <Form.Item name="choice">
+          <Form.Item name="optionIndex">
             <Radio.Group className="expand">
               <Space direction="vertical" className="expand">
-                {slide.options.map((option, index) => (
+                {currentSlide.options.map((option, index) => (
                   <Radio.Button
                     className="expand"
                     value={index}

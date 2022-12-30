@@ -6,33 +6,33 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import BaseRoutes from "./BaseRoutes";
-// import { SocketContext, socket } from "./context/socket";
+import { SocketContext, socket } from "./context/socket";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    {/* <SocketContext.Provider value={socket}> */}
-    <BrowserRouter>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: "#00CC11",
-            colorInfo: "#00CC11"
-          },
-          components: {
-            Button: {
-              controlHeight: 40,
-              fontSize: 16
+    <SocketContext.Provider value={socket}>
+      <BrowserRouter>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#00CC11",
+              colorInfo: "#00CC11"
+            },
+            components: {
+              Button: {
+                controlHeight: 40,
+                fontSize: 16
+              }
             }
-          }
-        }}
-      >
-        <BaseRoutes />
-      </ConfigProvider>
-    </BrowserRouter>
-    {/* </SocketContext.Provider> */}
+          }}
+        >
+          <BaseRoutes />
+        </ConfigProvider>
+      </BrowserRouter>
+    </SocketContext.Provider>
   </React.StrictMode>
 );
 

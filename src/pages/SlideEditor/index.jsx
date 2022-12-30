@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Button, Col, Input, notification, Row } from "antd";
 import {
   ArrowLeftOutlined,
   CaretRightOutlined,
   PlusOutlined,
   SaveOutlined
 } from "@ant-design/icons";
+import { Button, Col, Input, notification, Row } from "antd";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./index.css";
-import ListSlide from "./ListSlide";
-import ChoiceCard from "./ChoiceCard";
-import ChartScreen from "./ChartScreen";
 import presentations from "../../api/presentations";
 import LoadingIcon from "../../components/LoadingIcon";
+import notifier from "../../utils/notifier";
+import ChartScreen from "./ChartScreen";
+import ChoiceCard from "./ChoiceCard";
+import "./index.css";
+import ListSlide from "./ListSlide";
 
 export default function SlideEditorPage() {
   const { presentationId } = useParams();
@@ -65,8 +66,14 @@ export default function SlideEditorPage() {
 
   const handleOnClickBackButton = () => navigate(-1);
 
-  const onPresent = () => {
-    navigate(`/host/${presentationId}`);
+  const onPresent = async () => {
+    try {
+      await presentations.live(presentation);
+      navigate(`/host/${presentationId}`);
+    } catch (error) {
+      console.log(error);
+      notifier.notifyError();
+    }
   };
 
   const handleOnClickAddSlideButton = () => {
