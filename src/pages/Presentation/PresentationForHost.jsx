@@ -9,6 +9,7 @@ import MyButton from "../../components/UI/MyButton";
 import { SocketContext } from "../../context/socket";
 import "./Presentation.css";
 import slideTypes from "../../utils/slideTypes";
+import HeaderContent from "./HeaderContent";
 
 export default function PresentationForHost() {
   const { presentationId } = useParams();
@@ -32,6 +33,13 @@ export default function PresentationForHost() {
         );
       };
       getData();
+    } else {
+      setContent(
+        <HeaderContent
+          header={currentSlide.header}
+          content={currentSlide.content}
+        />
+      );
     }
   }, [currentSlide]);
 
@@ -81,7 +89,9 @@ export default function PresentationForHost() {
               </MyButton>
               <MyButton
                 primary
-                onClick={() => setSlideIndex(Math.max(0, slideIndex + 1))}
+                onClick={() =>
+                  setSlideIndex(Math.min(slides.length - 1, slideIndex + 1))
+                }
               >
                 Next
               </MyButton>
