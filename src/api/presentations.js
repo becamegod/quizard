@@ -34,6 +34,9 @@ export default {
       `${base}/chart?sessionId=${sessionId}&slideIndex=${slideIndex}`
     ),
 
+  getLatestChartData: (id, slideIndex) =>
+    authClient.get(`${base}/latestChart?id=${id}&slideIndex=${slideIndex}`),
+
   getCollaborators: (presentationId) =>
     authClient.get(`${base}/collaborators`, { params: presentationId }),
   addCollaborator: (presentationId, email) =>

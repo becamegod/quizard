@@ -22,7 +22,7 @@ export default function ChoiceCard({
 
   const handleOnClickAddOption = (slide) => {
     const newOptions = slide.options.map((option) => option);
-    newOptions.push({ text: "", vote: 0 });
+    newOptions.push("New option");
     const newSlide = {
       question: slide.question,
       options: newOptions
@@ -96,7 +96,7 @@ export default function ChoiceCard({
             <>
               <Input
                 key={`${copySlide.question}-${index.toString()}}`}
-                defaultValue={option.text}
+                defaultValue={option}
                 placeholder="Option"
                 style={{
                   width: "90%",
@@ -136,11 +136,7 @@ export default function ChoiceCard({
 ChoiceCard.propTypes = {
   selectedSlide: PropTypes.shape({
     question: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(
-      PropTypes.shape({
-        text: PropTypes.string.isRequired
-      })
-    ).isRequired
+    options: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   handleChangeOption: PropTypes.func.isRequired,
   handleDeleteOption: PropTypes.func.isRequired

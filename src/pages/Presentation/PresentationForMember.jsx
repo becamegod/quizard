@@ -1,18 +1,15 @@
-import { Card, Row } from "antd";
+import { Card } from "antd";
 import Title from "antd/lib/typography/Title";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 
 import { useParams } from "react-router-dom";
 import presentations from "../../api/presentations";
+import CenterBase from "../../components/UI/CenterBase";
 import { SocketContext } from "../../context/socket";
 import ChartScreen from "../SlideEditor/ChartScreen";
 import "./Presentation.css";
 import VoteForm from "./VoteForm";
 
-// const currentSlide = {
-//   question: "Loading question...",
-//   options: [{ text: "..." }, { text: "..." }, { text: "..." }]
-// };
 export default function PresentationForMember() {
   const { presentationId } = useParams();
   const [slides, setSlides] = useState([]);
@@ -64,11 +61,5 @@ export default function PresentationForMember() {
       <VoteForm slide={currentSlide} onSubmit={onVote} />
     );
 
-  return (
-    <div className="center-base">
-      <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
-        {content}
-      </Row>
-    </div>
-  );
+  return <CenterBase>{content}</CenterBase>;
 }
