@@ -1,12 +1,13 @@
-import { Button, Card, Form, Radio, Row, Space } from "antd";
+import { Card, Row } from "antd";
 import Title from "antd/lib/typography/Title";
-import React, { useContext, useEffect, useState, useMemo } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 
 import { useParams } from "react-router-dom";
 import presentations from "../../api/presentations";
 import { SocketContext } from "../../context/socket";
-import "./Presentation.css";
 import ChartScreen from "../SlideEditor/ChartScreen";
+import "./Presentation.css";
+import VoteForm from "./VoteForm";
 
 // const currentSlide = {
 //   question: "Loading question...",
@@ -47,7 +48,7 @@ export default function PresentationForMember() {
     };
   }, []);
 
-  const onFinish = async (values) => {
+  const onVote = async (values) => {
     const { data } = await presentations.vote(
       presentationId,
       slideIndex,
@@ -64,36 +65,7 @@ export default function PresentationForMember() {
         <ChartScreen selectedSlide={result} />
       </Card>
     ) : (
-      <Card>
-        <Title>{currentSlide.question}</Title>
-        <Form onFinish={onFinish}>
-          <Form.Item name="optionIndex">
-            <Radio.Group className="expand">
-              <Space direction="vertical" className="expand">
-                {currentSlide.options.map((option, index) => (
-                  <Radio.Button
-                    className="expand"
-                    value={index}
-                    key={index.toString()}
-                  >
-                    {option.text}
-                  </Radio.Button>
-                ))}
-              </Space>
-            </Radio.Group>
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              size="large"
-              className="login-btn"
-              htmlType="submit"
-            >
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Card>
+      <VoteForm slide={currentSlide} onSubmit={onVote} />
     );
 
   return (
