@@ -30,7 +30,6 @@ export default function ResetPassword() {
     async function fetchData() {
       try {
         const res = await Link.checkLink(url);
-        console.log(res);
         setLink(res.data);
       } catch (err) {
         setIsExpired(true);
@@ -54,7 +53,6 @@ export default function ResetPassword() {
       success();
       await auth.resetPassword(link.toEmail, values.newPassword, link.url);
     } catch (err) {
-      console.log(err);
       notification.error({
         message: "Error",
         description: "Something went wrong please try againt",

@@ -4,9 +4,11 @@ export default {
   baseUrl: "http://localhost:3000",
   user: "user",
   // baseUrl: "http://quizard.vercel.app",
-  editPresentationUrl: (groupId, presentationId) =>
-    `/groups/${groupId}/${presentationId}`,
+  editPresentationUrl: (presentationId) =>
+    `/presentations/edit/${presentationId}`,
   joinPresentationUrl: (presentationId) => `/presentations/${presentationId}`,
+  collaboratorsPresentationUrl: (presentationId) =>
+    `/presentations/collaborators/${presentationId}`,
   groupsUrl: "/groups",
   presentationsUrl: "/presentations",
   homeUrl: "/groups"
