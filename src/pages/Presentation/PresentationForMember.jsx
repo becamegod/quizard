@@ -54,15 +54,14 @@ export default function PresentationForMember() {
       slideIndex,
       values.optionIndex
     );
-    console.log("FINISH", data);
-    setResult(data);
+    setResult(data.chart);
   };
 
   const content =
     result != null ? (
-      <Card className="result round" bodyStyle={{ height: "100%" }}>
+      <Card className="center-base result round" bodyStyle={{ height: "100%" }}>
         <Title>Result for...</Title>
-        <ChartScreen selectedSlide={result} />
+        <ChartScreen chart={result} title={currentSlide.question} />
       </Card>
     ) : (
       <VoteForm slide={currentSlide} onSubmit={onVote} />

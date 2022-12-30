@@ -17,7 +17,7 @@ export default function VoteForm({ slide, onSubmit }) {
                   value={index}
                   key={index.toString()}
                 >
-                  {option.text}
+                  {option}
                 </Radio.Button>
               ))}
             </Space>

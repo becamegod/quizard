@@ -3,43 +3,41 @@ import React from "react";
 import { Bar, BarChart, LabelList, Tooltip, XAxis } from "recharts";
 import PropTypes from "prop-types";
 
-export default function ChartScreen({ selectedSlide }) {
+export default function ChartScreen({ chart, title }) {
   return (
-    <Row className="chart-screen-container">
-      <Typography.Title className="chart-screen-question" level={2}>
-        {selectedSlide.question}
-      </Typography.Title>
-      <BarChart width={730} height={250} data={selectedSlide.options}>
-        <XAxis dataKey="text" />
-        <Tooltip />
-        <Bar dataKey="vote" fill="#8884d8">
-          <LabelList dataKey="vote" position="top" />
-        </Bar>
-      </BarChart>
-    </Row>
+    <div className="chart-screen-container">
+      <Row>
+        <Typography.Title className="chart-screen-question" level={2}>
+          {title}
+        </Typography.Title>
+      </Row>
+      <Row>
+        <BarChart width={730} height={250} data={chart}>
+          <XAxis dataKey="text" />
+          <Tooltip />
+          <Bar dataKey="voteCount" fill="#8884d8">
+            <LabelList dataKey="voteCount" position="top" />
+          </Bar>
+        </BarChart>
+      </Row>
+    </div>
   );
 }
 
 ChartScreen.propTypes = {
-  selectedSlide: PropTypes.shape({
-    question: PropTypes.string,
-    options: PropTypes.arrayOf(
-      PropTypes.shape({
-        text: PropTypes.string,
-        vote: PropTypes.number
-      })
-    )
-  })
+  chart: PropTypes.arrayOf(
+    PropTypes.shape({
+      question: PropTypes.string,
+      voteCount: PropTypes.number
+    })
+  ),
+  title: PropTypes.string
 };
 
 ChartScreen.defaultProps = {
-  selectedSlide: {
+  chart: {
     question: "Loading question...",
-    options: [
-      {
-        text: "Loading choice...",
-        vote: 0
-      }
-    ]
-  }
+    options: ["Loading choice..."]
+  },
+  title: ""
 };
