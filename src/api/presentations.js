@@ -28,6 +28,12 @@ export default {
       slideIndex,
       optionIndex
     }),
+
+  getChartData: (sessionId, slideIndex) =>
+    authClient.get(
+      `${base}/chart?sessionId=${sessionId}&slideIndex=${slideIndex}`
+    ),
+
   getCollaborators: (presentationId) =>
     authClient.get(`${base}/collaborators`, { params: presentationId }),
   addCollaborator: (presentationId, email) =>

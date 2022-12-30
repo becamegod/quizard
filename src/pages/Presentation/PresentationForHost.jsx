@@ -1,33 +1,48 @@
-import { Button, Card, Row, Space } from "antd";
-import React, { useContext, useEffect, useState } from "react";
+import { Card, Row, Space } from "antd";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 
 import { useParams } from "react-router-dom";
 import presentations from "../../api/presentations";
 import ChartScreen from "../SlideEditor/ChartScreen";
 
+import MyButton from "../../components/UI/MyButton";
 import { SocketContext } from "../../context/socket";
 import "./Presentation.css";
+import slideTypes from "../../utils/slideTypes";
 
 export default function PresentationForHost() {
   const { presentationId } = useParams();
-  const [slide, setSlide] = useState({
-    question: "Loading question...",
-    options: [
-      {
-        text: "Loading choice...",
-        vote: 0
-      }
-    ]
-  });
+  const [slides, setSlides] = useState([]);
+  const [content, setContent] = useState(null);
+  const [session, setSession] = useState("");
+  const [slideIndex, setSlideIndex] = useState(0);
   const socket = useContext(SocketContext);
 
+  // current slide
+  const currentSlide = useMemo(() => slides[slideIndex], [slides, slideIndex]);
+
+  // on slide index changed
   useEffect(() => {
-    const getData = async () => {
+    if (!currentSlide) return;
+    if (currentSlide.type === slideTypes.multipleChoice) {
+      const getData = async () => {
+        const { data } = await presentations.getChartData(session, slideIndex);
+        setContent(
+          <ChartScreen chart={data.chart} title={currentSlide.question} />
+        );
+      };
+      getData();
+    }
+  }, [currentSlide]);
+
+  useEffect(() => {
+    const init = async () => {
       try {
         const { data } = await presentations.detail(presentationId);
         const { presentation } = data;
-        console.log(presentation);
-        setSlide(presentation.slides[presentation.currentSlideIndex]);
+        setSlides(presentation.slides);
+        setSlideIndex(presentation.currentSlideIndex);
+        setSession(presentation.currentSession);
 
         // socket.emit("joinPresentation", presentationId);
         // const { data } = await presentations.detail(presentationId);
@@ -42,7 +57,7 @@ export default function PresentationForHost() {
         console.log(error);
       }
     };
-    getData();
+    init();
     return () => {
       socket.off("slideUpdate");
     };
@@ -55,17 +70,24 @@ export default function PresentationForHost() {
     //   style={{ height: "100%" }}
     // >
     <div className="center-base">
-      <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
+      <Row align="middle" className="expand justify-evenly">
         <Card className="pres-carousel round" bodyStyle={{ height: "100%" }}>
           <Row justify="end">
             <Space>
-              <Button shape="round">Previous</Button>
-              <Button type="primary" shape="round">
+              <MyButton
+                onClick={() => setSlideIndex(Math.max(0, slideIndex - 1))}
+              >
+                Previous
+              </MyButton>
+              <MyButton
+                primary
+                onClick={() => setSlideIndex(Math.max(0, slideIndex + 1))}
+              >
                 Next
-              </Button>
+              </MyButton>
             </Space>
           </Row>
-          <ChartScreen chart={slide} />
+          {content}
         </Card>
       </Row>
     </div>
