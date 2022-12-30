@@ -25,6 +25,8 @@ export default function PresentationForHost() {
   // on slide index changed
   useEffect(() => {
     if (!currentSlide) return;
+
+    // server's rendering
     if (currentSlide.type === slideTypes.multipleChoice) {
       const getData = async () => {
         const { data } = await presentations.getChartData(session, slideIndex);
@@ -41,6 +43,9 @@ export default function PresentationForHost() {
         />
       );
     }
+
+    // slideIndex change
+    presentations.updateSlideIndex(presentationId, slideIndex);
   }, [currentSlide]);
 
   useEffect(() => {
