@@ -1,7 +1,8 @@
 import { Row, Typography } from "antd";
+import PropTypes from "prop-types";
 import React from "react";
 import { Bar, BarChart, LabelList, Tooltip, XAxis } from "recharts";
-import PropTypes from "prop-types";
+import constants from "../../utils/constants";
 
 export default function ChartScreen({ chart, title }) {
   return (
@@ -12,10 +13,14 @@ export default function ChartScreen({ chart, title }) {
         </Typography.Title>
       </Row>
       <Row>
-        <BarChart width={730} height={250} data={chart}>
+        <BarChart width={730} height={250} data={chart.slice()}>
           <XAxis dataKey="text" />
           <Tooltip />
-          <Bar dataKey="voteCount" fill="#8884d8">
+          <Bar
+            maxBarSize={100}
+            dataKey="voteCount"
+            fill={constants.getMainColor()}
+          >
             <LabelList dataKey="voteCount" position="top" />
           </Bar>
         </BarChart>

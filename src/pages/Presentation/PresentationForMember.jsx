@@ -17,9 +17,9 @@ import VoteForm from "./VoteForm";
 export default function PresentationForMember() {
   const { presentationId } = useParams();
   const [slides, setSlides] = useState([]);
+  const [content, setContent] = useState(<Loading />);
   const [slideIndex, setSlideIndex] = useState(0);
   const [result, setResult] = useState(null);
-  const [content, setContent] = useState(<Loading />);
   const socket = useContext(SocketContext);
 
   // current slide

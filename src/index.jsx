@@ -9,6 +9,7 @@ import BaseRoutes from "./BaseRoutes";
 import { SocketContext, socket } from "./context/socket";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import constants from "./utils/constants";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,8 +19,8 @@ root.render(
         <ConfigProvider
           theme={{
             token: {
-              colorPrimary: "#00CC11",
-              colorInfo: "#00CC11"
+              colorPrimary: constants.getMainColor(),
+              colorInfo: constants.getMainColor()
             },
             components: {
               Button: {
