@@ -9,8 +9,7 @@ import DashboardPage from "./pages/Dashboard";
 import GroupDetailPage from "./pages/GroupDetail";
 import LoginPage from "./pages/Login";
 import Logout from "./pages/Login/Logout";
-import PresentationForHost from "./pages/Presentation/PresentationForHost";
-import PresentationForMember from "./pages/Presentation/PresentationForMember";
+import Presentation from "./pages/Presentation/Presentation";
 import SlideEditorPage from "./pages/SlideEditor";
 import UserInformationPage from "./pages/UserInformation";
 import VerifyPage from "./pages/Verify";
@@ -54,10 +53,13 @@ export default function BaseRoutes() {
           element={<SlideEditorPage />}
         />
         <Route
-          path="/presentations/:presentationId"
-          element={<PresentationForMember />}
+          path="/presentations/join/:presentationId"
+          element={<Presentation />}
         />
-        <Route path="/host/:presentationId" element={<PresentationForHost />} />
+        <Route
+          path="/presentations/host/:presentationId"
+          element={<Presentation forHost />}
+        />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

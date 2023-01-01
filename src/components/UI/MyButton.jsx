@@ -1,6 +1,7 @@
 import { Button } from "antd";
 import React from "react";
 import PropTypes from "prop-types";
+import "./MyButton.css";
 
 export default function MyButton({ children, onClick, primary, submit, icon }) {
   const type = primary ? "primary" : "default";
@@ -8,7 +9,7 @@ export default function MyButton({ children, onClick, primary, submit, icon }) {
   return (
     <Button
       shape="round"
-      className="expand"
+      className="expand button-animation"
       onClick={onClick}
       type={type}
       htmlType={htmlType}

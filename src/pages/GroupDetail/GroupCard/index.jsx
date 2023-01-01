@@ -15,17 +15,24 @@ export default function GroupCard({ group }) {
       </Col>
     ) : null;
   return (
-    <div
-      className="group-card"
-      style={{
-        backgroundColor: "#00B30F",
-        backgroundImage: "url(/img/group_img.png)"
-      }}
-    >
-      <Link to={`/groups/${group.groupId}`}>
+    <Link to={`/groups/${group.groupId}`}>
+      <div
+        className="group-card"
+        style={{
+          backgroundColor: "#00B30F",
+          backgroundImage: "url(/img/cardBG.png)",
+          backgroundSize: "cover"
+        }}
+      >
         <Row className="group-title" align="bottom">
           <Col align="left" span={12}>
-            <Typography.Title level={4} style={{ color: "white" }}>
+            <Typography.Title
+              level={4}
+              style={{
+                color: "white",
+                textShadow: "1px 1px var(--dark-color)"
+              }}
+            >
               {group.name}
             </Typography.Title>
           </Col>
@@ -54,8 +61,8 @@ export default function GroupCard({ group }) {
             </Typography.Paragraph>
           </Col>
         </Row>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }
 

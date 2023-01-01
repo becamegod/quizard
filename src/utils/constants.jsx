@@ -11,5 +11,9 @@ export default {
     `/presentations/collaborators/${presentationId}`,
   groupsUrl: "/groups",
   presentationsUrl: "/presentations",
-  homeUrl: "/groups"
+  homeUrl: "/groups",
+  getMainColor: () => {
+    const style = getComputedStyle(document.body);
+    return style.getPropertyValue("--main-color");
+  }
 };

@@ -1,6 +1,6 @@
 import { Col, ConfigProvider, Image, Row, Space, Tabs } from "antd";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import constants from "../../utils/constants";
 import "./NavBar.css";
 import NotificationButton from "./NotificationButton";
@@ -8,6 +8,7 @@ import UserButton from "./UserButton";
 
 export default function NavBar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const tabItems = [
     {
       label: "Groups",
@@ -45,7 +46,7 @@ export default function NavBar() {
           <Col>
             <Tabs
               size="large"
-              defaultActiveKey="1"
+              defaultActiveKey={location.pathname}
               centered
               items={tabItems}
               onTabClick={(key) => navigate(key)}

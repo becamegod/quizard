@@ -14,18 +14,32 @@ export default {
 
   save: (presentation) => authClient.post(`${base}/save`, { presentation }),
 
-  live: (id) => authClient.post(`${base}/live`, { id }),
+  live: (presentation) => authClient.post(`${base}/live`, { presentation }),
+
+  getCurrentSession: (id) => authClient.get(`${base}/current-session/${id}`),
 
   join: (id) => authClient.post(`${base}/join`, { id }),
 
   getSlides: (id) => authClient.get(`${base}/slides`, { id }),
 
-  choose: (id, slideIndex, optionIndex) =>
-    authClient.post(`${base}/choose`, {
+  vote: (id, slideIndex, optionIndex) =>
+    authClient.post(`${base}/vote`, {
       id,
       slideIndex,
       optionIndex
     }),
+
+  getChartData: (sessionId, slideIndex) =>
+    authClient.get(
+      `${base}/chart?sessionId=${sessionId}&slideIndex=${slideIndex}`
+    ),
+
+  getLatestChartData: (id, slideIndex) =>
+    authClient.get(`${base}/latestChart?id=${id}&slideIndex=${slideIndex}`),
+
+  updateSlideIndex: (id, slideIndex) =>
+    authClient.post(`${base}/updateSlideIndex`, { id, slideIndex }),
+
   getCollaborators: (presentationId) =>
     authClient.get(`${base}/collaborators`, { params: presentationId }),
   addCollaborator: (presentationId, email) =>

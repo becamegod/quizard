@@ -1,23 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { Button, Col, Input, notification, Row } from "antd";
 import {
   ArrowLeftOutlined,
   CaretRightOutlined,
   PlusOutlined,
   SaveOutlined
 } from "@ant-design/icons";
+import { Button, Col, Input, notification, Row } from "antd";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import presentations from "../../api/presentations";
+import Loading from "../../components/Loading";
+import LoadingIcon from "../../components/LoadingIcon";
+import notifier from "../../utils/notifier";
+import ChartScreen from "./ChartScreen";
+import ChoiceCard from "./ChoiceCard";
 import "./index.css";
 import ListSlide from "./ListSlide";
-import ChoiceCard from "./ChoiceCard";
-import ChartScreen from "./ChartScreen";
-import presentations from "../../api/presentations";
-import LoadingIcon from "../../components/LoadingIcon";
 
 export default function SlideEditorPage() {
   const { presentationId } = useParams();
   const [presentation, setPresentation] = useState(null);
   const [selectedId, setSelectedId] = useState(0);
+  const [chartPart, setChartPart] = useState(<Loading />);
 
   async function fetchData() {
     try {
@@ -26,6 +29,23 @@ export default function SlideEditorPage() {
       throw new Error(err);
     }
   }
+
+  useEffect(() => {
+    if (!presentation) return;
+    const getLatestChartData = async () => {
+      const { data } = await presentations.getLatestChartData(
+        presentationId,
+        selectedId
+      );
+      setChartPart(
+        <ChartScreen
+          chart={data.chart}
+          title={presentation.slides[selectedId].question}
+        />
+      );
+    };
+    getLatestChartData();
+  }, [selectedId, presentation]);
 
   useEffect(() => {
     fetchData().then((res) => {
@@ -65,8 +85,14 @@ export default function SlideEditorPage() {
 
   const handleOnClickBackButton = () => navigate(-1);
 
-  const onPresent = () => {
-    navigate(`/host/${presentationId}`);
+  const onPresent = async () => {
+    try {
+      await presentations.live(presentation);
+      navigate(`/host/${presentationId}`);
+    } catch (error) {
+      console.log(error);
+      notifier.notifyError();
+    }
   };
 
   const handleOnClickAddSlideButton = () => {
@@ -168,7 +194,7 @@ export default function SlideEditorPage() {
             />
           </Col>
           <Col className="chart-screen" span={12}>
-            <ChartScreen selectedSlide={presentation.slides[selectedId]} />
+            {chartPart}
           </Col>
           <Col className="choice-container" span={8}>
             <ChoiceCard
