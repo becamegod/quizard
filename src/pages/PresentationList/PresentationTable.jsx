@@ -58,17 +58,6 @@ export default function PresentationTable({ category }) {
     setRemoveModalVisible(false);
   };
 
-  const onEdit = (id) => {
-    navigate(constants.editPresentationUrl(id));
-  };
-
-  const onView = (id) => {
-    navigate(constants.joinPresentationUrl(id));
-  };
-
-  const onCollaborators = (id) => {
-    navigate(constants.collaboratorsPresentationUrl(id));
-  };
   useEffect(() => {
     async function fetchData() {
       const { data } = await Presentations.getPresentations({ category });
@@ -76,6 +65,32 @@ export default function PresentationTable({ category }) {
     }
     fetchData();
   }, []);
+
+  const handleMenuClick = (e) => {
+    const [action, id] = e.key.split(" ");
+    switch (action) {
+      case "Edit": {
+        navigate(constants.editPresentationUrl(id));
+        break;
+      }
+      case "Collaborator": {
+        navigate(constants.collaboratorsPresentationUrl(id));
+        break;
+      }
+      case "Delete": {
+        const record = presentations.find(
+          (presentation) => presentation.id === id
+        );
+        setSelection(record);
+        setRemoveModalVisible(true);
+        break;
+      }
+      default: {
+        navigate(constants.joinPresentationUrl(id));
+        break;
+      }
+    }
+  };
 
   const columns = [
     {
@@ -137,10 +152,7 @@ export default function PresentationTable({ category }) {
         const items = [
           {
             label: (
-              <Typography.Text
-                onClick={() => onView(record.id)}
-                style={{ width: "100%" }}
-              >
+              <Typography.Text style={{ width: "100%" }}>
                 View <EyeOutlined />
               </Typography.Text>
             ),
@@ -148,10 +160,7 @@ export default function PresentationTable({ category }) {
           },
           {
             label: (
-              <Typography.Text
-                onClick={() => onEdit(record.id)}
-                style={{ width: "100%" }}
-              >
+              <Typography.Text style={{ width: "100%" }}>
                 Edit <EditOutlined />
               </Typography.Text>
             ),
@@ -162,7 +171,7 @@ export default function PresentationTable({ category }) {
           items.push(
             {
               label: (
-                <Typography.Text onClick={() => onCollaborators(record.id)}>
+                <Typography.Text>
                   Collaborators <TeamOutlined />
                 </Typography.Text>
               ),
@@ -173,13 +182,7 @@ export default function PresentationTable({ category }) {
             },
             {
               label: (
-                <Typography.Text
-                  style={{ color: "red" }}
-                  onClick={() => {
-                    setSelection(record);
-                    setRemoveModalVisible(true);
-                  }}
-                >
+                <Typography.Text style={{ color: "red" }}>
                   Delete <DeleteOutlined />
                 </Typography.Text>
               ),
@@ -188,7 +191,10 @@ export default function PresentationTable({ category }) {
           );
         }
         return (
-          <Dropdown menu={{ items }} trigger={["click"]}>
+          <Dropdown
+            menu={{ items, onClick: handleMenuClick }}
+            trigger={["click"]}
+          >
             <Button shape="round" onClick={(e) => e.preventDefault()}>
               <Space>
                 <EllipsisOutlined />

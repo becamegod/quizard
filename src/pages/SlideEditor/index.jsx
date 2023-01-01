@@ -71,8 +71,11 @@ export default function SlideEditorPage() {
 
   const handleOnClickAddSlideButton = () => {
     const newSlide = {
+      type: "Multiplechoice",
       question: "",
-      options: [{ text: "", vote: 0 }]
+      options: [""],
+      header: "",
+      content: ""
     };
     const newSlides = presentation.slides.map((slide) => slide);
     newSlides.push(newSlide);
@@ -94,16 +97,24 @@ export default function SlideEditorPage() {
   };
 
   const handleOnClickDeleteSlideButton = (index) => {
+    const id = parseInt(index.key.split(" ")[1], 10);
+
     const newSlides = presentation.slides.map((slide) => slide);
-    newSlides.splice(index, 1);
-    if (selectedId === index) {
-      setSelectedId(selectedId - 1);
+    newSlides.splice(id, 1);
+    if (selectedId === id) {
+      const newSelectedId = selectedId - 1;
+      setSelectedId(newSelectedId);
     }
-    if (index === 0 && newSlides.length > 0) {
+    if (id === 0 && newSlides.length > 0) {
       setSelectedId(0);
+    }
+    if (selectedId === newSlides.length) {
+      const newSelectedId = selectedId - 1;
+      setSelectedId(newSelectedId);
     }
     setPresentation({ ...presentation, slides: newSlides });
   };
+
   if (presentation) {
     return (
       <>
@@ -116,6 +127,7 @@ export default function SlideEditorPage() {
             <Input
               className="input-name-presentation round"
               defaultValue={presentation.name}
+              style={{ fontSize: "20px" }}
               onChange={(e) => handleChangeName(e)}
             />
           </div>
@@ -150,6 +162,7 @@ export default function SlideEditorPage() {
           <Col className="list-slide-container" span={4}>
             <ListSlide
               presentation={presentation}
+              selectedId={selectedId}
               handleSelectedSlide={handleSelectedSlide}
               handleOnClickDeleteSlideButton={handleOnClickDeleteSlideButton}
             />
@@ -159,6 +172,7 @@ export default function SlideEditorPage() {
           </Col>
           <Col className="choice-container" span={8}>
             <ChoiceCard
+              presentation={presentation}
               selectedSlide={presentation.slides[selectedId]}
               handleChangeOption={handleChangeOption}
               handleDeleteOption={handleDeleteOption}
