@@ -1,21 +1,21 @@
-import { Card, Row, Space } from "antd";
+import { Card, Col, Row, Space } from "antd";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 
-import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useNavigate, useParams } from "react-router-dom";
 import presentations from "../../api/presentations";
 import ChartScreen from "../SlideEditor/ChartScreen";
 
 import Loading from "../../components/Loading";
+import CenterBase from "../../components/UI/CenterBase";
 import MyButton from "../../components/UI/MyButton";
 import { SocketContext } from "../../context/socket";
+import notifier from "../../utils/notifier";
 import slideTypes from "../../utils/slideTypes";
 import socketEvents from "../../utils/socketEvents";
 import HeaderContent from "./HeaderContent";
 import "./Presentation.css";
 import VoteForm from "./VoteForm";
-import notifier from "../../utils/notifier";
-import CenterBase from "../../components/UI/CenterBase";
 
 const votedArray = [];
 export default function Presentation({ forHost }) {
@@ -25,6 +25,7 @@ export default function Presentation({ forHost }) {
   const [slideIndex, setSlideIndex] = useState(0);
   const [charts, setCharts] = useState([[]]);
   const socket = useContext(SocketContext);
+  const navigate = useNavigate();
 
   // current slide
   const currentSlide = useMemo(() => slides[slideIndex], [slides, slideIndex]);
@@ -145,21 +146,39 @@ export default function Presentation({ forHost }) {
     };
   }, []);
 
+  const endPresentation = async () => {
+    try {
+      await presentations.end(presentationId);
+      notifier.notifyInfo("Presentation ended");
+      navigate(-1);
+    } catch (error) {
+      console.log(error);
+      notifier.notifyError();
+    }
+  };
+
   const nav = forHost ? (
-    <Row justify="end">
-      <Space>
-        <MyButton onClick={() => setSlideIndex(Math.max(0, slideIndex - 1))}>
-          Previous
+    <Row justify="space-between">
+      <Col>
+        <MyButton danger onClick={endPresentation}>
+          End
         </MyButton>
-        <MyButton
-          primary
-          onClick={() =>
-            setSlideIndex(Math.min(slides.length - 1, slideIndex + 1))
-          }
-        >
-          Next
-        </MyButton>
-      </Space>
+      </Col>
+      <Col>
+        <Space>
+          <MyButton onClick={() => setSlideIndex(Math.max(0, slideIndex - 1))}>
+            Previous
+          </MyButton>
+          <MyButton
+            primary
+            onClick={() =>
+              setSlideIndex(Math.min(slides.length - 1, slideIndex + 1))
+            }
+          >
+            Next
+          </MyButton>
+        </Space>
+      </Col>
     </Row>
   ) : null;
 

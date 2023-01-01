@@ -5,7 +5,6 @@ import { Bar, BarChart, LabelList, Tooltip, XAxis } from "recharts";
 import constants from "../../utils/constants";
 
 export default function ChartScreen({ chart, title }) {
-  console.log(chart);
   return (
     <div className="chart-screen-container">
       <Row>

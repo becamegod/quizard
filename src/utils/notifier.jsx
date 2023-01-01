@@ -12,5 +12,6 @@ export default {
         backgroundColor: "#FFF1F0",
         borderRadius: "10px"
       }
-    })
+    }),
+  notifyInfo: (message) => notification.info({ message })
 };
