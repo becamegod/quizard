@@ -1,8 +1,9 @@
-import { Card, Col, Row, Space } from "antd";
+import { Card, Col, Row, Space, Typography } from "antd";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { useNavigate, useParams } from "react-router-dom";
+import { CheckOutlined } from "@ant-design/icons";
 import presentations from "../../api/presentations";
 import ChartScreen from "../SlideEditor/ChartScreen";
 
@@ -16,9 +17,11 @@ import socketEvents from "../../utils/socketEvents";
 import HeaderContent from "./HeaderContent";
 import "./Presentation.css";
 import VoteForm from "./VoteForm";
+import constants from "../../utils/constants";
 
 const votedArray = [];
-export default function Presentation({ forHost }) {
+let isHost = false;
+export default function Presentation() {
   const { presentationId } = useParams();
   const [slides, setSlides] = useState([]);
   const [content, setContent] = useState(<Loading />);
@@ -46,7 +49,7 @@ export default function Presentation({ forHost }) {
     if (currentSlide.type === slideTypes.multipleChoice) {
       const chart = charts[slideIndex];
       if (!chart) return;
-      if (!forHost && !votedArray[slideIndex])
+      if (!isHost && !votedArray[slideIndex])
         setContent(<VoteForm slide={currentSlide} onSubmit={onVote} />);
       else
         setContent(
@@ -66,10 +69,12 @@ export default function Presentation({ forHost }) {
   }, [currentSlide, charts]);
 
   // on slideIndex change
-  if (forHost)
-    useEffect(() => {
-      presentations.updateSlideIndex(presentationId, slideIndex);
-    }, [slideIndex]);
+  const navigateSlide = (direction) => {
+    let newSlideIndex = slideIndex + direction;
+    newSlideIndex = Math.min(Math.max(newSlideIndex, 0), slides.length - 1); // clamp
+    setSlideIndex(newSlideIndex);
+    presentations.updateSlideIndex(presentationId, newSlideIndex);
+  };
 
   // listen for vote change
   useEffect(() => {
@@ -87,10 +92,11 @@ export default function Presentation({ forHost }) {
   useEffect(() => {
     const init = async () => {
       try {
-        const { data } = await presentations.detail(presentationId);
+        const { data } = await presentations.join(presentationId);
         const { presentation } = data;
         setSlides(presentation.slides);
         setSlideIndex(presentation.currentSlideIndex);
+        isHost = data.isHost;
 
         const promises = presentation.slides.map((slide, i) => {
           if (slide.type === slideTypes.multipleChoice)
@@ -118,20 +124,6 @@ export default function Presentation({ forHost }) {
         // TODO: get from session
         for (let i = 0; i < newCharts.length; i += 1) votedArray[i] = false;
 
-        // const newCharts = [];
-        // presentation.slides.forEach(async (slide, i) => {
-        //   if (slide.type === slideTypes.multipleChoice) {
-        //     const { data: chartData } = await presentations.getChartData(
-        //       presentation.currentSession,
-        //       presentation.currentSlideIndex
-        //     );
-        //     newCharts[i] = chartData.chart;
-        //   } else newCharts[i] = [];
-        //   setCharts(newCharts);
-        //   // TODO: get from session
-        //   votedArray[i] = false;
-        // });
-
         socket.emit(socketEvents.joinPresentation, presentationId);
         socket.on(socketEvents.slideChange, (newSlideIndex) => {
           setSlideIndex(newSlideIndex);
@@ -157,7 +149,7 @@ export default function Presentation({ forHost }) {
     }
   };
 
-  const nav = forHost ? (
+  const nav = isHost ? (
     <Row justify="space-between">
       <Col>
         <MyButton danger onClick={endPresentation}>
@@ -166,15 +158,17 @@ export default function Presentation({ forHost }) {
       </Col>
       <Col>
         <Space>
-          <MyButton onClick={() => setSlideIndex(Math.max(0, slideIndex - 1))}>
-            Previous
-          </MyButton>
-          <MyButton
-            primary
-            onClick={() =>
-              setSlideIndex(Math.min(slides.length - 1, slideIndex + 1))
-            }
-          >
+          <Typography.Text
+            copyable={{
+              text: `${constants.baseUrl}${constants.presentationsUrl}/${presentationId}`,
+              icon: [
+                <MyButton>Copy Link</MyButton>,
+                <MyButton icon={<CheckOutlined />}>Link copied</MyButton>
+              ]
+            }}
+          />
+          <MyButton onClick={() => navigateSlide(-1)}>Previous</MyButton>
+          <MyButton primary onClick={() => navigateSlide(1)}>
             Next
           </MyButton>
         </Space>
@@ -201,10 +195,10 @@ export default function Presentation({ forHost }) {
   );
 }
 
-Presentation.propTypes = {
-  forHost: PropTypes.bool
-};
+// Presentation.propTypes = {
+//   forHost: PropTypes.bool
+// };
 
-Presentation.defaultProps = {
-  forHost: false
-};
+// Presentation.defaultProps = {
+//   forHost: false
+// };

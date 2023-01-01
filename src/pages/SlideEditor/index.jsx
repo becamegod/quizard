@@ -92,7 +92,7 @@ export default function SlideEditorPage() {
   const onPresent = async () => {
     try {
       await presentations.live(presentation);
-      navigate(`${constants.presentationsUrl}/host/${presentationId}`);
+      navigate(`${constants.presentationsUrl}/${presentationId}`);
     } catch (error) {
       console.log(error);
       notifier.notifyError();
