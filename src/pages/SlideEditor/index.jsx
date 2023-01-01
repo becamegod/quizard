@@ -15,12 +15,14 @@ import ChartScreen from "./ChartScreen";
 import ChoiceCard from "./ChoiceCard";
 import "./index.css";
 import ListSlide from "./ListSlide";
+import HeaderContentScreen from "./HeaderContentScreen";
+import constants from "../../utils/constants";
 
 export default function SlideEditorPage() {
   const { presentationId } = useParams();
   const [presentation, setPresentation] = useState(null);
   const [selectedId, setSelectedId] = useState(0);
-  const [chartPart, setChartPart] = useState(<Loading />);
+  const [contentPart, setContentPart] = useState(<Loading />);
 
   async function fetchData() {
     try {
@@ -32,19 +34,21 @@ export default function SlideEditorPage() {
 
   useEffect(() => {
     if (!presentation) return;
-    const getLatestChartData = async () => {
-      const { data } = await presentations.getLatestChartData(
-        presentationId,
-        selectedId
-      );
-      setChartPart(
+    if (presentation.slides[selectedId].type === "Multiplechoice") {
+      const data = presentation.slides[selectedId].options.map((option) => {
+        return { text: option, voteCount: 0 };
+      });
+      setContentPart(
         <ChartScreen
-          chart={data.chart}
+          chart={data}
           title={presentation.slides[selectedId].question}
         />
       );
-    };
-    getLatestChartData();
+    } else {
+      setContentPart(
+        <HeaderContentScreen slide={presentation.slides[selectedId]} />
+      );
+    }
   }, [selectedId, presentation]);
 
   useEffect(() => {
@@ -88,7 +92,7 @@ export default function SlideEditorPage() {
   const onPresent = async () => {
     try {
       await presentations.live(presentation);
-      navigate(`/host/${presentationId}`);
+      navigate(`${constants.presentationsUrl}/host/${presentationId}`);
     } catch (error) {
       console.log(error);
       notifier.notifyError();
@@ -142,6 +146,56 @@ export default function SlideEditorPage() {
   };
 
   if (presentation) {
+    let headerButtonContent;
+    const user = JSON.parse(localStorage.getItem("user"));
+    // eslint-disable-next-line no-underscore-dangle
+    if (user._id === presentation.owner) {
+      headerButtonContent = (
+        <div>
+          <Button
+            className="button-new-slide"
+            type="primary"
+            onClick={handleOnClickAddSlideButton}
+          >
+            <PlusOutlined />
+            New Slide
+          </Button>
+          <Button
+            className="button-save"
+            type="primary"
+            onClick={handleOnClickSaveButton}
+          >
+            <SaveOutlined />
+            Save
+          </Button>
+          <Button className="button-present" type="primary" onClick={onPresent}>
+            <CaretRightOutlined />
+            Present
+          </Button>
+        </div>
+      );
+    } else {
+      headerButtonContent = (
+        <div>
+          <Button
+            className="button-new-slide"
+            type="primary"
+            onClick={handleOnClickAddSlideButton}
+          >
+            <PlusOutlined />
+            New Slide
+          </Button>
+          <Button
+            className="button-save"
+            type="primary"
+            onClick={handleOnClickSaveButton}
+          >
+            <SaveOutlined />
+            Save
+          </Button>
+        </div>
+      );
+    }
     return (
       <>
         <Row className="slide-editor-header">
@@ -157,32 +211,7 @@ export default function SlideEditorPage() {
               onChange={(e) => handleChangeName(e)}
             />
           </div>
-          <div>
-            <Button
-              className="button-new-slide"
-              type="primary"
-              onClick={handleOnClickAddSlideButton}
-            >
-              <PlusOutlined />
-              New Slide
-            </Button>
-            <Button
-              className="button-save"
-              type="primary"
-              onClick={handleOnClickSaveButton}
-            >
-              <SaveOutlined />
-              Save
-            </Button>
-            <Button
-              className="button-present"
-              type="primary"
-              onClick={onPresent}
-            >
-              <CaretRightOutlined />
-              Present
-            </Button>
-          </div>
+          {headerButtonContent}
         </Row>
         <Row className="slide-editor-container">
           <Col className="list-slide-container" span={4}>
@@ -194,7 +223,7 @@ export default function SlideEditorPage() {
             />
           </Col>
           <Col className="chart-screen" span={12}>
-            {chartPart}
+            {contentPart}
           </Col>
           <Col className="choice-container" span={8}>
             <ChoiceCard

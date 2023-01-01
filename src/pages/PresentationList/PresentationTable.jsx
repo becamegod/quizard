@@ -153,7 +153,7 @@ export default function PresentationTable({ category }) {
           {
             label: (
               <Typography.Text style={{ width: "100%" }}>
-                View <EyeOutlined />
+                <EyeOutlined /> View
               </Typography.Text>
             ),
             key: `View ${record.id}`
@@ -161,7 +161,7 @@ export default function PresentationTable({ category }) {
           {
             label: (
               <Typography.Text style={{ width: "100%" }}>
-                Edit <EditOutlined />
+                <EditOutlined /> Edit
               </Typography.Text>
             ),
             key: `Edit ${record.id}`
@@ -172,7 +172,7 @@ export default function PresentationTable({ category }) {
             {
               label: (
                 <Typography.Text>
-                  Collaborators <TeamOutlined />
+                  <TeamOutlined /> Collaborators
                 </Typography.Text>
               ),
               key: `Collaborator ${record.id}`
@@ -183,7 +183,7 @@ export default function PresentationTable({ category }) {
             {
               label: (
                 <Typography.Text style={{ color: "red" }}>
-                  Delete <DeleteOutlined />
+                  <DeleteOutlined /> Delete
                 </Typography.Text>
               ),
               key: `Delete ${record.id}`

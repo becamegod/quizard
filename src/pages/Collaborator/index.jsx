@@ -4,16 +4,19 @@ import {
   Col,
   Typography,
   Input,
-  Button,
   Table,
   Form,
-  notification,
-  Space
+  notification
 } from "antd";
-import { ExclamationCircleOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  ExclamationCircleOutlined,
+  DeleteOutlined,
+  UserAddOutlined
+} from "@ant-design/icons";
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Presentation from "../../api/presentations";
+import MyButton from "../../components/UI/MyButton";
 
 const { Title } = Typography;
 
@@ -31,6 +34,7 @@ export default function Collaborator() {
 
   const onFinish = async (values) => {
     try {
+      console.log("Da vao");
       const res = await Presentation.addCollaborator(
         presentationId.presentationId,
         values.email
@@ -133,15 +137,18 @@ export default function Collaborator() {
       )
     },
     {
-      title: "Action",
       key: "action",
       render: (_, record) => (
-        <Row align="middle" gutter={[8, 0]}>
-          <Button danger shape="round" onClick={() => handleOnClick(record.id)}>
-            <Space>
-              Delete <DeleteOutlined />
-            </Space>
-          </Button>
+        <Row align="end" gutter={[8, 0]}>
+          <MyButton
+            primary
+            danger
+            shape="round"
+            onClick={() => handleOnClick(record.id)}
+            icon={<DeleteOutlined />}
+          >
+            Delete
+          </MyButton>
         </Row>
       )
     }
@@ -178,15 +185,18 @@ export default function Collaborator() {
                 style={{
                   marginTop: "8px"
                 }}
+                required
               />
             </Form.Item>
             <Form.Item>
-              <Button
+              <MyButton
                 style={{ marginTop: "4px", marginLeft: "28px" }}
-                htmlType="submit"
+                primary
+                submit
+                icon={<UserAddOutlined />}
               >
                 Add collaborator
-              </Button>
+              </MyButton>
             </Form.Item>
           </Form>
         </Row>

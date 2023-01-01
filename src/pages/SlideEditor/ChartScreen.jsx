@@ -5,6 +5,7 @@ import { Bar, BarChart, LabelList, Tooltip, XAxis } from "recharts";
 import constants from "../../utils/constants";
 
 export default function ChartScreen({ chart, title }) {
+  console.log(chart);
   return (
     <div className="chart-screen-container">
       <Row>
@@ -32,7 +33,7 @@ export default function ChartScreen({ chart, title }) {
 ChartScreen.propTypes = {
   chart: PropTypes.arrayOf(
     PropTypes.shape({
-      question: PropTypes.string,
+      text: PropTypes.string,
       voteCount: PropTypes.number
     })
   ),

@@ -27,21 +27,22 @@ export default function ChoiceCard({
     handleDeleteOption(optionIndex);
   };
   const handleOnChangeOption = (e) => {
-    if (e.heading) {
+    console.log(e);
+    if (e.heading !== undefined) {
       const newSlide = {
         type: selectedSlide.type,
         header: e.heading,
         content: selectedSlide.content
       };
       handleChangeOption(newSlide);
-    } else if (e.content) {
+    } else if (e.content !== undefined) {
       const newSlide = {
         type: selectedSlide.type,
         header: selectedSlide.header,
         content: e.content
       };
       handleChangeOption(newSlide);
-    } else if (e.question) {
+    } else if (e.question !== undefined) {
       const newSlide = {
         type: selectedSlide.type,
         question: e.question,
