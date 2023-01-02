@@ -15,7 +15,7 @@ export default function GroupCard({ group }) {
       </Col>
     ) : null;
   return (
-    <Link to={`/groups/${group.groupId}`}>
+    <Link to={`/groups/${group.id}`}>
       <div
         className="group-card"
         style={{
@@ -68,7 +68,7 @@ export default function GroupCard({ group }) {
 
 GroupCard.propTypes = {
   group: PropTypes.shape({
-    groupId: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     members: PropTypes.number,
