@@ -129,7 +129,13 @@ export default function Presentation() {
           setSlideIndex(newSlideIndex);
         });
       } catch (error) {
-        console.log(error);
+        // catch user not in group
+        if (error.response.status === 403) {
+          notifier.notifyError(
+            "You are not in the group to view that presentation"
+          );
+          navigate(constants.homeUrl);
+        } else console.log(error);
       }
     };
     init();

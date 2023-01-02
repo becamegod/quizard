@@ -1,22 +1,23 @@
 import {
   ArrowLeftOutlined,
-  CaretRightOutlined,
   PlusOutlined,
   SaveOutlined
 } from "@ant-design/icons";
-import { Button, Col, Input, notification, Row } from "antd";
+import { Col, Input, notification, Row, Space } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import presentations from "../../api/presentations";
 import Loading from "../../components/Loading";
 import LoadingIcon from "../../components/LoadingIcon";
+import MyButton from "../../components/UI/MyButton";
+import constants from "../../utils/constants";
 import notifier from "../../utils/notifier";
 import ChartScreen from "./ChartScreen";
 import ChoiceCard from "./ChoiceCard";
+import HeaderContentScreen from "./HeaderContentScreen";
 import "./index.css";
 import ListSlide from "./ListSlide";
-import HeaderContentScreen from "./HeaderContentScreen";
-import constants from "../../utils/constants";
+import PresentButtons from "./PresentButtons";
 
 export default function SlideEditorPage() {
   const { presentationId } = useParams();
@@ -63,6 +64,16 @@ export default function SlideEditorPage() {
   }, []);
   const navigate = useNavigate();
 
+  const present = async (groupId) => {
+    try {
+      await presentations.live(presentation, groupId);
+      navigate(`${constants.presentationsUrl}/${presentationId}`);
+    } catch (error) {
+      console.log(error);
+      notifier.notifyError();
+    }
+  };
+
   const handleSelectedSlide = (id) => {
     setSelectedId(id);
   };
@@ -88,16 +99,6 @@ export default function SlideEditorPage() {
   };
 
   const handleOnClickBackButton = () => navigate(-1);
-
-  const onPresent = async () => {
-    try {
-      await presentations.live(presentation);
-      navigate(`${constants.presentationsUrl}/${presentationId}`);
-    } catch (error) {
-      console.log(error);
-      notifier.notifyError();
-    }
-  };
 
   const handleOnClickAddSlideButton = () => {
     const newSlide = {
@@ -146,41 +147,22 @@ export default function SlideEditorPage() {
   };
 
   if (presentation) {
-    let headerButtonContent;
-    const buttonNewSlideAndSave = (
-      <>
-        <Button
-          className="button-new-slide"
-          type="primary"
-          onClick={handleOnClickAddSlideButton}
-        >
-          <PlusOutlined />
-          New Slide
-        </Button>
-        <Button
-          className="button-save"
-          type="primary"
-          onClick={handleOnClickSaveButton}
-        >
-          <SaveOutlined />
-          Save
-        </Button>
-      </>
-    );
+    let ownerExtra = null;
     const user = JSON.parse(localStorage.getItem("user"));
     if (user.id === presentation.owner) {
-      headerButtonContent = (
-        <div>
-          {buttonNewSlideAndSave}
-          <Button className="button-present" type="primary" onClick={onPresent}>
-            <CaretRightOutlined />
-            Present
-          </Button>
-        </div>
-      );
-    } else {
-      headerButtonContent = <div>{buttonNewSlideAndSave}</div>;
+      ownerExtra = <PresentButtons onPresent={present} />;
     }
+    const controlButtons = (
+      <Space>
+        <MyButton icon={<PlusOutlined />} onClick={handleOnClickAddSlideButton}>
+          New Slide
+        </MyButton>
+        <MyButton icon={<SaveOutlined />} onClick={handleOnClickSaveButton}>
+          Save
+        </MyButton>
+        {ownerExtra}
+      </Space>
+    );
     return (
       <>
         <Row className="slide-editor-header">
@@ -196,7 +178,7 @@ export default function SlideEditorPage() {
               onChange={(e) => handleChangeName(e)}
             />
           </div>
-          {headerButtonContent}
+          {controlButtons}
         </Row>
         <Row className="slide-editor-container">
           <Col className="list-slide-container" span={4}>

@@ -42,6 +42,10 @@ code {
   display: flex;
 }
 
+.content-height {
+  height: max-content
+}
+
 .tight-bottom {
   margin-bottom: 10px;
 }

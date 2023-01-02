@@ -9,7 +9,7 @@ export default function VoteForm({ slide, onSubmit }) {
       <Title>{slide.question}</Title>
       <Form onFinish={onSubmit}>
         <Form.Item name="optionIndex">
-          <Radio.Group className="expand">
+          <Radio.Group className="expand" buttonStyle="solid">
             <Space direction="vertical" className="expand">
               {slide.options.map((option, index) => (
                 <Radio.Button

@@ -15,7 +15,7 @@ export default function MyButton({
   const type = primary ? "primary" : "default";
   const isDanger = danger;
   const htmlType = submit ? "submit" : "button";
-  const expandClass = expand ? "" : "expand button-animation";
+  const expandClass = expand ? "" : "expand";
   return (
     <Button
       className={`${expandClass}`}
@@ -23,7 +23,6 @@ export default function MyButton({
       onClick={onClick}
       type={type}
       htmlType={htmlType}
-      block
       icon={icon}
       danger={isDanger}
     >
