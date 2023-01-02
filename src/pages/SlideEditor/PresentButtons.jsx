@@ -70,7 +70,7 @@ export default function PresentButtons({ onPresent }) {
           ],
           onClick: () => setShowModal(true)
         }}
-        onClick={onPresent}
+        onClick={() => onPresent()}
       >
         <CaretRightOutlined />
         Public Present

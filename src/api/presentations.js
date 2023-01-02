@@ -14,7 +14,7 @@ export default {
 
   save: (presentation) => authClient.post(`${base}/save`, { presentation }),
 
-  live: (presentation, groupId = null) =>
+  live: (presentation, groupId) =>
     authClient.post(`${base}/live`, { presentation, groupId }),
 
   getCurrentSession: (id) => authClient.get(`${base}/current-session/${id}`),

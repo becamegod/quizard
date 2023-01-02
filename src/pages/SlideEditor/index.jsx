@@ -64,7 +64,7 @@ export default function SlideEditorPage() {
   }, []);
   const navigate = useNavigate();
 
-  const present = async (groupId) => {
+  const present = async (groupId = null) => {
     try {
       await presentations.live(presentation, groupId);
       navigate(`${constants.presentationsUrl}/${presentationId}`);
