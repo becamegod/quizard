@@ -22,12 +22,14 @@ const { Title } = Typography;
 
 export default function Collaborator() {
   const presentationId = useParams();
+  const [presentation, setPresentation] = useState(null);
   const [collaborators, setCollaborators] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
       const res = await Presentation.getCollaborators(presentationId);
-      setCollaborators(res.data.collaborators);
+      setCollaborators(res.data.presentation.collaborators);
+      setPresentation(res.data.presentation);
     }
     fetchData();
   }, []);
@@ -140,15 +142,17 @@ export default function Collaborator() {
       key: "action",
       render: (_, record) => (
         <Row align="end" gutter={[8, 0]}>
-          <MyButton
-            primary
-            danger
-            shape="round"
-            onClick={() => handleOnClick(record.id)}
-            icon={<DeleteOutlined />}
-          >
-            Delete
-          </MyButton>
+          <Col>
+            <MyButton
+              primary
+              danger
+              shape="round"
+              onClick={() => handleOnClick(record.id)}
+              icon={<DeleteOutlined />}
+            >
+              Delete
+            </MyButton>
+          </Col>
         </Row>
       )
     }
@@ -175,7 +179,7 @@ export default function Collaborator() {
         </Row>
         <Row style={{ marginBottom: "32px" }} justify="space-between">
           <Col>
-            <Title level={2}>New Presentationfdfg</Title>
+            <Title level={2}>{presentation.name}</Title>
           </Col>
           <Form layout="inline" onFinish={onFinish}>
             <Form.Item name="email" style={{ flex: 1 }}>

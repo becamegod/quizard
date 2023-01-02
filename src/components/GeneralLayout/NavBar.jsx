@@ -17,6 +17,10 @@ export default function NavBar() {
     {
       label: "Presentations",
       key: constants.presentationsUrl
+    },
+    {
+      label: "Presentation histories",
+      key: constants.presentationHistoryUrl
     }
   ];
   return (
@@ -31,7 +35,7 @@ export default function NavBar() {
       >
         <Row align="middle" justify="space-between">
           <Col>
-            <Link to="/dashboard">
+            <Link to="/groups">
               <Image preview={false} height={50} src="/logo/quizardLogo.png" />
             </Link>
           </Col>

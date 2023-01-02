@@ -3,7 +3,6 @@ import {
   BarChartOutlined,
   DeleteOutlined,
   EditOutlined,
-  EyeOutlined,
   EllipsisOutlined,
   TeamOutlined
 } from "@ant-design/icons";
@@ -150,14 +149,6 @@ export default function PresentationTable({ category }) {
       key: "action",
       render: (_, record) => {
         const items = [
-          {
-            label: (
-              <Typography.Text style={{ width: "100%" }}>
-                <EyeOutlined /> View
-              </Typography.Text>
-            ),
-            key: `View ${record.id}`
-          },
           {
             label: (
               <Typography.Text style={{ width: "100%" }}>

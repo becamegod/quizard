@@ -12,6 +12,7 @@ export default {
   groupsUrl: "/groups",
   presentationsUrl: "/presentations",
   homeUrl: "/groups",
+  presentationHistoryUrl: "/presentation-histories",
   getMainColor: () => {
     const style = getComputedStyle(document.body);
     return style.getPropertyValue("--main-color");
