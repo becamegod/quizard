@@ -5,11 +5,18 @@ import {
   Row,
   Typography,
   Table,
+  Dropdown,
   Button,
   Space,
   notification
 } from "antd";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import {
+  QuestionOutlined,
+  EllipsisOutlined,
+  EyeOutlined,
+  WechatOutlined,
+  ExclamationCircleOutlined
+} from "@ant-design/icons";
 import moment from "moment";
 import Sessions from "../../api/sessions";
 import QuestionModal from "./QuestionModal";
@@ -109,12 +116,45 @@ export default function PresentationHistory() {
     {
       key: "action",
       render: (_, record) => {
+        const items = [
+          {
+            label: (
+              <Typography.Text style={{ width: "100%" }}>
+                <EyeOutlined /> Result
+              </Typography.Text>
+            ),
+            key: `Result ${record.id}`
+          },
+          {
+            label: (
+              <Typography.Text style={{ width: "100%" }}>
+                <QuestionOutlined /> Question
+              </Typography.Text>
+            ),
+            key: `Question ${record.id}`
+          },
+          {
+            label: (
+              <Typography.Text style={{ width: "100%" }}>
+                <WechatOutlined /> Chat
+              </Typography.Text>
+            ),
+            key: `Chat ${record.id}`
+          }
+        ];
         return (
-          <Row align="middle" justify="center">
-            <MyButton shape="round" onClick={(e) => e.preventDefault()}>
-              <Space>Detail</Space>
-            </MyButton>
-          </Row>
+          <Dropdown
+            menu={{ items, onClick: handleMenuClick }}
+            trigger={["click"]}
+          >
+            <Row align="middle" justify="center">
+              <Button shape="round" onClick={(e) => e.preventDefault()}>
+                <Space>
+                  <EllipsisOutlined />
+                </Space>
+              </Button>
+            </Row>
+          </Dropdown>
         );
       }
     }

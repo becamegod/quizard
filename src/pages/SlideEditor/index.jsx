@@ -147,53 +147,42 @@ export default function SlideEditorPage() {
 
   if (presentation) {
     let headerButtonContent;
+    const buttonNewSlideAndSave = (
+      <>
+        <Button
+          className="button-new-slide"
+          type="primary"
+          onClick={handleOnClickAddSlideButton}
+        >
+          <PlusOutlined />
+          New Slide
+        </Button>
+        <Button
+          className="button-save"
+          type="primary"
+          onClick={handleOnClickSaveButton}
+        >
+          <SaveOutlined />
+          Save
+        </Button>
+      </>
+    );
     const user = JSON.parse(localStorage.getItem("user"));
     if (user.id === presentation.owner) {
+      const presentButton = (
+        <Button className="button-present" type="primary" onClick={onPresent}>
+          <CaretRightOutlined />
+          Present
+        </Button>
+      );
       headerButtonContent = (
         <div>
-          <Button
-            className="button-new-slide"
-            type="primary"
-            onClick={handleOnClickAddSlideButton}
-          >
-            <PlusOutlined />
-            New Slide
-          </Button>
-          <Button
-            className="button-save"
-            type="primary"
-            onClick={handleOnClickSaveButton}
-          >
-            <SaveOutlined />
-            Save
-          </Button>
-          <Button className="button-present" type="primary" onClick={onPresent}>
-            <CaretRightOutlined />
-            Present
-          </Button>
+          {buttonNewSlideAndSave}
+          {presentButton}
         </div>
       );
     } else {
-      headerButtonContent = (
-        <div>
-          <Button
-            className="button-new-slide"
-            type="primary"
-            onClick={handleOnClickAddSlideButton}
-          >
-            <PlusOutlined />
-            New Slide
-          </Button>
-          <Button
-            className="button-save"
-            type="primary"
-            onClick={handleOnClickSaveButton}
-          >
-            <SaveOutlined />
-            Save
-          </Button>
-        </div>
-      );
+      headerButtonContent = <div>{buttonNewSlideAndSave}</div>;
     }
     return (
       <>
