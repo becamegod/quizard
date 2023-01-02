@@ -21,6 +21,7 @@ import PresentationListPage from "./pages/PresentationList";
 import NotFoundPage from "./pages/NotFoundPage";
 import CollaboratorPage from "./pages/Collaborator";
 import PresentationHistoryPage from "./pages/PresentationHistory";
+import PresentationEnd from "./pages/Presentation/PresentationEnd";
 
 export default function BaseRoutes() {
   return (
@@ -56,6 +57,7 @@ export default function BaseRoutes() {
         <Route path={constants.presentationsUrl}>
           <Route path="edit/:presentationId" element={<SlideEditorPage />} />
           <Route path=":presentationId" element={<Presentation />} />
+          <Route path="end" element={<PresentationEnd />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFoundPage />} />

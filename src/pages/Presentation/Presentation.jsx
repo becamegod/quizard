@@ -128,27 +128,38 @@ export default function Presentation() {
         socket.on(socketEvents.slideChange, (newSlideIndex) => {
           setSlideIndex(newSlideIndex);
         });
+        socket.on(socketEvents.presentationEnd, () => {
+          navigate(constants.presentationEndUrl);
+        });
       } catch (error) {
-        // catch user not in group
-        if (error.response.status === 403) {
-          notifier.notifyError(
-            "You are not in the group to view that presentation"
-          );
-          navigate(constants.homeUrl);
-        } else console.log(error);
+        switch (error.response.status) {
+          case 403:
+            notifier.notifyError(
+              "You are not in the group to view that presentation"
+            );
+            break;
+          case 404:
+            notifier.notifyError("The presentation hasn't been started");
+            break;
+          default:
+            notifier.notifyError();
+            console.log(error);
+            break;
+        }
+        navigate(constants.homeUrl);
       }
     };
     init();
     return () => {
       socket.off(socketEvents.slideChange);
+      socket.off(socketEvents.presentationEnd);
     };
   }, []);
 
   const endPresentation = async () => {
     try {
       await presentations.end(presentationId);
-      notifier.notifyInfo("Presentation ended");
-      navigate(-1);
+      notifier.notifyInfo("You ended the presentation");
     } catch (error) {
       console.log(error);
       notifier.notifyError();

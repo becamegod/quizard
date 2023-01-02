@@ -11,6 +11,7 @@ export default {
     `/presentations/collaborators/${presentationId}`,
   groupsUrl: "/groups",
   presentationsUrl: "/presentations",
+  presentationEndUrl: "/presentations/end",
   homeUrl: "/groups",
   presentationHistoryUrl: "/presentation-histories",
   getMainColor: () => {
