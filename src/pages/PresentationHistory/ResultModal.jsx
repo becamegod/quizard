@@ -4,8 +4,8 @@ import moment from "moment";
 import PropTypes from "prop-types";
 import Sessions from "../../api/sessions";
 
-export default function QuestionModal({ open, id, setOpenQuestionModalFalse }) {
-  const [questions, setQuestions] = useState(null);
+export default function ResultModal({ open, id, setOpenResultModalFalse }) {
+  const [results, setResults] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(open);
 
   const showModal = () => {
@@ -14,22 +14,22 @@ export default function QuestionModal({ open, id, setOpenQuestionModalFalse }) {
 
   const handleOk = () => {
     setIsModalOpen(false);
-    setOpenQuestionModalFalse();
+    setOpenResultModalFalse();
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    setOpenQuestionModalFalse();
+    setOpenResultModalFalse();
   };
 
-  async function fetchQuestion() {
-    const res = await Sessions.getQuestions({ sessionId: id });
-    setQuestions(res.data.questions);
+  async function fetchResult() {
+    const res = await Sessions.getResults({ sessionId: id });
+    setResults(res.data.result);
   }
 
   useEffect(() => {
     if (open) {
-      fetchQuestion();
+      fetchResult();
     }
   }, [open]);
 
@@ -108,7 +108,7 @@ export default function QuestionModal({ open, id, setOpenQuestionModalFalse }) {
   const list = (
     <Col span={24}>
       <Table
-        dataSource={questions}
+        dataSource={results}
         columns={columns}
         rowKey="question"
         style={{ overflow: "auto", height: "300px" }}
@@ -117,7 +117,7 @@ export default function QuestionModal({ open, id, setOpenQuestionModalFalse }) {
   );
   return (
     <Modal
-      title="Question"
+      title="Result"
       open={isModalOpen}
       onOk={handleOk}
       onCancel={handleCancel}
@@ -132,8 +132,8 @@ export default function QuestionModal({ open, id, setOpenQuestionModalFalse }) {
     </Modal>
   );
 }
-QuestionModal.propTypes = {
+ResultModal.propTypes = {
   open: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
-  setOpenQuestionModalFalse: PropTypes.func.isRequired
+  setOpenResultModalFalse: PropTypes.func.isRequired
 };

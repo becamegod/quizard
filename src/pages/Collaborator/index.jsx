@@ -36,7 +36,6 @@ export default function Collaborator() {
 
   const onFinish = async (values) => {
     try {
-      console.log("Da vao");
       const res = await Presentation.addCollaborator(
         presentationId.presentationId,
         values.email
