@@ -78,8 +78,7 @@ export default function GroupMemberCard() {
     setChangeRoleModalVisible(false);
   };
   const permission = (record) => {
-    // eslint-disable-next-line no-underscore-dangle
-    if (record._id === user._id) return false;
+    if (record.id === user.id) return false;
     if (record.role === "Owner") return false;
     if (record.role === "Co-Owner") return userRole === "Owner";
     if (record.role === "Member")
@@ -125,7 +124,7 @@ export default function GroupMemberCard() {
               {role}
             </Tag>
             {/* eslint-disable-next-line no-underscore-dangle */}
-            <Tag key="you" hidden={_id !== user._id}>
+            <Tag key="you" hidden={_id !== user.id}>
               You
             </Tag>
           </Space>
@@ -186,8 +185,7 @@ export default function GroupMemberCard() {
       const { group } = data;
       setMembers(group.joinedUser);
       setUserRole(
-        // eslint-disable-next-line no-underscore-dangle
-        group.joinedUser.find((member) => member._id === user._id).role
+        group.joinedUser.find((member) => member.id === user.id).role
       );
       setStage(1);
     }

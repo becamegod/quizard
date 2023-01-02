@@ -148,8 +148,7 @@ export default function SlideEditorPage() {
   if (presentation) {
     let headerButtonContent;
     const user = JSON.parse(localStorage.getItem("user"));
-    // eslint-disable-next-line no-underscore-dangle
-    if (user._id === presentation.owner) {
+    if (user.id === presentation.owner) {
       headerButtonContent = (
         <div>
           <Button
