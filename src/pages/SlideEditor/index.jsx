@@ -169,16 +169,13 @@ export default function SlideEditorPage() {
     );
     const user = JSON.parse(localStorage.getItem("user"));
     if (user.id === presentation.owner) {
-      const presentButton = (
-        <Button className="button-present" type="primary" onClick={onPresent}>
-          <CaretRightOutlined />
-          Present
-        </Button>
-      );
       headerButtonContent = (
         <div>
           {buttonNewSlideAndSave}
-          {presentButton}
+          <Button className="button-present" type="primary" onClick={onPresent}>
+            <CaretRightOutlined />
+            Present
+          </Button>
         </div>
       );
     } else {
