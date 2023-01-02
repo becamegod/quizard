@@ -104,7 +104,7 @@ export default function ChoiceCard({
             </Text>
 
             {selectedSlide.options.map((option, index) => (
-              <>
+              <div key={`Option-${selectedSlide.question}-${index.toString()}`}>
                 <Form.Item
                   style={{ width: "90%" }}
                   name={`${selectedSlide.question}-${index.toString()}`}
@@ -127,7 +127,7 @@ export default function ChoiceCard({
                     }}
                   />
                 </Form.Item>
-              </>
+              </div>
             ))}
             <Button
               className="button-add-option"

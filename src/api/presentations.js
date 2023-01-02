@@ -29,6 +29,8 @@ export default {
       optionIndex
     }),
 
+  end: (id) => authClient.post(`${base}/end`, { id }),
+
   getChartData: (sessionId, slideIndex) =>
     authClient.get(
       `${base}/chart?sessionId=${sessionId}&slideIndex=${slideIndex}`

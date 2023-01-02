@@ -53,18 +53,10 @@ export default function BaseRoutes() {
         </Route>
         <Route path="/logout" element={<Logout />} />
         <Route path="/join/:url" element={<JoinGroup />} />
-        <Route
-          path="/presentations/edit/:presentationId"
-          element={<SlideEditorPage />}
-        />
-        <Route
-          path="/presentations/join/:presentationId"
-          element={<Presentation />}
-        />
-        <Route
-          path="/presentations/host/:presentationId"
-          element={<Presentation forHost />}
-        />
+        <Route path={constants.presentationsUrl}>
+          <Route path="edit/:presentationId" element={<SlideEditorPage />} />
+          <Route path=":presentationId" element={<Presentation />} />
+        </Route>
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
