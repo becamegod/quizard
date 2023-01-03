@@ -48,7 +48,7 @@ export default function PresentButtons({ onPresent }) {
                   <Radio.Button
                     className="expand content-height select-group-button"
                     value={group.id}
-                    key={group.groupId}
+                    key={group.id}
                   >
                     <Title level={4}>{group.name}</Title>
                     <Paragraph type="secondary">{group.description}</Paragraph>

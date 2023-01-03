@@ -18,20 +18,24 @@ import {
   ExclamationCircleOutlined
 } from "@ant-design/icons";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 import Sessions from "../../api/sessions";
 import QuestionModal from "./QuestionModal";
 import ResultModal from "./ResultModal";
+import constants from "../../utils/constants";
 
 export default function PresentationHistory() {
   const [histories, setHistories] = useState(null);
   const [openQuestionModal, setOpenQuestionModal] = useState(false);
   const [openResultModal, setOpenResultModal] = useState(false);
   const [selectedId, setSelectedId] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchHistory() {
       try {
         const res = await Sessions.list();
+        console.log(res.data);
         setHistories(res.data.sessions);
       } catch (err) {
         const { status } = err.request;
@@ -60,6 +64,7 @@ export default function PresentationHistory() {
     setSelectedId(id);
     switch (action) {
       case "Result": {
+        navigate(constants.resultDetailsUrl(id));
         setOpenResultModal(true);
         break;
       }
