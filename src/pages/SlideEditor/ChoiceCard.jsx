@@ -14,7 +14,7 @@ export default function ChoiceCard({
 }) {
   const handleOnClickAddOption = (slide) => {
     const newOptions = slide.options.map((option) => option);
-    newOptions.push("New option");
+    newOptions.push("");
     const newSlide = {
       type: slide.type,
       question: slide.question,
@@ -89,7 +89,7 @@ export default function ChoiceCard({
             onValuesChange={handleOnChangeOption}
           >
             <Form.Item name="question" style={{ width: "100%" }}>
-              <Input className="input-question round" />
+              <Input className="input-question round" placeholder="Question" />
             </Form.Item>
             <Text
               style={{
@@ -104,7 +104,10 @@ export default function ChoiceCard({
             </Text>
 
             {selectedSlide.options.map((option, index) => (
-              <div key={`Option-${selectedSlide.question}-${index.toString()}`}>
+              <div
+                key={`Option-${selectedSlide.question}-${index.toString()}`}
+                style={{ width: "100%", display: "flex" }}
+              >
                 <Form.Item
                   style={{ width: "90%" }}
                   name={`${selectedSlide.question}-${index.toString()}`}

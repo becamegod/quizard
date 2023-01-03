@@ -1,9 +1,13 @@
-import { Card, Col, Row, Space, Typography } from "antd";
+import { Card, Col, Row, Space, Typography, Badge } from "antd";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 
 // import PropTypes from "prop-types";
 import { useNavigate, useParams } from "react-router-dom";
-import { CheckOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  QuestionCircleFilled,
+  MessageFilled
+} from "@ant-design/icons";
 import presentations from "../../api/presentations";
 import ChartScreen from "../SlideEditor/ChartScreen";
 
@@ -205,6 +209,18 @@ export default function Presentation() {
         <Card className="" bodyStyle={{ height: "100%" }}>
           {nav}
           {content}
+          <Row justify="end">
+            <div style={{ marginRight: "12px" }}>
+              <Badge count={5} size="small">
+                <QuestionCircleFilled style={{ fontSize: "20px" }} />
+              </Badge>
+            </div>
+            <div>
+              <Badge count={5} size="small">
+                <MessageFilled style={{ fontSize: "20px" }} />
+              </Badge>
+            </div>
+          </Row>
         </Card>
       </Row>
     </CenterBase>
