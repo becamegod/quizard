@@ -21,13 +21,13 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import Sessions from "../../api/sessions";
 import QuestionModal from "./QuestionModal";
-import ResultModal from "./ResultModal";
+import ChatModal from "./ChatModal";
 import constants from "../../utils/constants";
 
 export default function PresentationHistory() {
   const [histories, setHistories] = useState(null);
   const [openQuestionModal, setOpenQuestionModal] = useState(false);
-  const [openResultModal, setOpenResultModal] = useState(false);
+  const [openChatModal, setOpenChatModal] = useState(false);
   const [selectedId, setSelectedId] = useState("");
   const navigate = useNavigate();
 
@@ -73,6 +73,7 @@ export default function PresentationHistory() {
         break;
       }
       default: {
+        setOpenChatModal(true);
         break;
       }
     }
@@ -82,8 +83,8 @@ export default function PresentationHistory() {
     setOpenQuestionModal(false);
   };
 
-  const setOpenResultModalFalse = () => {
-    setOpenResultModal(false);
+  const setOpenChatModalFalse = () => {
+    setOpenChatModal(false);
   };
 
   const columns = [
@@ -182,10 +183,10 @@ export default function PresentationHistory() {
         id={selectedId}
         setOpenQuestionModalFalse={setOpenQuestionModalFalse}
       />
-      <ResultModal
-        open={openResultModal}
+      <ChatModal
+        open={openChatModal}
         id={selectedId}
-        setOpenResultModalFalse={setOpenResultModalFalse}
+        setOpenChatModalFalse={setOpenChatModalFalse}
       />
       <Card>
         <Row justify="space-between" style={{ marginBottom: "32px" }}>

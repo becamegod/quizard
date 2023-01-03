@@ -23,7 +23,7 @@ export default function QuestionModal({ open, id, setOpenQuestionModalFalse }) {
   };
 
   async function fetchQuestion() {
-    const res = await Sessions.getQuestions({ sessionId: id });
+    const res = await Sessions.getQuestions(id);
     setQuestions(res.data.questions);
   }
 
@@ -42,28 +42,28 @@ export default function QuestionModal({ open, id, setOpenQuestionModalFalse }) {
   const columns = [
     {
       title: "Question",
-      dataIndex: "question",
+      dataIndex: "text",
       key: "question",
-      render: (question) => (
+      render: (text) => (
         <Row align="middle" gutter={[8, 0]}>
           <Col>
             <Typography.Text strong style={{ color: "#0E86D4" }}>
-              {question}
+              {text}
             </Typography.Text>
           </Col>
         </Row>
       )
     },
     {
-      title: "Vote",
-      dataIndex: "vote",
+      title: "Like",
+      dataIndex: "likes",
       defaultSortOrder: "descend",
-      sorter: (a, b) => a.vote - b.vote,
-      key: "vote",
-      render: (vote) => (
+      sorter: (a, b) => a.likes.length - b.likes.length,
+      key: "likes",
+      render: (likes) => (
         <Row align="middle" gutter={[8, 0]}>
           <Col>
-            <Typography.Text strong>{vote}</Typography.Text>
+            <Typography.Text strong>{likes.length}</Typography.Text>
           </Col>
         </Row>
       )
@@ -90,6 +90,7 @@ export default function QuestionModal({ open, id, setOpenQuestionModalFalse }) {
       title: "Time",
       dataIndex: "date",
       key: "time",
+      sorter: (a, b) => Date.parse(a.date) - Date.parse(b.date),
       render: (date) => {
         const localDate = new Date(date);
         return (
@@ -110,7 +111,7 @@ export default function QuestionModal({ open, id, setOpenQuestionModalFalse }) {
       <Table
         dataSource={questions}
         columns={columns}
-        rowKey="question"
+        rowKey="id"
         style={{ overflow: "auto", height: "300px" }}
       />
     </Col>

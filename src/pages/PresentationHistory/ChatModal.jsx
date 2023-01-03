@@ -4,8 +4,8 @@ import moment from "moment";
 import PropTypes from "prop-types";
 import Sessions from "../../api/sessions";
 
-export default function ResultModal({ open, id, setOpenResultModalFalse }) {
-  const [results, setResults] = useState(null);
+export default function ChatModal({ open, id, setOpenChatModalFalse }) {
+  const [chats, setChats] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(open);
 
   const showModal = () => {
@@ -14,17 +14,17 @@ export default function ResultModal({ open, id, setOpenResultModalFalse }) {
 
   const handleOk = () => {
     setIsModalOpen(false);
-    setOpenResultModalFalse();
+    setOpenChatModalFalse();
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    setOpenResultModalFalse();
+    setOpenChatModalFalse();
   };
 
   async function fetchResult() {
-    const res = await Sessions.getResults({ sessionId: id });
-    setResults(res.data.result);
+    const res = await Sessions.getChats({ sessionId: id });
+    setChats(res.data.chats);
   }
 
   useEffect(() => {
@@ -41,55 +41,49 @@ export default function ResultModal({ open, id, setOpenResultModalFalse }) {
 
   const columns = [
     {
-      title: "Question",
-      dataIndex: "question",
-      key: "question",
-      render: (question) => (
+      title: "User",
+      dataIndex: "user",
+      key: "user",
+      render: (user) => (
         <Row align="middle" gutter={[8, 0]}>
           <Col>
             <Typography.Text strong style={{ color: "#0E86D4" }}>
-              {question}
+              {user.name}
             </Typography.Text>
           </Col>
         </Row>
       )
     },
     {
-      title: "Vote",
-      dataIndex: "vote",
-      defaultSortOrder: "descend",
-      sorter: (a, b) => a.vote - b.vote,
-      key: "vote",
-      render: (vote) => (
+      title: "Email",
+      dataIndex: "user",
+      key: "user",
+      render: (user) => (
         <Row align="middle" gutter={[8, 0]}>
           <Col>
-            <Typography.Text strong>{vote}</Typography.Text>
+            <Typography.Text strong>{user.email}</Typography.Text>
           </Col>
         </Row>
       )
     },
     {
-      title: "Status",
-      dataIndex: "answered",
-      key: "status",
-      render: (answered) => {
-        let status = "Answered";
-        if (!answered) {
-          status = "Not answered";
-        }
-        return (
-          <Row align="middle" gutter={[8, 0]}>
-            <Col>
-              <Typography.Text strong>{status}</Typography.Text>
-            </Col>
-          </Row>
-        );
-      }
+      title: "Message",
+      dataIndex: "message",
+      defaultSortOrder: "descend",
+      key: "message",
+      render: (message) => (
+        <Row align="middle" gutter={[8, 0]}>
+          <Col>
+            <Typography.Text strong>{message}</Typography.Text>
+          </Col>
+        </Row>
+      )
     },
     {
       title: "Time",
       dataIndex: "date",
       key: "time",
+      sorter: (a, b) => Date.parse(a.date) - Date.parse(b.date),
       render: (date) => {
         const localDate = new Date(date);
         return (
@@ -108,9 +102,9 @@ export default function ResultModal({ open, id, setOpenResultModalFalse }) {
   const list = (
     <Col span={24}>
       <Table
-        dataSource={results}
+        dataSource={chats}
         columns={columns}
-        rowKey="question"
+        rowKey="id"
         style={{ overflow: "auto", height: "300px" }}
       />
     </Col>
@@ -132,8 +126,8 @@ export default function ResultModal({ open, id, setOpenResultModalFalse }) {
     </Modal>
   );
 }
-ResultModal.propTypes = {
+ChatModal.propTypes = {
   open: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
-  setOpenResultModalFalse: PropTypes.func.isRequired
+  setOpenChatModalFalse: PropTypes.func.isRequired
 };
