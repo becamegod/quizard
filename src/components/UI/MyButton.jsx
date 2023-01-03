@@ -16,15 +16,16 @@ export default function MyButton({
   const type = primary ? "primary" : "default";
   const isDanger = danger;
   const htmlType = submit ? "submit" : "button";
-  const expandClass = expand ? "" : "expand";
+  const expandClass = expand ? "expand" : "";
   return (
     <Button
-      className={`${expandClass}`}
+      className={`expand ${expandClass}`}
       shape="round"
       onClick={onClick}
       type={type}
       htmlType={htmlType}
       icon={icon}
+      block={expand}
       danger={isDanger}
       loading={loading}
     >

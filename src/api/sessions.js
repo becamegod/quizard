@@ -14,5 +14,8 @@ export default {
     authClient.get(`${base}/questions`, { params: { sessionId } }),
 
   ask: (sessionId, text) =>
-    authClient.post(`${base}/questions`, { sessionId, text })
+    authClient.post(`${base}/questions`, { sessionId, text }),
+
+  toggleLike: (sessionId, questionIndex) =>
+    authClient.post(`${base}/questions/like`, { sessionId, questionIndex })
 };

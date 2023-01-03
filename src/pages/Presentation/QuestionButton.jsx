@@ -13,14 +13,18 @@ import {
   Typography
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import PropTypes from "prop-types";
 import sessions from "../../api/sessions";
 import MyButton from "../../components/UI/MyButton";
-import notifier from "../../utils/notifier";
 import utils from "../../utils";
+import constants from "../../utils/constants";
+import notifier from "../../utils/notifier";
 
+const getButtonType = (liked) => (liked ? "primary" : "default");
+let user = localStorage.getItem(constants.user);
+if (user) user = JSON.parse(user);
 export default function QuestionButton({ sessionId }) {
   const [showModal, setShowModal] = useState(false);
   const [form] = Form.useForm();
@@ -61,40 +65,64 @@ export default function QuestionButton({ sessionId }) {
     setFormLoading(false);
   };
 
+  const toggleLike = async (questionIndex) => {
+    try {
+      const { data } = await sessions.toggleLike(sessionId, questionIndex);
+      const newQuestions = questions.slice();
+      newQuestions[questionIndex].likes = data.likes;
+      setQuestions(newQuestions);
+    } catch (error) {
+      console.log(error);
+      notifier.notifyError("Couldn't like question");
+    }
+  };
+
   const columns = [
     {
       title: "Question",
-      dataIndex: "text",
-      key: "id"
+      dataIndex: "text"
     },
     {
       title: "Time",
       dataIndex: "date",
-      key: "id",
       render: (date) => (
         <Typography.Text type="secondary">
           {utils.timeDifference(date)}
         </Typography.Text>
-      )
+      ),
+      sorter: {
+        compare: (a, b) => Date.parse(a.date) - Date.parse(b.date),
+        multiple: 1
+      }
     },
     {
       title: "Answered",
       dataIndex: "answered",
-      key: "id",
-      render: (answered) => <Checkbox checked={answered} disabled />
+      render: (answered) => <Checkbox checked={answered} disabled />,
+      sorter: { compare: (a, b) => a.answered - b.answered, multiple: 3 }
     },
     {
-      title: "Vote",
-      dataIndex: "vote",
-      key: "id",
-      render: (vote) => (
-        <Button shape="circle">
-          <Space size={2}>
-            <LikeOutlined />
-            {vote}
-          </Space>
-        </Button>
-      )
+      title: "Like",
+      dataIndex: "likes",
+      render: (likes, _, questionIndex) => {
+        const voteButtonType = getButtonType(likes.includes(user.id));
+        return (
+          <Button
+            shape="circle"
+            type={voteButtonType}
+            onClick={() => toggleLike(questionIndex)}
+          >
+            <Space size={2}>
+              <LikeOutlined />
+              {likes.length}
+            </Space>
+          </Button>
+        );
+      },
+      sorter: {
+        compare: (a, b) => a.likes.length - b.likes.length,
+        multiple: 2
+      }
     }
   ];
 
@@ -108,7 +136,13 @@ export default function QuestionButton({ sessionId }) {
         onCancel={() => setShowModal(false)}
         width="60%"
       >
-        <Table dataSource={questions} columns={columns} rowKey="id" />
+        <Table
+          dataSource={questions}
+          columns={columns}
+          rowKey="date"
+          scroll={{ y: 600 }}
+          pagination={false}
+        />
         <Form form={form} layout="inline" onFinish={onSubmit}>
           <Typography.Text>Ask your question here</Typography.Text>
           <Row className="expand">
