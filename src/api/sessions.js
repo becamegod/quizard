@@ -17,5 +17,11 @@ export default {
     authClient.post(`${base}/questions`, { sessionId, text }),
 
   toggleLike: (sessionId, questionIndex) =>
-    authClient.post(`${base}/questions/like`, { sessionId, questionIndex })
+    authClient.post(`${base}/questions/like`, { sessionId, questionIndex }),
+
+  toggleAnswered: (sessionId, questionIndex) =>
+    authClient.post(`${base}/questions/markAnswered`, {
+      sessionId,
+      questionIndex
+    })
 };

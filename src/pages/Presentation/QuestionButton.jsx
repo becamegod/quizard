@@ -1,8 +1,12 @@
-import { LikeOutlined, QuestionCircleFilled } from "@ant-design/icons";
+import {
+  CheckCircleFilled,
+  CheckCircleOutlined,
+  LikeOutlined,
+  QuestionCircleFilled
+} from "@ant-design/icons";
 import {
   Badge,
   Button,
-  Checkbox,
   Col,
   Form,
   message,
@@ -77,7 +81,39 @@ export default function QuestionButton({ sessionId }) {
     }
   };
 
+  const toggleAnswered = async (questionIndex) => {
+    try {
+      const { data } = await sessions.toggleAnswered(sessionId, questionIndex);
+      const newQuestions = questions.slice();
+      newQuestions[questionIndex].answered = data.answered;
+      setQuestions(newQuestions);
+    } catch (error) {
+      console.log(error);
+      notifier.notifyError("Couldn't mark question answered");
+    }
+  };
+
   const columns = [
+    {
+      title: "Answered",
+      dataIndex: "answered",
+      width: 100,
+      align: "center",
+      render: (answered, _, questionIndex) => {
+        const buttonType = getButtonType(answered);
+        const icon = answered ? <CheckCircleFilled /> : <CheckCircleOutlined />;
+        return (
+          <Button
+            shape="circle"
+            type={buttonType}
+            onClick={() => toggleAnswered(questionIndex)}
+          >
+            {icon}
+          </Button>
+        );
+      },
+      sorter: { compare: (a, b) => a.answered - b.answered, multiple: 3 }
+    },
     {
       title: "Question",
       dataIndex: "text"
@@ -85,25 +121,19 @@ export default function QuestionButton({ sessionId }) {
     {
       title: "Time",
       dataIndex: "date",
+      width: 200,
       render: (date) => (
         <Typography.Text type="secondary">
           {utils.timeDifference(date)}
         </Typography.Text>
       ),
-      sorter: {
-        compare: (a, b) => Date.parse(a.date) - Date.parse(b.date),
-        multiple: 1
-      }
-    },
-    {
-      title: "Answered",
-      dataIndex: "answered",
-      render: (answered) => <Checkbox checked={answered} disabled />,
-      sorter: { compare: (a, b) => a.answered - b.answered, multiple: 3 }
+      sorter: (a, b) => Date.parse(a.date) - Date.parse(b.date)
     },
     {
       title: "Like",
       dataIndex: "likes",
+      width: 150,
+      align: "center",
       render: (likes, _, questionIndex) => {
         const voteButtonType = getButtonType(likes.includes(user.id));
         return (
@@ -119,10 +149,7 @@ export default function QuestionButton({ sessionId }) {
           </Button>
         );
       },
-      sorter: {
-        compare: (a, b) => a.likes.length - b.likes.length,
-        multiple: 2
-      }
+      sorter: (a, b) => a.likes.length - b.likes.length
     }
   ];
 
@@ -134,7 +161,7 @@ export default function QuestionButton({ sessionId }) {
         open={showModal}
         footer={false}
         onCancel={() => setShowModal(false)}
-        width="60%"
+        width="50%"
       >
         <Table
           dataSource={questions}
