@@ -10,7 +10,8 @@ export default function MyButton({
   submit,
   icon,
   danger,
-  expand
+  expand,
+  loading
 }) {
   const type = primary ? "primary" : "default";
   const isDanger = danger;
@@ -25,6 +26,7 @@ export default function MyButton({
       htmlType={htmlType}
       icon={icon}
       danger={isDanger}
+      loading={loading}
     >
       {children}
     </Button>
@@ -38,7 +40,8 @@ MyButton.propTypes = {
   submit: PropTypes.bool,
   icon: PropTypes.element,
   danger: PropTypes.bool,
-  expand: PropTypes.bool
+  expand: PropTypes.bool,
+  loading: PropTypes.bool
 };
 
 MyButton.defaultProps = {
@@ -47,5 +50,6 @@ MyButton.defaultProps = {
   submit: false,
   icon: null,
   danger: false,
-  expand: true
+  expand: true,
+  loading: false
 };
