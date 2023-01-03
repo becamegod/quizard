@@ -1,13 +1,9 @@
-import { Card, Col, Row, Space, Typography, Badge } from "antd";
+import { Badge, Card, Col, Row, Space, Typography } from "antd";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 
 // import PropTypes from "prop-types";
+import { CheckOutlined, MessageFilled } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  CheckOutlined,
-  QuestionCircleFilled,
-  MessageFilled
-} from "@ant-design/icons";
 import presentations from "../../api/presentations";
 import ChartScreen from "../SlideEditor/ChartScreen";
 
@@ -15,11 +11,13 @@ import Loading from "../../components/Loading";
 import CenterBase from "../../components/UI/CenterBase";
 import MyButton from "../../components/UI/MyButton";
 import { SocketContext } from "../../context/socket";
+import constants from "../../utils/constants";
 import notifier from "../../utils/notifier";
 import slideTypes from "../../utils/slideTypes";
 import socketEvents from "../../utils/socketEvents";
 import HeaderContent from "./HeaderContent";
 import "./Presentation.css";
+import QuestionButton from "./QuestionButton";
 import VoteForm from "./VoteForm";
 import constants from "../../utils/constants";
 import ChatBox from "./ChatBox";
@@ -232,9 +230,7 @@ export default function Presentation() {
           {content}
           <Row justify="end">
             <div style={{ marginRight: "12px" }}>
-              <Badge count={5} size="small">
-                <QuestionCircleFilled style={{ fontSize: "20px" }} />
-              </Badge>
+              <QuestionButton sessionId={sessionId} />
             </div>
             <ChatBox
               isOpen={openChatbox}
