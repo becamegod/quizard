@@ -65,7 +65,6 @@ export default function PresentationHistory() {
     switch (action) {
       case "Result": {
         navigate(constants.resultDetailsUrl(id));
-        setOpenResultModal(true);
         break;
       }
       case "Question": {
