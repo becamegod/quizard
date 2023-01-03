@@ -63,7 +63,7 @@ export default function GroupList({ category }) {
             }}
           >
             {groups.map((group) => (
-              <Col key={group.groupId} span={8}>
+              <Col key={group.id} span={8}>
                 <GroupCard group={group} />
               </Col>
             ))}

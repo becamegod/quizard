@@ -81,8 +81,7 @@ export default function GroupMemberCard() {
     if (record.id === user.id) return false;
     if (record.role === "Owner") return false;
     if (record.role === "Co-Owner") return userRole === "Owner";
-    if (record.role === "Member")
-      return userRole === "Co-Owner" || userRole === "Owner";
+    if (record.role === "Member") return userRole === "Owner";
     return false;
   };
   const priority = {
@@ -117,14 +116,14 @@ export default function GroupMemberCard() {
       title: "Role",
       key: "role",
       dataIndex: "role",
-      render: (_, { role, _id }) => {
+      render: (_, { role, id }) => {
         return (
           <Space direction="horizontal" size="small">
             <Tag color={color[role]} key={role}>
               {role}
             </Tag>
             {/* eslint-disable-next-line no-underscore-dangle */}
-            <Tag key="you" hidden={_id !== user.id}>
+            <Tag key="you" hidden={id !== user.id}>
               You
             </Tag>
           </Space>
@@ -151,31 +150,33 @@ export default function GroupMemberCard() {
     {
       title: "Action",
       key: "action",
-      render: (_, record) => (
-        <Space size="middle" direction="horizontal">
-          <Button
-            danger
-            shape="round"
-            onClick={() => {
-              setSelectedMember(record);
-              setRemoveModalVisible(true);
-            }}
-            hidden={!permission(record)}
-          >
-            <DeleteOutlined />
-          </Button>
-          <Button
-            shape="round"
-            onClick={() => {
-              setSelectedMember(record);
-              setChangeRoleModalVisible(true);
-            }}
-            hidden={!permission(record)}
-          >
-            <SettingOutlined />
-          </Button>
-        </Space>
-      )
+      render: (_, record) => {
+        return (
+          <Space size="middle" direction="horizontal">
+            <Button
+              danger
+              shape="round"
+              onClick={() => {
+                setSelectedMember(record);
+                setRemoveModalVisible(true);
+              }}
+              hidden={!permission(record)}
+            >
+              <DeleteOutlined />
+            </Button>
+            <Button
+              shape="round"
+              onClick={() => {
+                setSelectedMember(record);
+                setChangeRoleModalVisible(true);
+              }}
+              hidden={!permission(record)}
+            >
+              <SettingOutlined />
+            </Button>
+          </Space>
+        );
+      }
     }
   ];
 
@@ -225,7 +226,7 @@ export default function GroupMemberCard() {
                 dataSource={members}
                 columns={columns}
                 pagination={{ pageSize: 10 }}
-                rowKey="_id"
+                rowKey="id"
               />
             </Col>
           </Row>
