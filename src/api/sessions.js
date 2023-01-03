@@ -10,5 +10,9 @@ export default {
   getQuestions: (sessionId) =>
     authClient.get(`${base}/questions`, { params: sessionId }),
   getResults: (sessionId) =>
-    authClient.get(`${base}/results`, { params: sessionId })
+    authClient.get(`${base}/results`, { params: sessionId }),
+  getChats: (sessionId) =>
+    authClient.get(`${base}/chats`, { params: sessionId }),
+  sendMessage: (sessionId, message) =>
+    authClient.post(`${base}/chat`, { sessionId, message })
 };

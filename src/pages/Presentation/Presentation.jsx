@@ -22,6 +22,7 @@ import HeaderContent from "./HeaderContent";
 import "./Presentation.css";
 import VoteForm from "./VoteForm";
 import constants from "../../utils/constants";
+import ChatBox from "./ChatBox";
 
 const votedArray = [];
 let isHost = false;
@@ -30,7 +31,10 @@ export default function Presentation() {
   const [slides, setSlides] = useState([]);
   const [content, setContent] = useState(<Loading />);
   const [slideIndex, setSlideIndex] = useState(0);
+  const [sessionId, setSessionId] = useState("");
   const [charts, setCharts] = useState([[]]);
+  const [openChatbox, setOpenChatbox] = useState(false);
+  const [isHaveNewMessage, setIsHaveNewMessage] = useState(false);
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
 
@@ -45,6 +49,22 @@ export default function Presentation() {
       console.log(error);
       notifier.notifyError();
     }
+  };
+
+  const handleOnClickChatBox = () => {
+    setOpenChatbox(true);
+  };
+
+  const handleCloseChatBox = () => {
+    setOpenChatbox(false);
+  };
+
+  const handleIsNewMessageTrue = () => {
+    setIsHaveNewMessage(true);
+  };
+
+  const handleIsNewMessageFalse = () => {
+    setIsHaveNewMessage(false);
   };
 
   // on slide index (content) changed
@@ -100,6 +120,7 @@ export default function Presentation() {
         const { presentation } = data;
         setSlides(presentation.slides);
         setSlideIndex(presentation.currentSlideIndex);
+        setSessionId(presentation.currentSession);
         isHost = data.isHost;
 
         const promises = presentation.slides.map((slide, i) => {
@@ -215,11 +236,18 @@ export default function Presentation() {
                 <QuestionCircleFilled style={{ fontSize: "20px" }} />
               </Badge>
             </div>
-            <div>
-              <Badge count={5} size="small">
+            <ChatBox
+              isOpen={openChatbox}
+              handleCloseChatBox={handleCloseChatBox}
+              sessionId={sessionId}
+              handleIsNewMessageTrue={handleIsNewMessageTrue}
+              handleIsNewMessageFalse={handleIsNewMessageFalse}
+            />
+            <Row onClick={handleOnClickChatBox}>
+              <Badge size="default" dot={isHaveNewMessage}>
                 <MessageFilled style={{ fontSize: "20px" }} />
               </Badge>
-            </div>
+            </Row>
           </Row>
         </Card>
       </Row>

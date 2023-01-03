@@ -3,5 +3,6 @@ export default {
   slideChange: "slideChange",
   voteChange: "voteChange",
   presentationEnd: "presentationEnd",
+  chat: "chat",
   presentationInGroup: (groupId) => `presentationInGroup/${groupId}`
 };
