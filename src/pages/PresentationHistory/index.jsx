@@ -89,13 +89,13 @@ export default function PresentationHistory() {
   const columns = [
     {
       title: "Presentation name",
-      dataIndex: "presentationId",
+      dataIndex: "presentationName",
       key: "name",
-      render: (presentationId) => (
+      render: (presentationName) => (
         <Row align="middle" gutter={[8, 0]}>
           <Col>
             <Typography.Text strong style={{ color: "#0E86D4" }}>
-              {presentationId.name}
+              {presentationName}
             </Typography.Text>
           </Col>
         </Row>

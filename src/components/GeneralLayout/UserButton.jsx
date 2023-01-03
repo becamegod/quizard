@@ -1,7 +1,9 @@
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Dropdown, Space, Typography } from "antd";
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
+import Users from "../../api/Users";
 
 const items = [
   {
@@ -17,12 +19,21 @@ const items = [
 ];
 
 export default function UserButton() {
-  // const user = localStorage.getItem("user");
-  // const { name } = JSON.parse(user);
-  const name = "Test";
+  const [name, setName] = useState("...");
+
+  useEffect(() => {
+    const init = async () => {
+      try {
+        const { data } = await Users.getProfile();
+        setName(data.name);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    init();
+  });
 
   return (
-    // more gap between the button and the dropdown menu using antd
     <Space>
       <Typography.Text>{name}</Typography.Text>
       <Dropdown menu={{ items }} placement="bottom" arrow>
