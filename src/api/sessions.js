@@ -7,8 +7,9 @@ export default {
 
   create: (presentation, groupId = null) =>
     authClient.post(base, { presentation, groupId }),
+
   getResults: (sessionId) =>
-    authClient.get(`${base}/results`, { params: sessionId }),
+    authClient.get(`${base}/results`, { params: { sessionId } }),
 
   getQuestions: (sessionId) =>
     authClient.get(`${base}/questions`, { params: { sessionId } }),

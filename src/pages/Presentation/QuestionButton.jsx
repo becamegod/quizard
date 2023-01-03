@@ -161,7 +161,7 @@ export default function QuestionButton({ sessionId }) {
         open={showModal}
         footer={false}
         onCancel={() => setShowModal(false)}
-        width="50%"
+        width={800}
       >
         <Table
           dataSource={questions}

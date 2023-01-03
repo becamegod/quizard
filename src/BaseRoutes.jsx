@@ -22,6 +22,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import CollaboratorPage from "./pages/Collaborator";
 import PresentationHistoryPage from "./pages/PresentationHistory";
 import PresentationEnd from "./pages/Presentation/PresentationEnd";
+import ResultDetails from "./pages/PresentationHistory/ResultDetails";
 
 export default function BaseRoutes() {
   return (
@@ -51,6 +52,10 @@ export default function BaseRoutes() {
             element={<PresentationHistoryPage />}
           />
           <Route path="/profile" element={<UserInformationPage />} />
+          <Route
+            path="/result-details/:sessionId"
+            element={<ResultDetails />}
+          />
         </Route>
         <Route path="/logout" element={<Logout />} />
         <Route path="/join/:url" element={<JoinGroup />} />
