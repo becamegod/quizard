@@ -11,7 +11,6 @@ import Loading from "../../components/Loading";
 import CenterBase from "../../components/UI/CenterBase";
 import MyButton from "../../components/UI/MyButton";
 import { SocketContext } from "../../context/socket";
-import constants from "../../utils/constants";
 import notifier from "../../utils/notifier";
 import slideTypes from "../../utils/slideTypes";
 import socketEvents from "../../utils/socketEvents";
@@ -230,7 +229,7 @@ export default function Presentation() {
           {content}
           <Row justify="end">
             <div style={{ marginRight: "12px" }}>
-              <QuestionButton sessionId={sessionId} />
+              <QuestionButton sessionId={sessionId} isHost={isHost} />
             </div>
             <ChatBox
               isOpen={openChatbox}

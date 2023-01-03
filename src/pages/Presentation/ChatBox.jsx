@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, Drawer, Input, List, Row, Typography, Form, Col } from "antd";
 import { SendOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -9,6 +9,7 @@ import { SocketContext } from "../../context/socket";
 import socketEvents from "../../utils/socketEvents";
 import "./ChatBox.css";
 
+const userLocalStorage = JSON.parse(localStorage.getItem("user"));
 export default function ChatBox({
   isOpen,
   handleCloseChatBox,
@@ -20,7 +21,6 @@ export default function ChatBox({
   const [user, setUser] = useState(null);
   const [chats, setChats] = useState(null);
   const socket = useContext(SocketContext);
-  const listRef = useRef(null);
 
   const showDrawer = () => {
     setOpen(true);
@@ -36,19 +36,17 @@ export default function ChatBox({
   };
 
   useEffect(() => {
-    const userLocalStorage = JSON.parse(localStorage.getItem("user"));
+    if (sessionId === "") return;
     setUser(userLocalStorage);
     fetchChats();
   }, []);
 
   useEffect(() => {
     socket.on(socketEvents.chat, (newMessage) => {
-      const userLocalStorage = JSON.parse(localStorage.getItem("user"));
       if (chats) {
         const newChats = [...chats];
         newChats.push(newMessage);
         setChats(newChats);
-        listRef.current.scrollTo(listRef.current.clientHeight);
       }
       if (!isOpen && newMessage.user.id !== userLocalStorage.id) {
         handleIsNewMessageTrue();
@@ -130,7 +128,6 @@ export default function ChatBox({
       >
         <List
           style={{ height: "100%", overflow: "auto" }}
-          ref={listRef}
           itemLayout="horizontal"
           dataSource={chats}
           renderItem={(item) => {

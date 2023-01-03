@@ -17,7 +17,7 @@ import {
   Typography
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import PropTypes from "prop-types";
 import sessions from "../../api/sessions";
@@ -25,16 +25,20 @@ import MyButton from "../../components/UI/MyButton";
 import utils from "../../utils";
 import constants from "../../utils/constants";
 import notifier from "../../utils/notifier";
+import { SocketContext } from "../../context/socket";
+import socketEvents from "../../utils/socketEvents";
 
 const getButtonType = (liked) => (liked ? "primary" : "default");
 let user = localStorage.getItem(constants.user);
 if (user) user = JSON.parse(user);
-export default function QuestionButton({ sessionId }) {
+export default function QuestionButton({ sessionId, isHost }) {
   const [showModal, setShowModal] = useState(false);
   const [form] = Form.useForm();
   const [formDisabled, setFormDisabled] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
+  const [isHaveNewQuestion, setIsHaveNewQuestion] = useState(false);
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
     if (sessionId === "") return;
@@ -49,6 +53,32 @@ export default function QuestionButton({ sessionId }) {
     };
     init();
   }, [sessionId]);
+
+  useEffect(() => {
+    socket.on(socketEvents.addQuestion, (newQuestion) => {
+      const newQuestions = [...questions];
+      newQuestions.push(newQuestion);
+      setQuestions(newQuestions);
+      if (!showModal) {
+        setIsHaveNewQuestion(true);
+      }
+    });
+    socket.on(socketEvents.likeQuestion, ({ newLikes, questionIndex }) => {
+      const newQuestions = [...questions];
+      newQuestions[questionIndex].likes = newLikes;
+      setQuestions(newQuestions);
+    });
+    socket.on(socketEvents.markedQuestion, ({ newAnswered, questionIndex }) => {
+      const newQuestions = [...questions];
+      newQuestions[questionIndex].answered = newAnswered;
+      setQuestions(newQuestions);
+    });
+    return () => {
+      socket.off(socketEvents.addQuestion);
+      socket.off(socketEvents.likeQuestion);
+      socket.off(socketEvents.markedQuestion);
+    };
+  }, [questions, showModal]);
 
   const onSubmit = async (values) => {
     setFormDisabled(true);
@@ -100,6 +130,10 @@ export default function QuestionButton({ sessionId }) {
       width: 100,
       align: "center",
       render: (answered, _, questionIndex) => {
+        let disabled = false;
+        if (!isHost) {
+          disabled = true;
+        }
         const buttonType = getButtonType(answered);
         const icon = answered ? <CheckCircleFilled /> : <CheckCircleOutlined />;
         return (
@@ -107,6 +141,7 @@ export default function QuestionButton({ sessionId }) {
             shape="circle"
             type={buttonType}
             onClick={() => toggleAnswered(questionIndex)}
+            disabled={disabled}
           >
             {icon}
           </Button>
@@ -153,54 +188,59 @@ export default function QuestionButton({ sessionId }) {
     }
   ];
 
-  return (
-    <>
-      <Modal
-        centered
-        title="Questions from viewers"
-        open={showModal}
-        footer={false}
-        onCancel={() => setShowModal(false)}
-        width="50%"
-      >
-        <Table
-          dataSource={questions}
-          columns={columns}
-          rowKey="date"
-          scroll={{ y: 600 }}
-          pagination={false}
-        />
-        <Form form={form} layout="inline" onFinish={onSubmit}>
-          <Typography.Text>Ask your question here</Typography.Text>
-          <Row className="expand">
-            <Col flex={1}>
-              <Form.Item
-                name="text"
-                rules={[{ required: true, validateTrigger: "onSubmit" }]}
-              >
-                <TextArea disabled={formDisabled} rows={1} />
-              </Form.Item>
-            </Col>
-            <Col>
-              <MyButton loading={formLoading} primary submit>
-                Submit
-              </MyButton>
-            </Col>
-          </Row>
-        </Form>
-      </Modal>
-      <Badge count={5} size="small">
-        <QuestionCircleFilled
-          onClick={() => setShowModal(true)}
-          style={{ fontSize: "20px" }}
-        />
-      </Badge>
-    </>
-  );
+  if (sessions)
+    return (
+      <>
+        <Modal
+          centered
+          title="Questions from viewers"
+          open={showModal}
+          footer={false}
+          onCancel={() => setShowModal(false)}
+          width="50%"
+        >
+          <Table
+            dataSource={questions}
+            columns={columns}
+            rowKey="date"
+            scroll={{ y: 600 }}
+            pagination={false}
+          />
+          <Form form={form} layout="inline" onFinish={onSubmit}>
+            <Typography.Text>Ask your question here</Typography.Text>
+            <Row className="expand">
+              <Col flex={1}>
+                <Form.Item
+                  name="text"
+                  rules={[{ required: true, validateTrigger: "onSubmit" }]}
+                >
+                  <TextArea disabled={formDisabled} rows={1} />
+                </Form.Item>
+              </Col>
+              <Col>
+                <MyButton loading={formLoading} primary submit>
+                  Submit
+                </MyButton>
+              </Col>
+            </Row>
+          </Form>
+        </Modal>
+        <Badge dot={isHaveNewQuestion}>
+          <QuestionCircleFilled
+            onClick={() => {
+              setShowModal(true);
+              setIsHaveNewQuestion(false);
+            }}
+            style={{ fontSize: "20px" }}
+          />
+        </Badge>
+      </>
+    );
 }
 
 QuestionButton.propTypes = {
-  sessionId: PropTypes.string.isRequired
+  sessionId: PropTypes.string.isRequired,
+  isHost: PropTypes.bool.isRequired
 };
 
 // QuestionButton.defaultProps = {
