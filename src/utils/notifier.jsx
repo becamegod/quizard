@@ -13,5 +13,5 @@ export default {
         borderRadius: "10px"
       }
     }),
-  notifyInfo: (message) => notification.info({ message })
+  notifyInfo: (message, btn = null) => notification.info({ message, btn })
 };
