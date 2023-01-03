@@ -7,8 +7,9 @@ export default {
 
   create: (presentation, groupId = null) =>
     authClient.post(base, { presentation, groupId }),
+
   getResults: (sessionId) =>
-    authClient.get(`${base}/results`, { params: sessionId }),
+    authClient.get(`${base}/results`, { params: { sessionId } }),
   getChats: (sessionId) =>
     authClient.get(`${base}/chats`, { params: sessionId }),
   sendMessage: (sessionId, message) =>
