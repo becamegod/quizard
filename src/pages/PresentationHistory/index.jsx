@@ -20,18 +20,19 @@ import {
 import moment from "moment";
 import Sessions from "../../api/sessions";
 import QuestionModal from "./QuestionModal";
-import ResultModal from "./ResultModal";
+import ChatModal from "./ChatModal";
 
 export default function PresentationHistory() {
   const [histories, setHistories] = useState(null);
   const [openQuestionModal, setOpenQuestionModal] = useState(false);
-  const [openResultModal, setOpenResultModal] = useState(false);
+  const [openChatModal, setOpenChatModal] = useState(false);
   const [selectedId, setSelectedId] = useState("");
 
   useEffect(() => {
     async function fetchHistory() {
       try {
         const res = await Sessions.list();
+        console.log(res.data);
         setHistories(res.data.sessions);
       } catch (err) {
         const { status } = err.request;
@@ -60,7 +61,6 @@ export default function PresentationHistory() {
     setSelectedId(id);
     switch (action) {
       case "Result": {
-        setOpenResultModal(true);
         break;
       }
       case "Question": {
@@ -68,6 +68,7 @@ export default function PresentationHistory() {
         break;
       }
       default: {
+        setOpenChatModal(true);
         break;
       }
     }
@@ -77,8 +78,8 @@ export default function PresentationHistory() {
     setOpenQuestionModal(false);
   };
 
-  const setOpenResultModalFalse = () => {
-    setOpenResultModal(false);
+  const setOpenChatModalFalse = () => {
+    setOpenChatModal(false);
   };
 
   const columns = [
@@ -177,10 +178,10 @@ export default function PresentationHistory() {
         id={selectedId}
         setOpenQuestionModalFalse={setOpenQuestionModalFalse}
       />
-      <ResultModal
-        open={openResultModal}
+      <ChatModal
+        open={openChatModal}
         id={selectedId}
-        setOpenResultModalFalse={setOpenResultModalFalse}
+        setOpenChatModalFalse={setOpenChatModalFalse}
       />
       <Card>
         <Row justify="space-between" style={{ marginBottom: "32px" }}>
