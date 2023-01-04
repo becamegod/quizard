@@ -4,6 +4,7 @@
   border: 2px solid var(--dark-color);
   border-radius: 20px;
   transition: box-shadow .25s, transform .25s;
+  overflow: hidden;
 }
 
 .group-card:hover {
@@ -24,7 +25,7 @@
 
 .group-description {
   /* margin: 0; */
-  padding: 23px;
+  padding: 25px;
   /* width: 100%; */
   background-color: var(--light-color);
   border-radius: 0 0 20px 20px;

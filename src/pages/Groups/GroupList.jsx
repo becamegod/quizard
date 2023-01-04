@@ -58,12 +58,13 @@ export default function GroupList({ category }) {
             justify="start"
             align="middle"
             gutter={[32, 32]}
+            wrap
             style={{
               marginBottom: "48px"
             }}
           >
             {groups.map((group) => (
-              <Col key={group.id} span={8}>
+              <Col key={group.id} xl={8} sm={12} sx={24}>
                 <GroupCard group={group} />
               </Col>
             ))}
