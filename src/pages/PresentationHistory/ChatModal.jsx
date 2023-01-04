@@ -101,7 +101,12 @@ export default function ChatModal({ open, id, setOpenChatModalFalse }) {
 
   const list = (
     <Col span={24}>
-      <Table dataSource={chats} columns={columns} rowKey="id" />
+      <Table
+        dataSource={chats}
+        columns={columns}
+        rowKey="id"
+        pagination={{ pageSize: 5 }}
+      />
     </Col>
   );
   return (
