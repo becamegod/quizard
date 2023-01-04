@@ -36,8 +36,8 @@ export default function NotifyPresentingCard() {
         const { data } = await groups.getCurrentPresentation(groupId);
         const { presentation } = data;
         handlePresentation(presentation);
-      } catch (error) {
-        console.log(error);
+      } catch {
+        notifier.notifyError();
       }
     };
     init();

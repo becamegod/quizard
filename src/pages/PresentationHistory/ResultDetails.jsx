@@ -19,7 +19,6 @@ export default function ResultDetails() {
         const { data } = await sessions.getResults(sessionId);
         setResults(data.results);
       } catch (error) {
-        console.log(error);
         notifier.notifyError();
       }
     };
@@ -41,7 +40,6 @@ export default function ResultDetails() {
 
   useEffect(() => {
     if (!path) return;
-    console.log(path);
     const newVotes = results[path[0]].options[path[1]].votes.slice();
     setVotes(newVotes);
   }, [path]);
@@ -69,7 +67,6 @@ export default function ResultDetails() {
   ];
 
   const onClick = (e) => {
-    console.log(e.keyPath);
     setPath(
       e.keyPath.reverse().map((x) => {
         const a = x.split(".").reverse();

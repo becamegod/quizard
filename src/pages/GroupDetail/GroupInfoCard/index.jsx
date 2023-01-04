@@ -119,7 +119,7 @@ export default function GroupInfoCard() {
         if (error.response.status === 403) {
           notifier.notifyError("You're not the member of that group");
           navigate(constants.homeUrl);
-        } else console.log(error);
+        }
       }
     }
     if (stage === 0) {

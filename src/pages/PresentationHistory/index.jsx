@@ -35,7 +35,6 @@ export default function PresentationHistory() {
     async function fetchHistory() {
       try {
         const res = await Sessions.list();
-        console.log(res.data);
         setHistories(res.data.sessions);
       } catch (err) {
         const { status } = err.request;

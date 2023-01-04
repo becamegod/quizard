@@ -31,7 +31,6 @@ export default function ChatBox({
 
   const fetchChats = async () => {
     const res = await Sessions.getChats({ sessionId });
-    console.log(res);
     setChats(res.data.chats);
   };
 
@@ -110,7 +109,6 @@ export default function ChatBox({
       </Form>
     </div>
   );
-  console.log(chats);
   if (chats) {
     return (
       <Drawer

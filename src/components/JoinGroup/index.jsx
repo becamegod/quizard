@@ -19,8 +19,7 @@ export default function JoinGroup() {
         const { data } = await groups.join(url);
         joined = true;
         navigate(`/groups/${data.groupId}`);
-      } catch (error) {
-        console.log(error);
+      } catch {
         notifier.notifyError();
       }
     };

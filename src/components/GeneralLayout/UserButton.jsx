@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 import Users from "../../api/Users";
+import notifier from "../../utils/notifier";
 
 const items = [
   {
@@ -26,8 +27,8 @@ export default function UserButton() {
       try {
         const { data } = await Users.getProfile();
         setName(data.name);
-      } catch (error) {
-        console.log(error);
+      } catch {
+        notifier.notifyError();
       }
     };
     init();

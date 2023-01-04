@@ -44,7 +44,6 @@ export default function Presentation() {
       votedArray[slideIndex] = true;
       await presentations.vote(presentationId, slideIndex, values.optionIndex);
     } catch (error) {
-      console.log(error);
       notifier.notifyError();
     }
   };
@@ -166,7 +165,6 @@ export default function Presentation() {
             break;
           default:
             notifier.notifyError();
-            console.log(error);
             break;
         }
         navigate(constants.homeUrl);
@@ -184,7 +182,6 @@ export default function Presentation() {
       await presentations.end(presentationId);
       notifier.notifyInfo("You ended the presentation");
     } catch (error) {
-      console.log(error);
       notifier.notifyError();
     }
   };

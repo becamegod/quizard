@@ -189,7 +189,7 @@ export default function GroupMemberCard() {
         );
         setStage(1);
       } catch (error) {
-        if (error.response.status !== 403) console.log(error);
+        if (error.response.status !== 403);
       }
     }
     if (stage === 0) {
