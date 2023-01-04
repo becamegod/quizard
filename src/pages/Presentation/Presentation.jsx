@@ -1,8 +1,9 @@
-import { Badge, Card, Col, Row, Space, Typography } from "antd";
+import { Badge, Col, Layout, Row, Space, Typography } from "antd";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 
 // import PropTypes from "prop-types";
 import { CheckOutlined, MessageFilled } from "@ant-design/icons";
+import { Content, Footer, Header } from "antd/es/layout/layout";
 import { useNavigate, useParams } from "react-router-dom";
 import presentations from "../../api/presentations";
 import ChartScreen from "../SlideEditor/ChartScreen";
@@ -11,15 +12,15 @@ import Loading from "../../components/Loading";
 import CenterBase from "../../components/UI/CenterBase";
 import MyButton from "../../components/UI/MyButton";
 import { SocketContext } from "../../context/socket";
+import constants from "../../utils/constants";
 import notifier from "../../utils/notifier";
 import slideTypes from "../../utils/slideTypes";
 import socketEvents from "../../utils/socketEvents";
+import ChatBox from "./ChatBox";
 import HeaderContent from "./HeaderContent";
 import "./Presentation.css";
 import QuestionButton from "./QuestionButton";
 import VoteForm from "./VoteForm";
-import constants from "../../utils/constants";
-import ChatBox from "./ChatBox";
 
 const votedArray = [];
 let isHost = false;
@@ -221,32 +222,44 @@ export default function Presentation() {
     //   adaptiveHeight
     //   style={{ height: "100%" }}
     // >
-    <CenterBase>
-      <Row align="middle" className="justify-evenly">
+    <div className="expand-height">
+      <Row align="middle" className="justify-evenly expand-height">
         {/* pres-carousel */}
-        <Card className="" bodyStyle={{ height: "100%" }}>
-          {nav}
-          {content}
-          <Row justify="end">
-            <div style={{ marginRight: "12px" }}>
-              <QuestionButton sessionId={sessionId} isHost={isHost} />
-            </div>
-            <ChatBox
-              isOpen={openChatbox}
-              handleCloseChatBox={handleCloseChatBox}
-              sessionId={sessionId}
-              handleIsNewMessageTrue={handleIsNewMessageTrue}
-              handleIsNewMessageFalse={handleIsNewMessageFalse}
-            />
-            <Row onClick={handleOnClickChatBox}>
-              <Badge size="default" dot={isHaveNewMessage}>
-                <MessageFilled style={{ fontSize: "20px" }} />
-              </Badge>
+        <Layout>
+          <Header style={{ backgroundColor: "white" }}>{nav}</Header>
+          <Content>
+            <CenterBase>
+              <Row
+                align="middle"
+                justify="center"
+                style={{ width: 800, height: 600 }}
+              >
+                {content}
+              </Row>
+            </CenterBase>
+          </Content>
+          <Footer>
+            <Row justify="center">
+              <div style={{ marginRight: "12px" }}>
+                <QuestionButton sessionId={sessionId} isHost={isHost} />
+              </div>
+              <ChatBox
+                isOpen={openChatbox}
+                handleCloseChatBox={handleCloseChatBox}
+                sessionId={sessionId}
+                handleIsNewMessageTrue={handleIsNewMessageTrue}
+                handleIsNewMessageFalse={handleIsNewMessageFalse}
+              />
+              <Row onClick={handleOnClickChatBox}>
+                <Badge size="default" dot={isHaveNewMessage}>
+                  <MessageFilled style={{ fontSize: "300%" }} />
+                </Badge>
+              </Row>
             </Row>
-          </Row>
-        </Card>
+          </Footer>
+        </Layout>
       </Row>
-    </CenterBase>
+    </div>
     // </Carousel>
   );
 }

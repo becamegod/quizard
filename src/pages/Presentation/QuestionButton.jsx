@@ -17,15 +17,15 @@ import {
   Typography
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import PropTypes from "prop-types";
 import sessions from "../../api/sessions";
 import MyButton from "../../components/UI/MyButton";
+import { SocketContext } from "../../context/socket";
 import utils from "../../utils";
 import constants from "../../utils/constants";
 import notifier from "../../utils/notifier";
-import { SocketContext } from "../../context/socket";
 import socketEvents from "../../utils/socketEvents";
 
 const getButtonType = (liked) => (liked ? "primary" : "default");
@@ -235,7 +235,7 @@ export default function QuestionButton({ sessionId, isHost }) {
               setShowModal(true);
               setIsHaveNewQuestion(false);
             }}
-            style={{ fontSize: "20px" }}
+            style={{ fontSize: "300%" }}
           />
         </Badge>
       </>

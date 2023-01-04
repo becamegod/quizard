@@ -7,7 +7,7 @@ import React from "react";
 export default function HeaderContent({ header, content }) {
   return (
     <Card>
-      <Title>{header}</Title>
+      <Title style={{ fontSize: "200%" }}>{header}</Title>
       <Paragraph>{content}</Paragraph>
     </Card>
   );
