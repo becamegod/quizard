@@ -1,9 +1,9 @@
 export default {
   accessToken: "accessToken",
   unauthorized: "unauthorized",
-  baseUrl: "http://localhost:3000",
+  // baseUrl: "http://localhost:3000",
   user: "user",
-  // baseUrl: "http://quizard.vercel.app",
+  baseUrl: "https://master--vermillion-jelly-ab6018.netlify.app",
   editPresentationUrl: (presentationId) =>
     `/presentations/edit/${presentationId}`,
   joinPresentationUrl: (presentationId) => `/presentations/${presentationId}`,
