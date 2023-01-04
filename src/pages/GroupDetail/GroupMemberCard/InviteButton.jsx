@@ -35,6 +35,7 @@ export default function InviteButton({ group }) {
             <Typography.Text
               level={1}
               copyable={{
+                text: url,
                 icon: [
                   <MyButton icon={<CopyOutlined />}>Copy</MyButton>,
                   <MyButton icon={<CheckOutlined />}>Copied</MyButton>
