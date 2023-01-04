@@ -1,4 +1,2 @@
-const api = "https://quizardbackend-production.up.railway.app";
-
-// const api = "http://localhost:4000";
+const api = process.env.REACT_APP_SERVER_URL;
 export default api;

@@ -1,9 +1,8 @@
 export default {
   accessToken: "accessToken",
   unauthorized: "unauthorized",
-  // baseUrl: "http://localhost:3000",
   user: "user",
-  baseUrl: "https://master--vermillion-jelly-ab6018.netlify.app",
+  baseUrl: process.env.REACT_APP_BASE_URL,
   editPresentationUrl: (presentationId) =>
     `/presentations/edit/${presentationId}`,
   joinPresentationUrl: (presentationId) => `/presentations/${presentationId}`,
