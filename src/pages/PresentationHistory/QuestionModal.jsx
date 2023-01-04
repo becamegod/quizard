@@ -111,6 +111,7 @@ export default function QuestionModal({ open, id, setOpenQuestionModalFalse }) {
       <Table
         dataSource={questions}
         columns={columns}
+        pagination={{ pageSize: 5 }}
         rowKey="id"
         style={{ overflow: "auto", height: "300px" }}
       />
