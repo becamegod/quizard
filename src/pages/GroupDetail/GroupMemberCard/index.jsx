@@ -180,13 +180,17 @@ export default function GroupMemberCard() {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await groups.detail(groupId);
-      const { group } = data;
-      setMembers(group.joinedUser);
-      setUserRole(
-        group.joinedUser.find((member) => member.id === user.id).role
-      );
-      setStage(1);
+      try {
+        const { data } = await groups.detail(groupId);
+        const { group } = data;
+        setMembers(group.joinedUser);
+        setUserRole(
+          group.joinedUser.find((member) => member.id === user.id).role
+        );
+        setStage(1);
+      } catch (error) {
+        if (error.response.status !== 403) console.log(error);
+      }
     }
     if (stage === 0) {
       fetchData();

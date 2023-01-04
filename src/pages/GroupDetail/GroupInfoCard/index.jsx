@@ -23,6 +23,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import groups from "../../../api/groups";
 import "./index.css";
 import LoadingIcon from "../../../components/LoadingIcon";
+import constants from "../../../utils/constants";
+import notifier from "../../../utils/notifier";
 
 export default function GroupInfoCard() {
   const navigate = useNavigate();
@@ -101,17 +103,24 @@ export default function GroupInfoCard() {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await groups.detail(groupId);
-      const { group } = data;
-      setOwner(group.joinedUser.find((member) => member.role === "Owner"));
-      setUserRole(
-        group.joinedUser.find((member) => member.id === user.id).role
-      );
-      form.setFieldsValue({
-        name: group.name,
-        description: group.description
-      });
-      setStage(1);
+      try {
+        const { data } = await groups.detail(groupId);
+        const { group } = data;
+        setOwner(group.joinedUser.find((member) => member.role === "Owner"));
+        setUserRole(
+          group.joinedUser.find((member) => member.id === user.id).role
+        );
+        form.setFieldsValue({
+          name: group.name,
+          description: group.description
+        });
+        setStage(1);
+      } catch (error) {
+        if (error.response.status === 403) {
+          notifier.notifyError("You're not the member of that group");
+          navigate(constants.homeUrl);
+        } else console.log(error);
+      }
     }
     if (stage === 0) {
       fetchData();
