@@ -1,11 +1,15 @@
-import { UserAddOutlined } from "@ant-design/icons";
-import { Button, Modal, Tabs } from "antd";
-import Title from "antd/lib/typography/Title";
-import React, { useState } from "react";
+import {
+  CheckOutlined,
+  CopyOutlined,
+  UserAddOutlined
+} from "@ant-design/icons";
+import { Button, Col, Input, Modal, Row, Tabs, Typography } from "antd";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
 import inviteLink from "../../../api/InviteLinks";
-import InviteEmailForm from "./InviteEmailForm";
+import MyButton from "../../../components/UI/MyButton";
 import constants from "../../../utils/constants";
+import InviteEmailForm from "./InviteEmailForm";
 
 export default function InviteButton({ group }) {
   const [showModal, setShowModal] = useState(false);
@@ -23,9 +27,22 @@ export default function InviteButton({ group }) {
       label: "Invite by link",
       key: "1",
       children: (
-        <Title level={1} copyable>
-          {`${url}  `}
-        </Title>
+        <Row align="middle">
+          <Col flex={1}>
+            <Input value={`${url}`} />
+          </Col>
+          <Col>
+            <Typography.Text
+              level={1}
+              copyable={{
+                icon: [
+                  <MyButton icon={<CopyOutlined />}>Copy</MyButton>,
+                  <MyButton icon={<CheckOutlined />}>Copied</MyButton>
+                ]
+              }}
+            />
+          </Col>
+        </Row>
       )
     },
     {
@@ -43,7 +60,6 @@ export default function InviteButton({ group }) {
         open={showModal}
         onCancel={onCancel}
         footer={null}
-        width={800}
       >
         <Tabs defaultActiveKey="1" centered items={tabItems} />
       </Modal>
