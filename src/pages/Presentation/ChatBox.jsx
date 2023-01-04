@@ -19,7 +19,7 @@ export default function ChatBox({
 }) {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const [chats, setChats] = useState(null);
+  const [chats, setChats] = useState([]);
   const socket = useContext(SocketContext);
 
   const showDrawer = () => {
@@ -127,6 +127,7 @@ export default function ChatBox({
         width="30%"
       >
         <List
+          locale={{ emptyText: " " }}
           style={{ height: "100%", overflow: "auto" }}
           itemLayout="horizontal"
           dataSource={chats}

@@ -47,7 +47,6 @@ export default function QuestionButton({ sessionId, isHost }) {
         const { data } = await sessions.getQuestions(sessionId);
         setQuestions(data.questions);
       } catch (error) {
-        console.log(error);
         notifier.notifyError("Can't get list of questions");
       }
     };
@@ -92,7 +91,6 @@ export default function QuestionButton({ sessionId, isHost }) {
       form.resetFields();
       message.success("Question submitted");
     } catch (error) {
-      console.log(error);
       notifier.notifyError();
     }
     setFormDisabled(false);
@@ -106,7 +104,6 @@ export default function QuestionButton({ sessionId, isHost }) {
       newQuestions[questionIndex].likes = data.likes;
       setQuestions(newQuestions);
     } catch (error) {
-      console.log(error);
       notifier.notifyError("Couldn't like question");
     }
   };
@@ -118,7 +115,6 @@ export default function QuestionButton({ sessionId, isHost }) {
       newQuestions[questionIndex].answered = data.answered;
       setQuestions(newQuestions);
     } catch (error) {
-      console.log(error);
       notifier.notifyError("Couldn't mark question answered");
     }
   };
@@ -130,18 +126,20 @@ export default function QuestionButton({ sessionId, isHost }) {
       width: 100,
       align: "center",
       render: (answered, _, questionIndex) => {
-        let disabled = false;
-        if (!isHost) {
-          disabled = true;
-        }
         const buttonType = getButtonType(answered);
         const icon = answered ? <CheckCircleFilled /> : <CheckCircleOutlined />;
+        if (!isHost) {
+          return (
+            <Button shape="circle" type={buttonType}>
+              {icon}
+            </Button>
+          );
+        }
         return (
           <Button
             shape="circle"
             type={buttonType}
             onClick={() => toggleAnswered(questionIndex)}
-            disabled={disabled}
           >
             {icon}
           </Button>
@@ -188,7 +186,30 @@ export default function QuestionButton({ sessionId, isHost }) {
     }
   ];
 
-  if (sessions)
+  if (questions) {
+    let questionInput;
+    if (!isHost) {
+      questionInput = (
+        <Form form={form} layout="inline" onFinish={onSubmit}>
+          <Typography.Text>Ask your question here</Typography.Text>
+          <Row className="expand">
+            <Col flex={1}>
+              <Form.Item
+                name="text"
+                rules={[{ required: true, validateTrigger: "onSubmit" }]}
+              >
+                <TextArea disabled={formDisabled} rows={1} />
+              </Form.Item>
+            </Col>
+            <Col>
+              <MyButton loading={formLoading} primary submit>
+                Submit
+              </MyButton>
+            </Col>
+          </Row>
+        </Form>
+      );
+    }
     return (
       <>
         <Modal
@@ -206,24 +227,7 @@ export default function QuestionButton({ sessionId, isHost }) {
             scroll={{ y: 600 }}
             pagination={false}
           />
-          <Form form={form} layout="inline" onFinish={onSubmit}>
-            <Typography.Text>Ask your question here</Typography.Text>
-            <Row className="expand">
-              <Col flex={1}>
-                <Form.Item
-                  name="text"
-                  rules={[{ required: true, validateTrigger: "onSubmit" }]}
-                >
-                  <TextArea disabled={formDisabled} rows={1} />
-                </Form.Item>
-              </Col>
-              <Col>
-                <MyButton loading={formLoading} primary submit>
-                  Submit
-                </MyButton>
-              </Col>
-            </Row>
-          </Form>
+          {questionInput}
         </Modal>
         <Badge dot={isHaveNewQuestion}>
           <QuestionCircleFilled
@@ -236,6 +240,7 @@ export default function QuestionButton({ sessionId, isHost }) {
         </Badge>
       </>
     );
+  }
 }
 
 QuestionButton.propTypes = {

@@ -27,7 +27,6 @@ export default function ChoiceCard({
     handleDeleteOption(optionIndex);
   };
   const handleOnChangeOption = (e) => {
-    console.log(e);
     if (e.heading !== undefined) {
       const newSlide = {
         type: selectedSlide.type,

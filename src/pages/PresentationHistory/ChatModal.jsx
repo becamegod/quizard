@@ -101,12 +101,7 @@ export default function ChatModal({ open, id, setOpenChatModalFalse }) {
 
   const list = (
     <Col span={24}>
-      <Table
-        dataSource={chats}
-        columns={columns}
-        rowKey="id"
-        style={{ overflow: "auto", height: "300px" }}
-      />
+      <Table dataSource={chats} columns={columns} rowKey="id" />
     </Col>
   );
   return (

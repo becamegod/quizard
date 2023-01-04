@@ -19,7 +19,6 @@ export default function PresentButtons({ onPresent }) {
         const { data } = await groups.list({ category: "owned" });
         setGroupList(data.groups);
       } catch (error) {
-        console.log(error);
         notifier.notifyError();
       }
     };

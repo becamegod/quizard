@@ -42,8 +42,7 @@ export default function GroupMemberCard() {
       });
       setStage(0);
       notification.success({
-        message: "Remove User Success",
-        description: "User removed successfully",
+        message: "Remove User Succeed",
         duration: 2
       });
     } catch (error) {
@@ -64,8 +63,7 @@ export default function GroupMemberCard() {
       });
       setStage(0);
       notification.success({
-        message: "Change Role Success",
-        description: "Role changed successfully",
+        message: "Change Role Succeed",
         duration: 2
       });
     } catch (error) {

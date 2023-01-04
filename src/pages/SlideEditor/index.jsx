@@ -69,7 +69,6 @@ export default function SlideEditorPage() {
       await presentations.live(presentation, groupId);
       navigate(`${constants.presentationsUrl}/${presentationId}`);
     } catch (error) {
-      console.log(error);
       notifier.notifyError();
     }
   };

@@ -51,6 +51,10 @@ export default function GroupInfoCard() {
     try {
       setIsModalOpen(false);
       await groups.delete(groupId);
+      notification.success({
+        message: "Delete Group Succeed",
+        duration: 2
+      });
       navigate("/groups");
     } catch (err) {
       const { status } = err.request;
@@ -86,8 +90,7 @@ export default function GroupInfoCard() {
       setBusy(false);
       setEditMode(false);
       notification.success({
-        message: "Update Success",
-        description: "Group info updated successfully",
+        message: "Update Succeed",
         duration: 2
       });
     }, 2000); // 2s

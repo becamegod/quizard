@@ -6,7 +6,8 @@ import {
   Input,
   Table,
   Form,
-  notification
+  notification,
+  Modal
 } from "antd";
 import {
   ExclamationCircleOutlined,
@@ -24,6 +25,9 @@ export default function Collaborator() {
   const presentationId = useParams();
   const [presentation, setPresentation] = useState(null);
   const [collaborators, setCollaborators] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
+  const [removeModalVisible, setRemoveModalVisible] = useState(false);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     async function fetchData() {
@@ -42,11 +46,11 @@ export default function Collaborator() {
       );
       const newCollaborators = [...collaborators];
       newCollaborators.push(res.data.user);
+      form.setFieldValue("email", "");
       setCollaborators(newCollaborators);
       notification.success({
         message: "Add collaborator succeed",
         style: {
-          backgroundColor: "#FFF1F0",
           borderRadius: "10px"
         }
       });
@@ -81,13 +85,20 @@ export default function Collaborator() {
     }
   };
 
-  const handleOnClick = async (id) => {
+  const handleOnOk = async (id) => {
     try {
       const res = await Presentation.deleteCollaborator(
         presentationId.presentationId,
         id
       );
       setCollaborators(res.data.collaborators);
+      setRemoveModalVisible(false);
+      notification.success({
+        message: "Delete collaborator succeed",
+        style: {
+          borderRadius: "10px"
+        }
+      });
     } catch (err) {
       const { status } = err.request;
       let description;
@@ -146,7 +157,10 @@ export default function Collaborator() {
               primary
               danger
               shape="round"
-              onClick={() => handleOnClick(record.id)}
+              onClick={() => {
+                setRemoveModalVisible(true);
+                setSelectedId(record.id);
+              }}
               icon={<DeleteOutlined />}
             >
               Delete
@@ -180,7 +194,7 @@ export default function Collaborator() {
           <Col>
             <Title level={2}>{presentation.name}</Title>
           </Col>
-          <Form layout="inline" onFinish={onFinish}>
+          <Form layout="inline" onFinish={onFinish} form={form}>
             <Form.Item name="email" style={{ flex: 1 }}>
               <Input
                 placeholder="Email"
@@ -204,6 +218,16 @@ export default function Collaborator() {
           </Form>
         </Row>
         {list}
+        <Modal
+          title="Remove Collaborator"
+          open={removeModalVisible}
+          onOk={() => handleOnOk(selectedId)}
+          onCancel={() => {
+            setRemoveModalVisible(false);
+          }}
+        >
+          <p>Are you sure to remove this collaborator?</p>
+        </Modal>
       </Card>
     );
   }
