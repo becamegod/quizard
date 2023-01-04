@@ -9,7 +9,7 @@ import { SocketContext } from "../../context/socket";
 import socketEvents from "../../utils/socketEvents";
 import "./ChatBox.css";
 
-const userLocalStorage = JSON.parse(localStorage.getItem("user"));
+const user = JSON.parse(localStorage.getItem("user"));
 export default function ChatBox({
   isOpen,
   handleCloseChatBox,
@@ -18,7 +18,6 @@ export default function ChatBox({
   handleIsNewMessageFalse
 }) {
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState(null);
   const [chats, setChats] = useState([]);
   const socket = useContext(SocketContext);
 
@@ -37,7 +36,6 @@ export default function ChatBox({
 
   useEffect(() => {
     if (sessionId === "") return;
-    setUser(userLocalStorage);
     fetchChats();
   }, []);
 
@@ -48,7 +46,7 @@ export default function ChatBox({
         newChats.push(newMessage);
         setChats(newChats);
       }
-      if (!isOpen && newMessage.user.id !== userLocalStorage.id) {
+      if (!isOpen && newMessage.user.id !== user.id) {
         handleIsNewMessageTrue();
       }
     });

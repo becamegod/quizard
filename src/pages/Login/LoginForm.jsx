@@ -28,7 +28,7 @@ export default function LoginForm({ onRegister, isUnauthorized }) {
       localStorage.setItem(constants.accessToken, accessToken);
       localStorage.setItem("user", JSON.stringify(user));
       notification.success({
-        message: "Login succeed"
+        message: `Welcome ${user.name}`
       });
 
       if (isUnauthorized === true) {

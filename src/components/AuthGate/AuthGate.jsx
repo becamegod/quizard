@@ -12,6 +12,20 @@ export default function AuthGate() {
       navigate("/", { state: constants.unauthorized });
     };
     const foo = async () => {
+      const accessToken = document.cookie.replace(
+        /(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/,
+        "$1"
+      );
+      if (accessToken) {
+        const user = decodeURIComponent(
+          document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("user"))
+            ?.split("=")[1]
+        );
+        localStorage.setItem(constants.accessToken, accessToken);
+        localStorage.setItem(constants.user, user);
+      }
       if (!localStorage.getItem(constants.accessToken)) {
         redirect();
       } else {

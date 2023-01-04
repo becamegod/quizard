@@ -9,26 +9,11 @@ const authClient = axios.create({
 
 authClient.interceptors.request.use(
   async (config) => {
-    let accessToken = localStorage.getItem(constants.accessToken);
+    const accessToken = localStorage.getItem(constants.accessToken);
     const c = config;
     if (accessToken) {
       c.headers.authorization = `Bearer ${accessToken}`;
       return c;
-    }
-    accessToken = document.cookie.replace(
-      /(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    if (accessToken) {
-      const user = decodeURIComponent(
-        document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("user"))
-          ?.split("=")[1]
-      );
-      c.headers.authorization = `Bearer ${accessToken}`;
-      localStorage.setItem(constants.accessToken, accessToken);
-      localStorage.setItem(constants.user, user);
     }
     return c;
   },

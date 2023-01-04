@@ -6,7 +6,7 @@ import {
   EllipsisOutlined,
   TeamOutlined
 } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Col,
   Table,
@@ -94,18 +94,20 @@ export default function PresentationTable({ category }) {
   const columns = [
     {
       title: "Name",
-      dataIndex: "name",
       key: "name",
-      render: (text) => (
+      render: (record) => (
         <Row align="middle" gutter={[8, 0]}>
           <Col>
             {/* <Avatar size="24" src="" icon={<UserOutlined />} /> */}
             <BarChartOutlined />
           </Col>
           <Col>
-            <Typography.Text strong style={{ color: "#0E86D4" }}>
-              {text}
-            </Typography.Text>
+            <Link
+              to={constants.editPresentationUrl(record.id)}
+              style={{ fontWeight: "600", color: "#0E86D4" }}
+            >
+              {record.name}
+            </Link>
           </Col>
         </Row>
       )
