@@ -1,69 +1,38 @@
-import "antd/dist/antd.min.css";
+import { ConfigProvider } from "antd";
+// import "antd/dist/antd.min.css";
+// import "antd/dist/antd.variable.min.css";
+import "antd/dist/reset.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import JoinGroup from "./components/JoinGroup";
+import { BrowserRouter } from "react-router-dom";
+import BaseRoutes from "./BaseRoutes";
 import { SocketContext, socket } from "./context/socket";
 import "./index.css";
-import DashboardPage from "./pages/Dashboard/DashboardPage";
-import GroupDetailPage from "./pages/GroupDetail/GroupDetailPage";
-import LoginPage from "./pages/Login/LoginPage";
-import PresentationForHost from "./pages/Presentation/PresentationForHost";
-import PresentationForMember from "./pages/Presentation/PresentationForMember";
-import RegisterPage from "./pages/Register/RegisterPage";
-import SlideEditorPage from "./pages/SlideEditor/SlideEditorPage";
-import UserInformationPage from "./pages/UserInformation/UserInformationPage";
-import VerifyPage from "./pages/Verify/VerifyPage";
 import reportWebVitals from "./reportWebVitals";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <LoginPage />
-  },
-  {
-    path: "/register",
-    element: <RegisterPage />
-  },
-  {
-    path: "/verify",
-    element: <VerifyPage />
-  },
-  {
-    path: "/profile",
-    element: <UserInformationPage />
-  },
-  {
-    path: "/groups/:groupId",
-    element: <GroupDetailPage />
-  },
-  {
-    path: "/dashboard",
-    element: <DashboardPage />
-  },
-  {
-    path: "/join/:url",
-    element: <JoinGroup />
-  },
-  {
-    path: "/groups/:groupId/:presentationId",
-    element: <SlideEditorPage />
-  },
-  {
-    path: "/presentations/:presentationId",
-    element: <PresentationForMember />
-  },
-  {
-    path: "/host/:presentationId",
-    element: <PresentationForHost />
-  }
-]);
+import constants from "./utils/constants";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <SocketContext.Provider value={socket}>
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: constants.getMainColor(),
+              colorInfo: constants.getMainColor()
+            },
+            components: {
+              Button: {
+                controlHeight: 40,
+                fontSize: 16
+              }
+            }
+          }}
+        >
+          <BaseRoutes />
+        </ConfigProvider>
+      </BrowserRouter>
     </SocketContext.Provider>
   </React.StrictMode>
 );

@@ -1,28 +1,25 @@
 import authClient from "./authClient";
 
-const list = (filter) => {
-  return authClient.get("/groups", { params: filter });
-};
+const base = "/groups";
 
-const create = (values) => {
-  const { name, description } = values;
-  return authClient.post("/groups/create", { name, description });
-};
+export default {
+  list: (filter) => authClient.get(base, { params: filter }),
 
-const detail = (id) => {
-  return authClient.get(`/groups/detail/${id}`);
-};
+  create: (values) => {
+    const { name, description } = values;
+    return authClient.post(base, { name, description });
+  },
 
-const changeRole = (data) => {
-  return authClient.post("/groups/changeRole/", data);
-};
+  detail: (id) => authClient.get(`${base}/${id}`),
 
-const kick = (data) => {
-  return authClient.post("/groups/kickUser", data);
-};
+  changeRole: (data) => authClient.post(`${base}/changeRole/`, data),
 
-const join = (url) => {
-  return authClient.post("/groups/join", { url });
-};
+  kick: (data) => authClient.post(`${base}/kickUser`, data),
 
-export default { list, create, detail, changeRole, kick, join };
+  join: (url) => authClient.post(`${base}/join`, { url }),
+
+  delete: (groupId) => authClient.delete(`${base}/${groupId}`),
+
+  getCurrentPresentation: (groupId) =>
+    authClient.get(`${base}/currentPresentation`, { params: { groupId } })
+};

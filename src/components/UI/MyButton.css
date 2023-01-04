@@ -1,0 +1,39 @@
+.button-animation {
+  border: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.button-animation::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  background-color: var(--sub-color);
+
+  transition: transform 0.2s;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.button-animation:hover::before,
+.button-animation:focus::before {
+  transform: scaleX(1);
+}
+
+.button-animation::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  background-color: black;
+
+  transition: transform 0.2s;
+  transform: scaleX(0);
+}

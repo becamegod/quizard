@@ -17,8 +17,37 @@ code {
   background: linear-gradient(135deg, rgba(0, 131, 204, 1) 0%, rgba(0, 255, 209, 1) 100%);
 }
 
-.round {
-  border-radius: 10px;
+:root {
+  --light-color: #f5f5f5;
+  --dark-color: #2e3440;
+  --main-color: #00CC11;
+  --sub-color: #73FF7E;
+  --bold-color: #00800B;
+}
+
+.expand {
+  width: 100%;
+}
+
+.expand-height {
+  width: 100%;
+  height: 100%;
+}
+
+.center-base {
+  height: 90%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.content-height {
+  height: max-content
+}
+
+.tight-bottom {
+  margin-bottom: 10px;
 }
 
 ::-webkit-scrollbar {

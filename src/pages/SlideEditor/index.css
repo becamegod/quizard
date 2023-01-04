@@ -1,0 +1,212 @@
+.slide-editor-header {
+  width: 100%;
+  height: 8%;
+  background: rgb(248, 248, 255);
+  border-bottom: 1px solid rgb(231, 232, 235);
+  align-items: center;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.input-name-presentation {
+  width: 80%;
+  height: 100%;
+  font-weight: bold;
+  border: none;
+  background-color: inherit;
+}
+
+.input-name-presentation:focus-visible {
+  outline: 3px solid rgb(0, 219, 145);
+  background-color: aliceblue;
+}
+
+.button-back {
+  font-size: 12pt;
+  margin-right: 20px;
+  margin-left: 12px;
+  font-weight: bold;
+  opacity: 0.85;
+}
+
+.button-back:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.button-new-slide {
+  margin-right: 20px;
+  font-weight: bold;
+  background-color: rgb(25, 108, 255);
+  border-style: solid;
+  border-radius: 3px 0px 0px 3px;
+}
+
+.button-save {
+  margin-right: 20px;
+  font-weight: bold;
+  background-color: rgb(0, 219, 145);
+  border-color: rgb(0, 219, 145);
+  border-style: solid;
+  border-radius: 3px 0px 0px 3px;
+}
+
+.button-save:hover {
+  opacity: 0.8;
+  background-color: rgb(0, 219, 145);
+}
+
+.button-present {
+  font-weight: bold;
+  background-color: rgb(25, 108, 255);
+  border-style: solid;
+  border-radius: 3px 0px 0px 3px;
+}
+
+.list-slide-container,
+.chart-screen,
+.choice-container {
+  background: rgb(248, 248, 255);
+  height: 100%;
+}
+
+.slide-editor-container {
+  height: 92%;
+}
+
+.list-slide-container {
+  border-right: 1px solid rgb(167, 168, 173);
+}
+.chart-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(219, 220, 225);
+  border-right: 1px solid rgb(167, 168, 173);
+}
+
+.list-slide {
+  overflow: auto;
+  height: 100%;
+}
+
+.list-slide-space {
+  height: 100%;
+  padding: 15px;
+}
+
+.slide-container {
+  justify-content: space-around;
+}
+
+.slide-container .ant-card-body {
+  padding: 0;
+  height: 100%;
+}
+
+.slide-container:hover {
+  cursor: pointer;
+  transition: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+.slide {
+  width: 70%;
+  margin: 5px;
+  height: 100px;
+  border: 1px solid rgb(183, 186, 194);
+}
+
+.slide .ant-card-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.number {
+  font-weight: 600;
+}
+
+.slide .ant-image {
+  height: 100%;
+  width: 100%;
+}
+
+.slide-img {
+  height: 100%;
+}
+
+.button-delete-slide {
+  align-items: center;
+  margin-right: 5px;
+}
+
+.list-slide .selected {
+  background-color: rgb(209, 226, 255);
+}
+
+.list-slide .selected .slide {
+  border: 2px solid rgb(25, 108, 255);
+}
+
+.choice-card-title {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.input-question-container, .select-container {
+  padding: 15px;
+}
+
+.option-container {
+  padding: 15px;
+}
+
+.choice-container {
+  overflow: auto;
+  height: 100%;
+}
+
+.button-add-option {
+  background-color: rgb(219, 220, 225);
+}
+
+.button-add-option:hover {
+  background-color: rgb(175, 176, 180);
+  border: none;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.button-add-option:focus {
+  background-color: rgb(175, 176, 180);
+  border: none;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.button-delete {
+  position: relative;
+  top: -40px;
+  left: -26px;
+}
+
+.chart-screen-question {
+  margin-left: 20px;
+}
+
+.slide-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.choice-card-title {
+  color: rgb(0, 219, 145);
+}
+
+.chart-screen-container{
+  background-color: rgb(248, 248, 255);
+  margin: 10px;
+}
+
+.select-group-button {
+  padding-top: 10px;
+}
