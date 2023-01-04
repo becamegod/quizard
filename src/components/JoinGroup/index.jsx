@@ -7,15 +7,17 @@ import notifier from "../../utils/notifier";
 import Loading from "../Loading";
 import CenterBase from "../UI/CenterBase";
 
+let joined = false;
 export default function JoinGroup() {
   const { url } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (joined) return;
     const join = async () => {
       try {
         const { data } = await groups.join(url);
-        console.log("CAlled");
+        joined = true;
         navigate(`/groups/${data.groupId}`);
       } catch (error) {
         console.log(error);
@@ -23,7 +25,6 @@ export default function JoinGroup() {
       }
     };
     join();
-    return () => {};
   }, []);
 
   return (
