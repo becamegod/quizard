@@ -4,7 +4,7 @@ import React from "react";
 
 export default function SocialIcon({ src }) {
   const handleOnClick = async () => {
-    window.location.href = "http://localhost:4000/auth/google";
+    window.location.href = `${process.env.REACT_APP_SERVER_URL}/auth/google`;
   };
   return (
     <div className="social-item">
