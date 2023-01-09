@@ -32,7 +32,7 @@ export default function LoginForm({ onRegister, isUnauthorized }) {
       });
 
       if (isUnauthorized === true) {
-        navigate(-2, { replace: true });
+        navigate(-1, { replace: true });
       } else {
         navigate(constants.homeUrl, { replace: true });
       }
