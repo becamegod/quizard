@@ -200,8 +200,15 @@ export default function PresentationHistory() {
     );
   }
   return (
+    <Card>
+    <Row justify="space-between" style={{ marginBottom: "32px" }}>
+      <Col flex={1}>
+        <Typography.Title>Presentation Histories</Typography.Title>
+      </Col>
+    </Row>
     <Row justify="center">
       <LoadingIcon />
     </Row>
+  </Card>
   );
 }

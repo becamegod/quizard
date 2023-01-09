@@ -210,7 +210,7 @@ export default function PresentationTable({ category }) {
       />
     </Col>
   );
-  if (presentations) {
+  if (presentations.length) {
     return (
       <>
         <Modal

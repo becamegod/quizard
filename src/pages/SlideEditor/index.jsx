@@ -203,5 +203,9 @@ export default function SlideEditorPage() {
       </>
     );
   }
-  return <LoadingIcon />;
+  return (
+    <Row justify="center">
+      <LoadingIcon />
+    </Row>
+  );
 }
