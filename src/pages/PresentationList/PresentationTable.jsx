@@ -22,6 +22,7 @@ import PropTypes from "prop-types";
 import moment from "moment/moment";
 import constants from "../../utils/constants";
 import Presentations from "../../api/presentations";
+import LoadingIcon from "../../components/LoadingIcon";
 
 function timeDifference(previous) {
   return moment.utc(previous).local().startOf("seconds").fromNow();
@@ -209,22 +210,29 @@ export default function PresentationTable({ category }) {
       />
     </Col>
   );
+  if (presentations) {
+    return (
+      <>
+        <Modal
+          title="Remove presentation"
+          open={removeModalVisible}
+          onOk={() => removePresentation()}
+          onCancel={() => {
+            setRemoveModalVisible(false);
+          }}
+        >
+          <p>Are you sure to remove this presentation?</p>
+        </Modal>
+        <Row justify="center" style={{ marginBottom: "32px" }}>
+          {list}
+        </Row>
+      </>
+    );
+  }
   return (
-    <>
-      <Modal
-        title="Remove presentation"
-        open={removeModalVisible}
-        onOk={() => removePresentation()}
-        onCancel={() => {
-          setRemoveModalVisible(false);
-        }}
-      >
-        <p>Are you sure to remove this presentation?</p>
-      </Modal>
-      <Row justify="center" style={{ marginBottom: "32px" }}>
-        {list}
-      </Row>
-    </>
+    <Row justify="center">
+      <LoadingIcon />
+    </Row>
   );
 }
 

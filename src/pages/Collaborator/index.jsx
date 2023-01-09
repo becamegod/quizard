@@ -18,6 +18,7 @@ import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Presentation from "../../api/presentations";
 import MyButton from "../../components/UI/MyButton";
+import LoadingIcon from "../../components/LoadingIcon";
 
 const { Title } = Typography;
 
@@ -231,4 +232,9 @@ export default function Collaborator() {
       </Card>
     );
   }
+  return (
+    <Row justify="center">
+      <LoadingIcon />
+    </Row>
+  );
 }

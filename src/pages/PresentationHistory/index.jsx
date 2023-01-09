@@ -23,6 +23,7 @@ import Sessions from "../../api/sessions";
 import QuestionModal from "./QuestionModal";
 import ChatModal from "./ChatModal";
 import constants from "../../utils/constants";
+import LoadingIcon from "../../components/LoadingIcon";
 
 export default function PresentationHistory() {
   const [histories, setHistories] = useState(null);
@@ -174,26 +175,33 @@ export default function PresentationHistory() {
       />
     </Col>
   );
+  if (histories) {
+    return (
+      <>
+        <QuestionModal
+          open={openQuestionModal}
+          id={selectedId}
+          setOpenQuestionModalFalse={setOpenQuestionModalFalse}
+        />
+        <ChatModal
+          open={openChatModal}
+          id={selectedId}
+          setOpenChatModalFalse={setOpenChatModalFalse}
+        />
+        <Card>
+          <Row justify="space-between" style={{ marginBottom: "32px" }}>
+            <Col flex={1}>
+              <Typography.Title>Presentation Histories</Typography.Title>
+            </Col>
+          </Row>
+          {list}
+        </Card>
+      </>
+    );
+  }
   return (
-    <>
-      <QuestionModal
-        open={openQuestionModal}
-        id={selectedId}
-        setOpenQuestionModalFalse={setOpenQuestionModalFalse}
-      />
-      <ChatModal
-        open={openChatModal}
-        id={selectedId}
-        setOpenChatModalFalse={setOpenChatModalFalse}
-      />
-      <Card>
-        <Row justify="space-between" style={{ marginBottom: "32px" }}>
-          <Col flex={1}>
-            <Typography.Title>Presentation Histories</Typography.Title>
-          </Col>
-        </Row>
-        {list}
-      </Card>
-    </>
+    <Row justify="center">
+      <LoadingIcon />
+    </Row>
   );
 }
