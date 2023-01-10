@@ -234,14 +234,14 @@ export default function Collaborator() {
   }
   return (
     <Card>
-    <Row justify="space-between" style={{ marginBottom: "32px" }}>
-      <Col flex={1}>
-        <Title>Collaborators</Title>
-      </Col>
-    </Row>
-    <Row justify="center">
-      <LoadingIcon />
-    </Row>
-  </Card>
+      <Row justify="space-between" style={{ marginBottom: "32px" }}>
+        <Col flex={1}>
+          <Title>Collaborators</Title>
+        </Col>
+      </Row>
+      <Row justify="center">
+        <LoadingIcon />
+      </Row>
+    </Card>
   );
 }
